@@ -41,3 +41,4 @@ gem "devise", ">= 1.4.9"
 gem "compass", "~> 0.12.alpha.0"
 gem "settingslogic"
 gem "heroku", :group => [:development, :test]
+gem "therubyracer-heroku"
