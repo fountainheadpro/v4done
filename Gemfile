@@ -38,8 +38,8 @@ gem "guard-livereload", ">= 0.3.0", :group => :development
 gem "guard-rspec", ">= 0.4.3", :group => :development
 gem "guard-cucumber", ">= 0.6.1", :group => :development
 gem "bson_ext", :group => :development
-gem "bson", "~> 1.3.1"
-gem "mongoid", ">= 2.2.2"
+gem "bson"
+gem "mongoid"
 gem "devise", ">= 1.4.9"
 gem "compass", "~> 0.12.alpha.0"
 gem "settingslogic"
