@@ -20,11 +20,11 @@ gem "launchy", ">= 2.0.5", :group => :test
 gem "guard", ">= 0.6.2", :group => :development
 case HOST_OS
   when /darwin/i
-    gem 'rb-fsevent', :group => :development
-    gem 'growl', :group => :development
+    gem 'rb-fsevent', :group => [:development, :test]
+    gem 'growl', :group => [:development, :test]
   when /linux/i
-    gem 'libnotify', :group => :development
-    gem 'rb-inotify', :group => :development
+    gem 'libnotify', :group => [:development, :test]
+    gem 'rb-inotify', :group => [:development, :test]
   when /mswin|windows/i
     gem 'rb-fchange', :group => :development
     gem 'win32console', :group => :development
