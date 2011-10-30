@@ -8,9 +8,9 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 if HOST_OS =~ /linux/i
-  gem 'therubyracer', '>= 0.9.8'
+  #gem 'therubyracer', '>= 0.9.8'
 end
-gem "rspec-rails", ">= 2.7.0", :group => [:development, :test]
+gem "rspec-rails", ">= 2.7.0", :groups => [:development, :test]
 gem "database_cleaner", ">= 0.6.7", :group => :test
 gem "mongoid-rspec", ">= 1.4.4", :group => :test
 gem "factory_girl_rails", ">= 1.3.0", :group => :test
@@ -21,15 +21,15 @@ gem "guard", ">= 0.6.2", :group => :development
 
 case HOST_OS
   when /darwin/i
-    gem 'rb-fsevent', :group => [:development, :test]
-    gem 'growl', :group => [:development, :test]
+#    gem 'rb-fsevent', :groups => [:development, :test]
+#    gem 'growl', :groups => [:development, :test]
   when /linux/i
-    gem 'libnotify', :group => [:development, :test]
-    gem 'rb-inotify', :group => [:development, :test]
+#    gem 'libnotify', :groups => [:development, :test]
+#    gem 'rb-inotify', :groups => [:development, :test]
   when /mswin|windows/i
-    gem 'rb-fchange', :group => :development
-    gem 'win32console', :group => :development
-    gem 'rb-notifu', :group => :development
+    gem 'rb-fchange', :groups => :development
+    gem 'win32console', :groups => :development
+    gem 'rb-notifu', :groups => :development
 end
 
 gem "guard-bundler", ">= 0.1.3", :group => :development
