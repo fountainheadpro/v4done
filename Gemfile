@@ -8,7 +8,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 if HOST_OS =~ /linux/i
- # gem 'therubyracer', '>= 0.9.8'
+  gem 'therubyracer', '>= 0.9.8'
 end
 gem "rspec-rails", ">= 2.7.0", :group => [:development, :test]
 gem "database_cleaner", ">= 0.6.7", :group => :test
@@ -18,7 +18,7 @@ gem "cucumber-rails", ">= 1.1.1", :group => :test
 gem "capybara", ">= 1.1.1", :group => :test
 gem "launchy", ">= 2.0.5", :group => :test
 gem "guard", ">= 0.6.2", :group => :development
-=begin
+
 case HOST_OS
   when /darwin/i
     gem 'rb-fsevent', :group => [:development, :test]
@@ -31,7 +31,7 @@ case HOST_OS
     gem 'win32console', :group => :development
     gem 'rb-notifu', :group => :development
 end
-=end
+
 gem "guard-bundler", ">= 0.1.3", :group => :development
 gem "guard-rails", ">= 0.0.3", :group => :development
 gem "guard-livereload", ">= 0.3.0", :group => :development
