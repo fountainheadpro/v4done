@@ -8,7 +8,7 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 if HOST_OS =~ /linux/i
-  gem 'therubyracer', '>= 0.9.8'
+ # gem 'therubyracer', '>= 0.9.8'
 end
 gem "rspec-rails", ">= 2.7.0", :group => [:development, :test]
 gem "database_cleaner", ">= 0.6.7", :group => :test
@@ -44,4 +44,3 @@ gem "devise", ">= 1.4.9"
 gem "compass", "~> 0.12.alpha.0"
 gem "settingslogic"
 #gem "heroku", :group => [:development, :test]
-#gem "therubyracer-heroku"
