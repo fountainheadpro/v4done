@@ -1,4 +1,10 @@
 V4done::Application.routes.draw do
+  resources :action_lists
+
+  resources :comments
+
+  resources :actions
+
   #get \"users\/show\"
 
   root :to => "home#index"

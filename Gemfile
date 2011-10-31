@@ -32,6 +32,7 @@ case HOST_OS
     gem 'rb-notifu', :groups => :development
 end
 
+gem 'rails-footnotes', '>= 3.7.5.rc4'
 gem "guard-bundler", ">= 0.1.3", :group => :development
 gem "guard-rails", ">= 0.0.3", :group => :development
 gem "guard-livereload", ">= 0.3.0", :group => :development
@@ -39,6 +40,7 @@ gem "guard-rspec", ">= 0.4.3", :group => :development
 gem "guard-cucumber", ">= 0.6.1", :group => :development
 gem "bson_ext"
 gem "mongoid"
+gem 'mongoid-tree', :require => 'mongoid/tree'
 gem "devise", ">= 1.4.9"
 gem "compass", "~> 0.12.alpha.0"
 gem "settingslogic"
