@@ -1,10 +1,10 @@
 development:
   host: localhost
-  database: v4done_development
+  database: actions_development
 
 test:
   host: localhost
-  database: v4done_test
+  database: actions_test
 
 # set these environment variables on your prod server
 production:

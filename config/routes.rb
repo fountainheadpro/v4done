@@ -1,4 +1,4 @@
-V4done::Application.routes.draw do
+Actions::Application.routes.draw do
   resources :action_lists
 
   resources :comments

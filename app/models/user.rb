@@ -11,7 +11,6 @@ class User
   validates_uniqueness_of :name, :email, :case_sensitive => false
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
-  has_many :contexts
   has_many :actions
 
 end

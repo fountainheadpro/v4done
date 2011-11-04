@@ -2,11 +2,18 @@
 
 class ActionsController < ApplicationController
 
+  before_filter :authenticate_user!
+
   # GET /actions
   # GET /actions.json
   def index
-    @actions = Action.all
-
+    @actions = Action.where(:parent_id=>params[:parent_id])
+    if params[:parent_id]
+      parent=Action.find(params[:parent_id])
+      @context=parent.title
+    else
+      @context='projects'
+    end
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json=> @actions }
@@ -43,7 +50,21 @@ class ActionsController < ApplicationController
   # POST /actions
   # POST /actions.json
   def create
-    @action = Action.new(params[:myaction].merge{:creator=>})
+    @action = Action.new(params[:myaction].merge({:creator => current_user}))
+
+    respond_to do |format|
+      if @action.save
+        format.html { redirect_to @action, :notice=> 'Action was successfully created.' }
+        format.json { render :json=> @action, :status=> :created, :location=> @action }
+      else
+        format.html { render :action=> "new" }
+        format.json { render :json=> @action.errors, :status=> :unprocessable_entity }
+      end
+    end
+  end
+
+  def create_list
+    @action = Action.create_list(param[:action_text], current_user)
 
     respond_to do |format|
       if @action.save
