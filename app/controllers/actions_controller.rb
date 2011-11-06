@@ -7,7 +7,7 @@ class ActionsController < ApplicationController
   # GET /actions
   # GET /actions.json
   def index
-    @actions = Action.where(:parent_id=>params[:parent_id]).to_a
+    @actions = Action.where(:parent_id=>params[:parent_id])
     if params[:parent_id]
       parent=Action.find(params[:parent_id])
       @context=parent.title
@@ -87,7 +87,7 @@ class ActionsController < ApplicationController
     @action = Action.find(params[:id])
 
     respond_to do |format|
-      if @action.update_attributes(params[:myaction])
+      if @action.update_attributes(params[:_action])
         format.html { redirect_to @action, :notice=> 'Action was successfully updated.' }
         format.json { head :ok }
       else

@@ -20,7 +20,6 @@ class Actions.Routers.ActionsRouter extends Backbone.Router
 
   show: (id) ->
     action = @actions.get(id)
-    
     @view = new Actions.Views.Actions.ShowView(model: action)
     $("#actions").html(@view.render().el)
     

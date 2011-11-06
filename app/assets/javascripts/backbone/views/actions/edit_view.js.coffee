@@ -17,7 +17,7 @@ class Actions.Views.Actions.EditView extends Backbone.View
     )
     
   render : ->
-    $(this.el).html(this.template(@model.toJSON() ))
+    $(this.el).html(this.template(@model.toJSON()))
     
     this.$("form").backboneLink(@model)
     

@@ -15,5 +15,5 @@ class Actions.Views.Actions.ActionView extends Backbone.View
     return false
     
   render: ->
-    $(this.el).html(@template(@model.toJSON() ))    
+    $(this.el).html(@template(@model.toJSON()))
     return this

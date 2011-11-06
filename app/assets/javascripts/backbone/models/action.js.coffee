@@ -1,5 +1,9 @@
 class Actions.Models.Action extends Backbone.Model
+
+  idAttribute: "_id"
+
   paramRoot: '_action'
+
 
   defaults:
     title: null
