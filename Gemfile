@@ -46,3 +46,4 @@ gem "compass", "~> 0.12.alpha.0"
 gem "settingslogic"
 gem 'jquery-rails', '>= 1.0.12'
 gem "heroku", :group => [:development, :test]
+gem "rails-backbone"

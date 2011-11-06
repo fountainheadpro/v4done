@@ -1,33 +1,15 @@
-<h1>Context: <%=@context%> </h1>
+<h1><a href="#">Actions</a></h1>
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Notes</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div id="notice"></div>
 
-  <%counter=1%>
+<div id="actions"></div>
 
-<% @actions.each do |action| %>
 
-  <tr>
-    <td><%= counter %></td>
-    <td><%= check_box action, :status %></td>
-    <td><%= action.title %></td>
-    <td><%= action.notes %></td>
-    <td><%= link_to 'Show', action %></td>
-    <td><%= link_to action.parent.title, action.parent if action.parent%></td>
-    <td><%= link_to 'Expand', :action => :index, :parent_id=>action.id if action.children.present? %></td>
-    <td><%= link_to 'Edit', edit_action_path(action) %></td>
-    <td><%= link_to 'Destroy', action, :confirm=>'Are you sure?', :method=> :delete %></td>
-  </tr>
-    <%counter+=1%>
-<% end %>
-</table>
+<script type="text/javascript">
+  $(function() {
 
-<br />
+    window.router = new Actions.Routers.ActionsRouter({actions: <%= @actions.to_json.html_safe -%>});
+    Backbone.history.start();
+  });
+</script>
 
-<%= link_to 'New Action', new_action_path %>

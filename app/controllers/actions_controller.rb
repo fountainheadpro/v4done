@@ -7,13 +7,14 @@ class ActionsController < ApplicationController
   # GET /actions
   # GET /actions.json
   def index
-    @actions = Action.where(:parent_id=>params[:parent_id])
+    @actions = Action.where(:parent_id=>params[:parent_id]).to_a
     if params[:parent_id]
       parent=Action.find(params[:parent_id])
       @context=parent.title
     else
       @context='projects'
     end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render :json=> @actions }
@@ -50,7 +51,10 @@ class ActionsController < ApplicationController
   # POST /actions
   # POST /actions.json
   def create
-    @action = Action.new(params[:myaction].merge({:creator => current_user}))
+    p "-->#{params}"
+    @action = Action.new(params['_action'].merge({:creator => current_user}))
+    #@action=Action.create(params)
+    #p "-->#{@action.errors}"
 
     respond_to do |format|
       if @action.save
