@@ -1,0 +1,39 @@
+aggregate:
+  "function(obj, prev) {
+     prev.count++;
+   }"
+
+group:
+  "function(obj, prev) {
+     prev.group.push(obj);
+   }"
+
+max:
+  "function(obj, prev) {
+     if (obj.[field] && prev.max == 'start') {
+       prev.max = obj.[field];
+     }
+     if (obj.[field] && prev.max < obj.[field]) {
+       prev.max = obj.[field];
+     }
+   }"
+
+min:
+  "function(obj, prev) {
+     if (obj.[field] && prev.min == 'start') {
+       prev.min = obj.[field];
+     }
+     if (obj.[field] && prev.min > obj.[field]) {
+       prev.min = obj.[field];
+     }
+   }"
+
+sum:
+  "function(obj, prev) {
+     if (prev.sum == 'start') {
+       prev.sum = 0;
+     }
+     if (obj.[field]) {
+       prev.sum += obj.[field];
+     }
+  }"
