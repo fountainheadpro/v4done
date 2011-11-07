@@ -36,5 +36,13 @@ class Action
    end
   end
 
+  def user
+    creator.name
+  end
+
+  def to_json
+   super(:methods=>:user)
+  end
+
 
 end
