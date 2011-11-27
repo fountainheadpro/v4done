@@ -40,7 +40,7 @@ gem "bson_ext"
 gem "mongoid"
 gem 'mongoid-tree', :require => 'mongoid/tree'
 gem "devise", ">= 1.4.9"
-gem "compass", "~> 0.12.alpha.0"
+# gem "compass", "~> 0.12.alpha.0"
 gem "settingslogic"
 gem 'jquery-rails', '>= 1.0.12'
 gem "heroku", :group => [:development, :test]
