@@ -99,6 +99,7 @@ GEM
       guard (>= 0.2.2)
     guard-rspec (0.5.1)
       guard (>= 0.8.4)
+    haml (2.2.17)
     heroku (2.11.0)
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
@@ -234,6 +235,7 @@ DEPENDENCIES
   guard-livereload (>= 0.3.0)
   guard-rails (>= 0.0.3)
   guard-rspec (>= 0.4.3)
+  haml
   heroku
   jquery-rails (>= 1.0.12)
   launchy (>= 2.0.5)
