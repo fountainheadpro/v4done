@@ -1,14 +1,16 @@
-%h2
-  Sign in
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
-  %div
-    = f.label :email
-    %br
-    = f.email_field :email
-  %div
-    = f.label :password
-    %br
-    = f.password_field :password
-  %div
-    = f.submit "Sign in"
-= render :partial => "devise/shared/links"
+.page-header
+  %h1 Sign in
+.row
+  .span14
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      .clearfix
+        = f.label :email
+        .input
+          = f.email_field :email
+      .clearfix
+        = f.label :password
+        .input
+          = f.password_field :password
+      .actions
+        = f.submit "Sign in", {class: "btn"}
+    = render :partial => "devise/shared/links"
