@@ -1,0 +1,10 @@
+%h1
+  %a{:href => "#"} Actions
+#notice
+#actions
+:javascript
+  $(function() {
+
+    window.router = new Actions.Routers.ActionsRouter({actions: #{@actions.to_json.html_safe}});
+    Backbone.history.start();
+  });
