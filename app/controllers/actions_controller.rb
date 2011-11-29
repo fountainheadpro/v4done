@@ -1,5 +1,3 @@
-
-
 class ActionsController < ApplicationController
 
   before_filter :authenticate_user!
@@ -9,10 +7,10 @@ class ActionsController < ApplicationController
   def index
     @actions = Action.where(:parent_id=>params[:parent_id])
     if params[:parent_id]
-      parent=Action.find(params[:parent_id])
-      @context=parent.title
+      parent = Action.find(params[:parent_id])
+      @context = parent.title
     else
-      @context='projects'
+      @context = 'projects'
     end
 
     respond_to do |format|
@@ -58,11 +56,11 @@ class ActionsController < ApplicationController
 
     respond_to do |format|
       if @action.save
-        format.html { redirect_to @action, :notice=> 'Action was successfully created.' }
-        format.json { render :json=> @action, :status=> :created, :location=> @action }
+        format.html { redirect_to @action, :notice => 'Action was successfully created.' }
+        format.json { render :json => @action, :status => :created, :location => @action }
       else
-        format.html { render :action=> "new" }
-        format.json { render :json=> @action.errors, :status=> :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @action.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -72,11 +70,11 @@ class ActionsController < ApplicationController
 
     respond_to do |format|
       if @action.save
-        format.html { redirect_to @action, :notice=> 'Action was successfully created.' }
-        format.json { render :json=> @action, :status=> :created, :location=> @action }
+        format.html { redirect_to @action, :notice => 'Action was successfully created.' }
+        format.json { render :json => @action, :status => :created, :location => @action }
       else
-        format.html { render :action=> "new" }
-        format.json { render :json=> @action.errors, :status=> :unprocessable_entity }
+        format.html { render :action => "new" }
+        format.json { render :json => @action.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -88,11 +86,11 @@ class ActionsController < ApplicationController
 
     respond_to do |format|
       if @action.update_attributes(params[:_action])
-        format.html { redirect_to @action, :notice=> 'Action was successfully updated.' }
+        format.html { redirect_to @action, :notice => 'Action was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render :action=> "edit" }
-        format.json { render :json=> @action.errors, :status=> :unprocessable_entity }
+        format.html { render :action => "edit" }
+        format.json { render :json => @action.errors, :status => :unprocessable_entity }
       end
     end
   end
