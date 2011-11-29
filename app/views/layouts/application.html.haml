@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %title
+      Actions
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    .topbar{"data-dropdown" => "dropdown"}
+      .fill
+        .container
+          = link_to 'actions.im', root_path, {class: 'brand'}
+          = render 'shared/navigation'
+    .container
+      .content
+        - if content_for? :page_header
+          .page-header
+            %h1
+              = yield :page_header
+        .row
+          .span14
+            = yield
+      %footer
