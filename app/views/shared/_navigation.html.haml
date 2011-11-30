@@ -1,6 +1,7 @@
 - if user_signed_in?
   %ul.nav
-    %li{class: "active"}= link_to("Templates", "#")
+    %li{class: controller_name == 'templates' && 'active'}
+      = link_to('Templates', templates_path)
   %ul.nav.secondary-nav
     %li.dropdown
       = link_to current_user.name, "#", {class: "dropdown-toggle"}
@@ -10,7 +11,7 @@
         %li= link_to('Logout', destroy_user_session_path, :method=>'delete')
 - else
   %ul.nav
-    %li{:class => controller_name == 'sessions' && 'active'}
+    %li{class: controller_name == 'sessions' && 'active'}
       = link_to('Sign in', new_user_session_path)
-    %li{:class => controller_name == 'registrations' && 'active'}
+    %li{class: controller_name == 'registrations' && 'active'}
       = link_to('Sign up', new_user_registration_path)

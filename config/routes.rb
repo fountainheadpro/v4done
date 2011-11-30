@@ -1,4 +1,6 @@
 Actions::Application.routes.draw do
+  resources :templates
+
   resources :action_lists
 
   resources :comments
