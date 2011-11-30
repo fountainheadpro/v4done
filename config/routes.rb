@@ -1,5 +1,5 @@
 Actions::Application.routes.draw do
-  resources :templates
+  resources :templates, except: [:new, :edit]
 
   resources :action_lists
 

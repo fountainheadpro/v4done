@@ -1,9 +1,4 @@
-%p#notice= notice
-
-%p
-  %b Title:
+= content_for :page_header do
   = @template.title
 
-= link_to 'Edit', edit_template_path(@template)
-\|
-= link_to 'Back', templates_path
+Actions...

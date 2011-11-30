@@ -2,7 +2,8 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.json
   def index
-    @templates = Template.all
+    @templates = current_user.templates.desc(:updated_at)
+    @template = Template.new
 
     respond_to do |format|
       format.html # index.html.erb
@@ -21,33 +22,17 @@ class TemplatesController < ApplicationController
     end
   end
 
-  # GET /templates/new
-  # GET /templates/new.json
-  def new
-    @template = Template.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @template }
-    end
-  end
-
-  # GET /templates/1/edit
-  def edit
-    @template = Template.find(params[:id])
-  end
-
   # POST /templates
   # POST /templates.json
   def create
-    @template = Template.new(params[:template])
+    @template = Template.new(params[:template].merge({:creator => current_user}))
 
     respond_to do |format|
       if @template.save
-        format.html { redirect_to @template, notice: 'Template was successfully created.' }
+        format.html { redirect_to templates_url, notice: 'Template was successfully created.' }
         format.json { render json: @template, status: :created, location: @template }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to templates_url }
         format.json { render json: @template.errors, status: :unprocessable_entity }
       end
     end

@@ -1,19 +1,10 @@
-%h1 Listing templates
+= content_for :page_header do
+  = render 'form'
 
-%table
-  %tr
-    %th Title
-    %th
-    %th
-    %th
-
+%ul.unstyled
   - @templates.each do |template|
-    %tr
-      %td= template.title
-      %td= link_to 'Show', template
-      %td= link_to 'Edit', edit_template_path(template)
-      %td= link_to 'Destroy', template, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Template', new_template_path
+    %li
+      %h2
+        = link_to template.title, template
+        %small
+          = link_to '[destroy]', template, confirm: 'Are you sure?', method: :delete
