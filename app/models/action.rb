@@ -41,7 +41,8 @@ class Action
   end
 
   def as_json(options = {})
-    super(options.merge(methods: :user))
+    options ||= {}
+    super(options.merge(methods: [:user]))
   end
 
 end
