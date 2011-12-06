@@ -1,5 +1,9 @@
-%h1
-  %a{:href => "#"} Actions
+%ul.breadcrumb
+  %li
+    = link_to "Actions", actions_path
+    %span.divider /
+  %li.active
+    All
 #notice
 #actions
 :javascript
