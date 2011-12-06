@@ -9,7 +9,7 @@ Template =
     $(field).closest('.item').addClass('selected')
   add_fields: (link) ->
     level = $(link).closest('.item').attr('level')
-    if level > 1
+    if level > 0
       prev_item = $(link).closest('.item').prevAll("div[level='#{ level }']").first()
       path = prev_item.find('input:text').attr('id').match(/\d+/g)[0..-2]
     else
