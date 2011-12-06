@@ -3,15 +3,18 @@ Template =
     $(link).prev("input[type=hidden]").val("1")
     $(link).closest(".fields").hide()
   remove_new_fields: (link) ->
-    $(link).closest('.item').remove()
+    item = $(link).closest('.item')
+    level = item.attr('level')
+    item.nextUntil("div[level='#{ level }']").remove()
+    item.remove()
   highlight_fields: (field) ->
     $('div[class="item selected"]').removeClass('selected')
     $(field).closest('.item').addClass('selected')
   add_fields: (link) ->
     level = $(link).closest('.item').attr('level')
     if level > 0
-      prev_item = $(link).closest('.item').prevAll("div[level='#{ level }']").first()
-      path = prev_item.find('input:text').attr('id').match(/\d+/g)[0..-2]
+      prev_item = $(link).closest('.item').prevAll("div[level='#{ level - 1 }']").first()
+      path = prev_item.find('input:text').attr('id').match(/\d+/g)
     else
       path = []
     path.push(new Date().getTime())
