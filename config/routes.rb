@@ -1,4 +1,6 @@
 Actions::Application.routes.draw do
+  resources :templates, except: [:new, :edit]
+
   resources :action_lists
 
   resources :comments

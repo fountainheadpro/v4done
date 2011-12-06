@@ -12,6 +12,7 @@ class User
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   has_many :actions
+  has_many :templates, foreign_key: :creator_id
 
 end
 

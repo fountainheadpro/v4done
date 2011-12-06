@@ -40,8 +40,9 @@ class Action
     creator.name
   end
 
-  def to_json
-    super(:methods => :user)
+  def as_json(options = {})
+    options ||= {}
+    super(options.merge(methods: [:user]))
   end
 
 end
