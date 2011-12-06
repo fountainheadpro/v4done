@@ -1,21 +1,29 @@
 Template =
   remove_fields: (link) ->
+    item = $(link).closest('.item')
+    level = item.attr('level')
+    item.nextUntil("div[level='#{ level }']", ".new").remove()
+    item.nextUntil("div[level='#{ level }']", "input[type=hidden][id$='_destroy']").val("1")
+    item.nextUntil("div[level='#{ level }']", ".item").hide()
     $(link).prev("input[type=hidden]").val("1")
-    $(link).closest(".fields").hide()
+    item.hide()
   remove_new_fields: (link) ->
-    $(link).closest('.item').remove()
+    item = $(link).closest('.item')
+    level = item.attr('level')
+    item.nextUntil("div[level='#{ level }']").remove()
+    item.remove()
   highlight_fields: (field) ->
-    $('div[class="item selected"]').removeClass('selected')
+    $('.selected').removeClass('selected')
     $(field).closest('.item').addClass('selected')
   add_fields: (link) ->
     level = $(link).closest('.item').attr('level')
     if level > 0
-      prev_item = $(link).closest('.item').prevAll("div[level='#{ level }']").first()
-      path = prev_item.find('input:text').attr('id').match(/\d+/g)[0..-2]
+      prev_item = $(link).closest('.item').prevAll("div[level='#{ level - 1 }']").first()
+      path = prev_item.find('input:text').attr('id').match(/\d+/g)
     else
       path = []
     path.push(new Date().getTime())
-    new_item = "<div class='item' level='#{ level }'><div class='fields' style='#{ @fields_style(level) }'>
+    new_item = "<div class='item new' level='#{ level }'><div class='fields' style='#{ @fields_style(level) }'>
                     <input id='#{ @new_id(path) }' name='#{ @new_name(path) }' size='30' style='#{ @input_style(level) }' type='text' placeholder='Add item'>
                     <a href='' class='remove_new_fields'>[remove]</a>
                     <a href='' class='add_child_fields'>[add child]</a>
@@ -26,14 +34,14 @@ Template =
     level = parseInt(prev_item.attr("level")) + 1
     path = prev_item.find('input:text').attr('id').match(/\d+/g)
     path.push(new Date().getTime())
-    new_item = "<div class='item' level='#{ level }'>
+    new_item = "<div class='item new' level='#{ level }'>
                   <div class='fields' style='#{ @fields_style(level) }'>
                     <input id='#{ @new_id(path) }' name='#{ @new_name(path) }' size='30' style='#{ @input_style(level) }' type='text' placeholder='Add item'>
                     <a href='' class='remove_new_fields'>[remove]</a>
                     <a href='' class='add_child_fields'>[add child]</a>
                   </div>
                 </div>
-                <div class='item' level='#{ level }'>
+                <div class='item new' level='#{ level }'>
                   <div class='fields' style='#{ @fields_style(level) }'>
                     <a href='' class='add_fields'>[new item]</a>
                   </div>
