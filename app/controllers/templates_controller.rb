@@ -1,4 +1,6 @@
 class TemplatesController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /templates
   # GET /templates.json
   def index

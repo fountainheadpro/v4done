@@ -1,0 +1,12 @@
+.item{level: level}
+  .fields{style: "width: #{760 - (level * 15)}px; margin-left: #{level*15}px;"}
+    = f.text_field :title, {style: "width: #{610 - (level * 15)}px"}
+    = f.hidden_field :_destroy
+    = link_to "[remove]", "", { class: "remove_fields"}
+    = link_to "[add_child]", "", { class: "add_child_fields"} unless item.items.present?
+- if item.items.present?
+  = f.fields_for :items do |item_fields|
+    = render partial: 'item', locals: { template: template, item: item_fields.object, level: level + 1, f: item_fields}
+  .item{level: level + 1}
+    .fields{style: "width: #{760 - ((level + 1) * 15)}px; margin-left: #{(level + 1) * 15}px;"}
+      = link_to "[new item]", "", { class: "add_fields"}
