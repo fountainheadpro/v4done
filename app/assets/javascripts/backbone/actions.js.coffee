@@ -9,3 +9,6 @@ window.Actions =
   Collections: {}
   Routers: {}
   Views: {}
+  init_templates: (templates) ->
+    new Actions.Routers.TemplatesRouter({ templates: templates })
+    Backbone.history.start()

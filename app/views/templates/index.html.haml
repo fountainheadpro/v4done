@@ -1,10 +1,9 @@
 = content_for :page_header do
   = render 'form'
 
-%ul.unstyled
-  - @templates.each do |template|
-    %li
-      %h2
-        = link_to template.title, template
-        %small
-          = link_to '[destroy]', template, confirm: 'Are you sure?', method: :delete
+#templates
+
+:javascript
+  $(function() {
+    Actions.init_templates(#{ @templates.to_json.html_safe });
+  });
