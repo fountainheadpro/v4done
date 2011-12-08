@@ -7,6 +7,7 @@ class Actions.Views.Templates.IndexView extends Backbone.View
     _.bindAll(this, 'addOne', 'addAll', 'render')
 
     @options.templates.bind('reset', @addAll)
+    @options.templates.bind('add',   @addOne)
 
   addAll: () ->
     @options.templates.each(@addOne)
