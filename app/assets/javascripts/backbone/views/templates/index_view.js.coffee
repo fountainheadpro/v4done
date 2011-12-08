@@ -13,8 +13,8 @@ class Actions.Views.Templates.IndexView extends Backbone.View
     @options.templates.each(@addOne)
 
   addOne: (template) ->
-    view = new Actions.Views.Templates.TemplateView({model : template})
-    @$("#templates_list").append(view.render().el)
+    view = new Actions.Views.Templates.TemplateView({ model: template })
+    @$("#templates_list").prepend(view.render().el)
 
   render: ->
     $(@el).html(@template(templates: @options.templates.toJSON() ))

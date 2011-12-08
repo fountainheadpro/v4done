@@ -4,7 +4,7 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.json
   def index
-    @templates = current_user.templates.desc(:updated_at)
+    @templates = current_user.templates.asc(:updated_at)
     @template = Template.new
 
     respond_to do |format|
