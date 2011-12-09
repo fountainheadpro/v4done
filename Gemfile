@@ -24,7 +24,6 @@ group :development do
   gem "guard-livereload", ">= 0.3.0"
   gem "guard-rspec", ">= 0.4.3"
   gem "guard-cucumber", ">= 0.6.1"
-  gem "haml-rails"
   gem "guard", ">= 0.6.2"
 end
 
@@ -40,6 +39,7 @@ end
 group :development, :test do
   gem "heroku"
   gem "rspec-rails", ">= 2.7.0"
+  gem "haml-rails"
   case HOST_OS
     when /darwin/i
       gem 'rb-fsevent'
