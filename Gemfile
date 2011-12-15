@@ -40,6 +40,7 @@ group :development, :test do
   gem "heroku"
   gem "rspec-rails", ">= 2.7.0"
   gem "haml-rails"
+  gem "capybara-webkit"
   case HOST_OS
     when /darwin/i
       gem 'rb-fsevent'
