@@ -1,7 +1,7 @@
 Feature: Template lists
-  In order to manage my templates
-  A user
-  Should be able to view my templates
+  As a registered user of the website
+  I want to to be able to all my templats
+  So I can manage them
 
     @javascript
     Scenario: View my templates
