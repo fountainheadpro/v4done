@@ -11,6 +11,12 @@ Given /^he have few templates too$/ do
   create_templates(@another_user)
 end
 
+Given /^I have template with few items$/ do
+  @template = current_user.templates.create title: 'Apple Pie'
+  @template.items.create title: 'Ingredients'
+  @template.items.create title: 'Directions'
+end
+
 ### WHEN ###
 When /^I look at the list of templates$/ do
   visit '/templates'
@@ -46,4 +52,10 @@ end
 Then /^I should see this template$/ do
   find("#templates").should have_content(@title)
   Template.should exist(conditions: { title: @title })
+end
+
+Then /^I should see that items$/ do
+  @template.items.each do |item|
+    find("#items").should have_content(item.title)
+  end
 end
