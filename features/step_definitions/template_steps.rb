@@ -1,8 +1,6 @@
 ### GIVEN ###
 Given /^I have few templates$/ do
-  valid_templates.each do |title|
-    current_user.templates.create title: title
-  end
+  create_templates(current_user)
 end
 
 Given /^another user exists$/ do
@@ -10,9 +8,7 @@ Given /^another user exists$/ do
 end
 
 Given /^he have few templates too$/ do
-  valid_templates.each do |title|
-    @another_user.templates.create title: "#{title}!!!"
-  end
+  create_templates(@another_user)
 end
 
 ### WHEN ###
@@ -22,26 +18,32 @@ end
 
 When /^I create new template$/ do
   visit '/templates'
+  @title = 'Banana Pie'
   within("#new-template") do
-    fill_in "title", with: 'Banana Pie'
+    fill_in "title", with: @title
     click_button "Create Template"
   end
 end
 
+When /^I look at the this template$/ do
+  visit '/templates'
+  click_link @template.title
+end
+
 ### THEN ###
 Then /^I should see all my templates$/ do
-  valid_templates.each do |title|
-    find("#templates").should have_content(title)
+  @templates.each do |template|
+    find("#templates").should have_content(template.title)
   end
 end
 
 Then /^I should not see his templates$/ do
-  valid_templates.each do |title|
-    find("#templates").should_not have_content("#{title}!!!")
+  @templates.each do |template|
+    find("#templates").should_not have_content(template.title)
   end
 end
 
 Then /^I should see this template$/ do
-  find("#templates").should have_content("Banana Pie")
-  Template.should exist(conditions: { title: "Banana Pie" })
+  find("#templates").should have_content(@title)
+  Template.should exist(conditions: { title: @title })
 end
