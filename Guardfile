@@ -42,7 +42,7 @@ guard 'rspec', :version => 2 do
 end
 
 
-guard 'cucumber' do
+guard 'cucumber', cli: "-p wip" do
   watch(%r{^features/.+\.feature$})
   watch(%r{^features/support/.+$})          { 'features' }
   watch(%r{^features/step_definitions/(.+)_steps\.rb$}) { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'features' }
