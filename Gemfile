@@ -11,6 +11,7 @@ gem "devise", ">= 1.4.9"
 gem "settingslogic"
 gem 'jquery-rails', '>= 1.0.12'
 gem "rails-backbone"
+gem "ejs"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
@@ -24,17 +25,16 @@ group :development do
   gem "guard-livereload", ">= 0.3.0"
   gem "guard-rspec", ">= 0.4.3"
   gem "guard-cucumber", ">= 0.6.1"
-  gem 'guard-jasmine'
   gem "guard", ">= 0.6.2"
 end
 
 group :test do
   gem "database_cleaner", ">= 0.6.7"
   gem "mongoid-rspec", ">= 1.4.4"
-  gem "factory_girl_rails", ">= 1.3.0"
   gem "cucumber-rails", ">= 1.1.1"
   gem "capybara", ">= 1.1.1"
   gem "launchy", ">= 2.0.5"
+  gem "guard-jasmine"
 end
 
 group :development, :test do
@@ -44,6 +44,7 @@ group :development, :test do
   gem "capybara-webkit"
   gem 'jasmine'
   gem "jasminerice"
+  gem "factory_girl_rails", ">= 1.3.0"
   case HOST_OS
     when /darwin/i
       gem 'rb-fsevent'
