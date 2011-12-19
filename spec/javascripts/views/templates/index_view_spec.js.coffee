@@ -36,3 +36,6 @@ describe "Actions.Views.Templates.IndexView", ->
 
     it "prepends the template to the template list", ->
       expect($(@view.el).children().length).toEqual(2)
+
+    it "returns the view object", ->
+      expect(@view.render()).toEqual(@view)
