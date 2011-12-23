@@ -12,6 +12,7 @@ gem "settingslogic"
 gem 'jquery-rails', '>= 1.0.12'
 gem "rails-backbone"
 gem "ejs"
+gem "haml-rails"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
@@ -42,7 +43,6 @@ end
 group :development, :test do
   gem "heroku"
   gem "rspec-rails", ">= 2.7.0"
-  gem "haml-rails"
   gem "capybara-webkit"
   gem 'jasmine'
   gem "jasminerice"
