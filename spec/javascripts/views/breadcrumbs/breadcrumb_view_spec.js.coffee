@@ -1,7 +1,6 @@
-describe "Actions.Views.Templates.TemplateView", ->
+describe "Actions.Views.Breadcrumbs.BreadcrumbView", ->
   beforeEach ->
-    @model = new Backbone.Model({ _id: 1, title: 'foo' })
-    @view = new Actions.Views.Templates.TemplateView(model: @model)
+    @view = new Actions.Views.Breadcrumbs.BreadcrumbView(title: 'Templates', link: '#/index', active: false)
 
   describe "Instantiation", ->
     it "creates a list item element", ->
@@ -13,10 +12,10 @@ describe "Actions.Views.Templates.TemplateView", ->
 
     describe "Template", ->
       beforeEach ->
-        $("#templates ul").prepend(@view.render().el)
+        $(".page-header ul.breadcrumbs").prepend(@view.render().el)
 
       it "has the correct title text", ->
-        expect($(@view.el).find('h2 > a')).toHaveAttr('href', '#/1/items')
+        expect($(@view.el).find('li > a')).toHaveAttr('href', '#/index')
 
       it "has the correct URL", ->
-        expect($(@view.el).find('h2 > a')).toHaveText('foo')
+        expect($(@view.el).find('li > a')).toHaveText('Templates')

@@ -4,11 +4,20 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     @templates.reset options.templates
 
   routes:
-    "/index"    : "index"
-    ".*"        : "index"
+    "/index"     : "index"
+    "/:id/items" : "items"
+    ".*"         : "index"
 
   index: ->
-    @view = new Actions.Views.Templates.NewView(collection: @templates)
-    $('.page-header').html(@view.render().el)
+    @view = new Actions.Views.Breadcrumbs.IndexView(model: null)
+    $(".page-header").html(@view.render().el)
     @view = new Actions.Views.Templates.IndexView(templates: @templates)
     $("#templates").html(@view.render().el)
+    @view = new Actions.Views.Templates.NewView(collection: @templates)
+    $("#templates").prepend(@view.render().el)
+
+  items: (id) ->
+    template = @templates.get(id)
+    @view = new Actions.Views.Breadcrumbs.IndexView(model: template)
+    $(".page-header").html(@view.render().el)
+    $("#templates").html('')

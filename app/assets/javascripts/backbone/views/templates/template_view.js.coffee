@@ -15,5 +15,5 @@ class Actions.Views.Templates.TemplateView extends Backbone.View
     return false
 
   render: ->
-    $(this.el).html(@template(@model.toJSON() ))
+    $(this.el).html(@template(@model.toJSON()))
     return this
