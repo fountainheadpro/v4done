@@ -14,8 +14,8 @@ describe "Actions.Views.Breadcrumbs.BreadcrumbView", ->
       beforeEach ->
         $(".page-header ul.breadcrumbs").prepend(@view.render().el)
 
-      it "has the correct title text", ->
+      it "has the correct URL", ->
         expect($(@view.el).find('li > a')).toHaveAttr('href', '#/index')
 
-      it "has the correct URL", ->
+      it "has the correct title text", ->
         expect($(@view.el).find('li > a')).toHaveText('Templates')
