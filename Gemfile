@@ -35,16 +35,6 @@ group :test do
   gem "capybara", ">= 1.1.1"
   gem "launchy", ">= 2.0.5"
   gem "guard-jasmine"
-end
-
-group :development, :test do
-  gem "heroku"
-  gem "rspec-rails", ">= 2.7.0"
-  gem "haml-rails"
-  gem "capybara-webkit"
-  gem 'jasmine'
-  gem "jasminerice"
-  gem "factory_girl_rails", ">= 1.3.0"
   case HOST_OS
     when /darwin/i
       gem 'rb-fsevent'
@@ -57,4 +47,14 @@ group :development, :test do
       gem 'win32console'
       gem 'rb-notifu'
     end
+end
+
+group :development, :test do
+  gem "heroku"
+  gem "rspec-rails", ">= 2.7.0"
+  gem "haml-rails"
+  gem "capybara-webkit"
+  gem 'jasmine'
+  gem "jasminerice"
+  gem "factory_girl_rails", ">= 1.3.0"
 end
