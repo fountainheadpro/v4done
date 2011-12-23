@@ -35,18 +35,8 @@ group :test do
   gem "capybara", ">= 1.1.1"
   gem "launchy", ">= 2.0.5"
   gem "guard-jasmine"
-  case HOST_OS
-    when /darwin/i
-      gem 'rb-fsevent'
-      gem 'growl_notify'
-    when /linux/i
-      gem 'libnotify'
-      gem 'rb-inotify'
-    when /mswin|windows/i
-      gem 'rb-fchange'
-      gem 'win32console'
-      gem 'rb-notifu'
-    end
+  gem 'rb-fsevent'
+  gem 'growl_notify'
 end
 
 group :development, :test do
