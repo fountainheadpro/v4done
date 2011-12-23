@@ -1,7 +1,8 @@
 Actions.Views.Templates ||= {}
 
 class Actions.Views.Templates.IndexView extends Backbone.View
-  template: JST["backbone/templates/templates/index"]
+  tagName: "ul"
+  className: "unstyled"
 
   initialize: () ->
     _.bindAll(this, 'addOne', 'addAll', 'render')
@@ -14,10 +15,9 @@ class Actions.Views.Templates.IndexView extends Backbone.View
 
   addOne: (template) ->
     view = new Actions.Views.Templates.TemplateView({ model: template })
-    @$("#templates_list").prepend(view.render().el)
+    $(@el).prepend(view.render().el)
 
   render: ->
-    $(@el).html(@template(templates: @options.templates.toJSON() ))
     @addAll()
 
     return this
