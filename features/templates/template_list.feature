@@ -1,6 +1,6 @@
 Feature: Template lists
   As a registered user of the website
-  I want to to be able to all my templats
+  I want to to be able to view all my templats
   So I can manage them
 
     Background:
