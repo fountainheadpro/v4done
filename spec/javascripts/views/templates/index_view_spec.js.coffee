@@ -31,9 +31,6 @@ describe "Actions.Views.Templates.IndexView", ->
       expect(@templateViewStub).toHaveBeenCalledWith({ model: @template1 })
       expect(@templateViewStub).toHaveBeenCalledWith({ model: @template2 })
 
-    it "renders each Template view", ->
-      expect(@templateRenderSpy).toHaveBeenCalledTwice()
-
     it "prepends the template to the template list", ->
       expect($(@view.el).children().length).toEqual(2)
 

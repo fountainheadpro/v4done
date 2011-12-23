@@ -6,7 +6,7 @@ describe "Actions.Views.Breadcrumbs.IndexView", ->
     it "creates a list element", ->
       expect(@view.el.nodeName).toEqual("UL")
 
-    it "have a class of 'unstyled'", ->
+    it "have a class of 'breadcrumb'", ->
       expect($(@view.el)).toHaveClass('breadcrumb')
 
   describe "Rendering", ->
@@ -28,9 +28,6 @@ describe "Actions.Views.Breadcrumbs.IndexView", ->
       expect(@breadcrumbViewStub).toHaveBeenCalledTwice()
       expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'Templates', link: '#/index', active: false })
       expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'foo', link: '', active: true })
-
-    it "renders each Template view", ->
-      expect(@templateRenderSpy).toHaveBeenCalledTwice()
 
     it "prepends the template to the template list", ->
       expect($(@view.el).children().length).toEqual(2)
