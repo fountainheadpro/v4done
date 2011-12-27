@@ -6,8 +6,9 @@ class Actions.Models.Template extends Backbone.Model
 
   initialize: ->
     if @has('items')
-      items = new Actions.Collections.ItemsCollection().reset(@get('items'))
-      @setItems(items)
+      @setItems(new Actions.Collections.ItemsCollection(@get('items')))
+    else
+      @setItems(new Actions.Collections.ItemsCollection())
 
   setItems: (items) ->
     @items = items
