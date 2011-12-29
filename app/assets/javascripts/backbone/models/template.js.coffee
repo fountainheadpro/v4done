@@ -5,13 +5,10 @@ class Actions.Models.Template extends Backbone.Model
     title: null
 
   initialize: ->
+    @items = new Actions.Collections.ItemsCollection()
+    @items.url = "/templates/#{@get('id')}/items"
     if @has('items')
-      @setItems(new Actions.Collections.ItemsCollection(@get('items')))
-    else
-      @setItems(new Actions.Collections.ItemsCollection())
-
-  setItems: (items) ->
-    @items = items
+      @items.reset(@get('items'))
 
 class Actions.Collections.TemplatesCollection extends Backbone.Collection
   model: Actions.Models.Template
