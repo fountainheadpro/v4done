@@ -1,7 +1,7 @@
-describe "Actions.Views.Items.ItemView", ->
+describe "Actions.Views.Items.EditView", ->
   beforeEach ->
     @model = new Backbone.Model({ _id: 1, title: 'foo' })
-    @view = new Actions.Views.Items.ItemView(model: @model)
+    @view = new Actions.Views.Items.EditView(model: @model)
 
   describe "Instantiation", ->
     it "creates a list item element", ->
