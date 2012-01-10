@@ -21,7 +21,7 @@ class Actions.Views.Items.NewView extends Backbone.View
       @options.template.items.create(title: title,
         success: (item) =>
           @$('textarea[name="title"]').val('')
-          view = new Actions.Views.Items.ItemView({ model: item })
+          view = new Actions.Views.Items.EditView({ model: item })
           $(@el).before(view.render().el)
       )
 
