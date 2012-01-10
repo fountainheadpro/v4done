@@ -7,6 +7,7 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   events:
     "keypress #new-item textarea[name='title']": "save"
+    "keydown textarea[name='title']": "move"
 
   constructor: (options) ->
     super(options)
@@ -24,6 +25,14 @@ class Actions.Views.Items.NewView extends Backbone.View
           view = new Actions.Views.Items.EditView({ model: item })
           $(@el).before(view.render().el)
       )
+
+  move: (e) ->
+    if e.keyCode == 40 || e.keyCode == 38
+      e.preventDefault()
+      e.stopPropagation()
+      textarea = $(@el).next().find('textarea[name="title"]') if e.keyCode == 40
+      textarea = $(@el).prev().find('textarea[name="title"]') if e.keyCode == 38
+      textarea.focus()
 
   render: ->
     $(@el).html(@template(@model.toJSON()))
