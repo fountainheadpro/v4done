@@ -6,7 +6,7 @@ class Actions.Models.Template extends Backbone.Model
 
   initialize: ->
     @items = new Actions.Collections.ItemsCollection()
-    @items.url = "/templates/#{@get('id')}/items"
+    @items.url = "/templates/#{@get('_id')}/items"
     if @has('items')
       @items.reset(@get('items'))
 

@@ -3,13 +3,13 @@ describe "Template model", ->
     describe "with items", ->
       it "should exhibit attributes", ->
         t = new Actions.Models.Template({
-          id: 1,
+          _id: 1,
           title: 'Apple Pie',
           items: [{
-            id: 1,
+            _id: 1,
             title: 'Ingredients',
           }, {
-            id: 2,
+            _id: 2,
             title: 'Directions'
           }]
         })
@@ -21,7 +21,7 @@ describe "Template model", ->
 
     describe "without items" , ->
       it "should exhibit attributes", ->
-        t = new Actions.Models.Template({id: 1, title: 'Apple Pie'})
+        t = new Actions.Models.Template({_id: 1, title: 'Apple Pie'})
         expect(t.get('title')).toEqual('Apple Pie')
         expect(t.items.length).toEqual(0)
         expect(t.items.url).toEqual('/templates/1/items')
