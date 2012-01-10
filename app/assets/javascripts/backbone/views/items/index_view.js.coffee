@@ -9,14 +9,13 @@ class Actions.Views.Items.IndexView extends Backbone.View
     _.bindAll(this, 'addOne', 'addAll', 'render')
 
     @options.items.bind('reset', @addAll)
-    @options.items.bind('add',   @addOne)
 
   addAll: () ->
     @options.items.each(@addOne)
 
   addOne: (item) ->
     view = new Actions.Views.Items.ItemView({ model: item })
-    $(@el).prepend(view.render().el)
+    $(@el).append(view.render().el)
 
   render: ->
     @addAll()

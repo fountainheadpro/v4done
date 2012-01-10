@@ -3,7 +3,7 @@ Feature: Create Item
   I want to to be able to create an item in template
   So I can share my knowledge
 
-    @template @javascript @wip
+    @template @javascript
     Scenario: I create new item
       Given I am logged in
         And I have template with few items

@@ -1,5 +1,9 @@
 Actions::Application.routes.draw do
-  resources :templates, except: [:new, :edit]
+  get "items/create"
+
+  resources :templates, except: [:new, :edit] do
+    resources :items, only: [:create, :show]
+  end
 
   resources :action_lists
 

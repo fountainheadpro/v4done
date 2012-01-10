@@ -22,3 +22,5 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     $(".page-header").html(@view.render().el)
     @view = new Actions.Views.Items.IndexView(items: template.items)
     $("#templates").html(@view.render().el)
+    @view = new Actions.Views.Items.NewView(template: template)
+    $("#templates #items").append(@view.render().el)
