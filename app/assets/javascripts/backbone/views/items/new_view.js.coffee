@@ -3,6 +3,7 @@ Actions.Views.Items||= {}
 class Actions.Views.Items.NewView extends Backbone.View
   template: JST["backbone/templates/items/new"]
   id: 'new-item'
+  className: 'item'
 
   events:
     "keypress #new-item textarea[name='title']": "save"
