@@ -32,8 +32,16 @@ When /^I create new template$/ do
 end
 
 When /^I look at the this template$/ do
-  visit '/templates'
-  click_link @template.title
+  visit_template(@template)
+end
+
+When /^I create new item in this template$/ do
+  visit_template(@template)
+  @title = "Footnotes"
+  within("#new-item") do
+    fill_in "title", with: @title
+    keypress("#new-item textarea", :enter)
+  end
 end
 
 ### THEN ###
@@ -58,4 +66,10 @@ Then /^I should see that items$/ do
   @template.items.each do |item|
     find("#items").should have_content(item.title)
   end
+end
+
+Then /^I should see this item$/ do
+  find("#items").should have_content(@title)
+  @template.reload
+  @template.items.where(title: @title).should exist
 end
