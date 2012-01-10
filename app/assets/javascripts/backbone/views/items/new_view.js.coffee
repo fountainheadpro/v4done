@@ -1,3 +1,4 @@
+//= require backbone/mixins/movable
 Actions.Views.Items||= {}
 
 class Actions.Views.Items.NewView extends Backbone.View
@@ -7,6 +8,7 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   events:
     "keypress #new-item textarea[name='title']": "save"
+    "keydown textarea[name='title']": "move"
 
   constructor: (options) ->
     super(options)
@@ -24,6 +26,8 @@ class Actions.Views.Items.NewView extends Backbone.View
           view = new Actions.Views.Items.EditView({ model: item })
           $(@el).before(view.render().el)
       )
+
+  move: Actions.Mixins.Movable['move']
 
   render: ->
     $(@el).html(@template(@model.toJSON()))
