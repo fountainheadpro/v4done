@@ -25,7 +25,7 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: null)
     $(".page-header").html(view.render().el)
 
-    @view = new Actions.Views.Items.IndexView(template: template, items: template.items)
+    @view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(null))
     $("#templates").html(@view.render().el)
 
     @view = new Actions.Views.Items.NewView(template: template)
@@ -37,3 +37,6 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
 
     view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
     $(".page-header").html(view.render().el)
+
+    view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
+    $("#templates").html(view.render().el)

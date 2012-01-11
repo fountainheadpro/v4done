@@ -1,7 +1,7 @@
 describe "Item collection", ->
   describe "filtered byParentId", ->
     beforeEach ->
-      @item1 = new Actions.Models.Item({ _id: 1, title: 'foo', parent_id: null})
+      @item1 = new Actions.Models.Item({ _id: 1, title: 'foo'})
       @item2 = new Actions.Models.Item({ _id: 2, title: 'bar', parent_id: 1})
       @item3 = new Actions.Models.Item({ _id: 3, title: 'baz', parent_id: 1})
       @item4 = new Actions.Models.Item({ _id: 4, title: 'qux', parent_id: 3})
