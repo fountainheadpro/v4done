@@ -11,5 +11,5 @@ class Actions.Views.Items.EditView extends Backbone.View
   move: Actions.Mixins.Movable['move']
 
   render: ->
-    $(this.el).html(@template(@model.toJSON()))
+    $(this.el).html(@template({ title: @model.get('title'), _id: @model.get('_id'), template_id: @options.template_id}))
     return this
