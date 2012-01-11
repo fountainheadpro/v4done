@@ -7,15 +7,19 @@
     margin: 0
   .item
     padding: 2px 5px
+    clear: both
     input[type="text"], textarea
       font-size: 120%
-      width: 100%
+      width: 90%
       background: transparent
       border: 0px solid transparent
       outline: 0px solid transparent
       padding: 0px 0px 0px 0px
       box-shadow: none
       resize: none
+  .item > a
+    float: left
+    margin-right: 5px
   .item.selected
     background-color: $selected
 a.inner:hover
