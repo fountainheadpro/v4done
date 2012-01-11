@@ -40,3 +40,6 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
 
     view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
     $("#templates").html(view.render().el)
+
+    view = new Actions.Views.Items.NewView(template: template, parentItem: item)
+    $("#templates #items").append(view.render().el)
