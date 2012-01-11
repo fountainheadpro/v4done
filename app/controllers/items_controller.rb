@@ -5,6 +5,6 @@ class ItemsController < ApplicationController
   # POST /templates/:template_id/items.json
   def create
     template = current_user.templates.find(params[:template_id])
-    respond_with([template, item = template.items.create(params[:item])])
+    respond_with(template, item = template.items.create(params[:item]))
   end
 end

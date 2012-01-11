@@ -1,7 +1,8 @@
 describe "Actions.Views.Items.IndexView", ->
   beforeEach ->
     @items = new Backbone.Collection()
-    @view = new Actions.Views.Items.IndexView(items: @items)
+    @template = new Backbone.Model({_id: 1})
+    @view = new Actions.Views.Items.IndexView(template: @template, items: @items)
 
   describe "Instantiation", ->
     it "creates a div element", ->
@@ -31,10 +32,10 @@ describe "Actions.Views.Items.IndexView", ->
 
     it "create a Template view for each template item", ->
       expect(@editViewStub).toHaveBeenCalledTwice()
-      expect(@editViewStub).toHaveBeenCalledWith({ model: @item1 })
-      expect(@editViewStub).toHaveBeenCalledWith({ model: @item2 })
+      expect(@editViewStub).toHaveBeenCalledWith({ model: @item1, template_id: 1 })
+      expect(@editViewStub).toHaveBeenCalledWith({ model: @item2, template_id: 1 })
 
-    it "prepends the template to the template list", ->
+    it "prepends the item to the item list", ->
       expect($(@view.el).children().length).toEqual(2)
 
     it "returns the view object", ->
