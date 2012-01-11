@@ -1,6 +1,6 @@
 describe "Actions.Views.Breadcrumbs.IndexView", ->
   beforeEach ->
-    @view = new Actions.Views.Breadcrumbs.IndexView({ model: new Backbone.Model() })
+    @view = new Actions.Views.Breadcrumbs.IndexView({ template: new Backbone.Model(), item: null })
 
   describe "Instantiation", ->
     it "creates a list element", ->
@@ -17,8 +17,8 @@ describe "Actions.Views.Breadcrumbs.IndexView", ->
         return this
       @templateRenderSpy = sinon.spy(@breadcrumbView, "render");
       @breadcrumbViewStub = sinon.stub(Actions.Views.Breadcrumbs, "BreadcrumbView").returns(@breadcrumbView)
-      @template = new Backbone.Model({ id: 1, title: 'foo' })
-      @view.options.model = @template
+      @template = new Backbone.Model({ _id: 1, title: 'foo' })
+      @view.options.template = @template
       @view.render()
 
     afterEach ->
@@ -27,7 +27,7 @@ describe "Actions.Views.Breadcrumbs.IndexView", ->
     it "create a Breadcrumb view for all templates and current template", ->
       expect(@breadcrumbViewStub).toHaveBeenCalledTwice()
       expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'Templates', link: '#/index', active: false })
-      expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'foo', link: '', active: true })
+      expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'foo', link: "#/1/items", active: true })
 
     it "prepends the template to the template list", ->
       expect($(@view.el).children().length).toEqual(2)
