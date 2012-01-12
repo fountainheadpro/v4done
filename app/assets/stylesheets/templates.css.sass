@@ -17,9 +17,14 @@
       padding: 0px 0px 0px 0px
       box-shadow: none
       resize: none
-  .item > a
-    float: left
+    .title
+      display: inline
+  .item > a.label
     margin-right: 5px
+  .item > a.label:hover
+    background-color: gray
+    color: white
+    text-decoration: none
   .item.selected
     background-color: $selected
 a.inner:hover
