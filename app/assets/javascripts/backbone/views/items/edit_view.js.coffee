@@ -7,13 +7,25 @@ class Actions.Views.Items.EditView extends Backbone.View
 
   events:
     "keydown textarea[name='title']": "keymap"
+    "blur textarea[name='title']": "update"
 
   keymap: (e) ->
     switch e.keyCode
       when 38, 40 then @move(e)
       when 8 then @destroy(e)
+      when 13 then @update(e)
 
   move: Actions.Mixins.Movable['move']
+
+  update: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    title = @$("textarea[name='title']").val()
+    if @model.get('title') != title
+      @model.save({ title: title },
+        success : (item) =>
+          @model = item
+      )
 
   destroy: () ->
     if @$('textarea').val() == ''
