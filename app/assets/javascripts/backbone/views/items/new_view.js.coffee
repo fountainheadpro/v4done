@@ -11,6 +11,7 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   events:
     "keydown textarea[name='title']": "keymap"
+    "blur textarea[name='title']": "save"
 
   constructor: (options) ->
     super(options)
@@ -32,11 +33,13 @@ class Actions.Views.Items.NewView extends Backbone.View
         @$('textarea[name="title"]').val('')
         view = new Actions.Views.Items.EditView({ model: item, template: @options.template, subitemsCount: 0 })
         $(@el).before(view.render().el)
+        @destroy(e) if e.keyCode != 13
     )
 
-  destroy: () ->
+  destroy: (e) ->
     if @$('textarea').val() == ''
-      @focus_prev()
+      $(@el).unbind()
+      @focus_prev() if e.keyCode == 8
       @remove()
       return false
 
