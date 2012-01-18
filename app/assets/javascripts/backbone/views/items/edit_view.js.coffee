@@ -6,6 +6,8 @@ class Actions.Views.Items.EditView extends Backbone.View
   className: 'item'
 
   move: Actions.Mixins.Movable['move']
+  focus_next: Actions.Mixins.Movable['focus_next']
+  focus_prev: Actions.Mixins.Movable['focus_prev']
 
   events:
     "keydown textarea[name='title']": "keymap"
@@ -30,13 +32,13 @@ class Actions.Views.Items.EditView extends Backbone.View
         parentItem = @options.template.items.byParentId(@model.get('parent_id')) if @model.has('parent_id')
         view = new Actions.Views.Items.NewView(template: @options.template, parentItem: parentItem)
         $(@el).after(view.render().el)
-      $(@el).next().find("textarea[name='title']").focus()
+      @focus_next()
 
   destroy: () ->
     if @$('textarea').val() == ''
       @model.destroy()
       $(@el).unbind()
-      $(@el).prev().find('textarea[name="title"]').focus()
+      @focus_prev()
       @remove()
       return false
 

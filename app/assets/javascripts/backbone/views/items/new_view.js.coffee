@@ -6,6 +6,8 @@ class Actions.Views.Items.NewView extends Backbone.View
   className: 'item new_item'
 
   move: Actions.Mixins.Movable['move']
+  focus_next: Actions.Mixins.Movable['focus_next']
+  focus_prev: Actions.Mixins.Movable['focus_prev']
 
   events:
     "keydown textarea[name='title']": "keymap"
@@ -34,7 +36,7 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   destroy: () ->
     if @$('textarea').val() == ''
-      $(@el).prev().find('textarea[name="title"]').focus()
+      @focus_prev()
       @remove()
       return false
 
