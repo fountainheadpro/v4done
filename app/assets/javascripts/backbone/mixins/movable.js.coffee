@@ -4,6 +4,11 @@ Actions.Mixins.Movable =
     if e.keyCode == 40 || e.keyCode == 38
       e.preventDefault()
       e.stopPropagation()
-      textarea = $(@el).next().find('textarea[name="title"]') if e.keyCode == 40
-      textarea = $(@el).prev().find('textarea[name="title"]') if e.keyCode == 38
-      textarea.focus()
+      @focus_next() if e.keyCode == 40
+      @focus_prev() if e.keyCode == 38
+
+  focus_next: ->
+    $(@el).next().find('textarea[name="title"]').focus()
+
+  focus_prev: ->
+    $(@el).prev().find('textarea[name="title"]').focus()
