@@ -11,7 +11,6 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   events:
     "keydown textarea": "keymap"
-    "blur textarea": "save"
     "focusin textarea": "highlight"
 
   constructor: (options) ->
@@ -30,15 +29,17 @@ class Actions.Views.Items.NewView extends Backbone.View
     title = @$("textarea[name='title']").val()
     description = @$("textarea[name='description']").val()
     parentId = @options.parentItem.get('_id') if @options.parentItem?
-    if e.keyCode == 13 || title !=  '' || description != ''
-      @options.template.items.create({ title: title, description: description, parent_id: parentId },
-        success: (item) =>
-          @$('textarea[name="title"]').val('')
-          @$('textarea[name="description"]').val('')
-          view = new Actions.Views.Items.EditView({ model: item, template: @options.template, subitemsCount: 0 })
-          $(@el).before(view.render().el)
-          @destroy(e) if e.keyCode != 13
-      )
+    @options.template.items.create({ title: title, description: description, parent_id: parentId },
+      success: (item) =>
+        @$('textarea[name="title"]').val('')
+        @$('textarea[name="description"]').val('')
+        view = new Actions.Views.Items.EditView({ model: item, template: @options.template, subitemsCount: 0 })
+        $(@el).before(view.render().el)
+        if e.keyCode != 13
+          @destroy(e)
+        else
+          @$('textarea[name="title"]').focus()
+    )
 
   destroy: (e) ->
     if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
