@@ -10,8 +10,9 @@ class Actions.Views.Items.EditView extends Backbone.View
   focus_prev: Actions.Mixins.Movable['focus_prev']
 
   events:
-    "keydown textarea[name='title']": "keymap"
-    "blur textarea[name='title']": "update"
+    "keydown textarea": "keymap"
+    "blur textarea": "update"
+    "focusin textarea": "highlight"
 
   keymap: (e) ->
     switch e.keyCode
@@ -23,8 +24,9 @@ class Actions.Views.Items.EditView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
     title = @$("textarea[name='title']").val()
-    if @model.get('title') != title
-      @model.save({ title: title },
+    description = @$("textarea[name='description']").val()
+    if @model.get('title') != title || @model.get('description') != description
+      @model.save({ title: title, description: description },
         success: (item) => @model = item
       )
     if e.keyCode == 13
@@ -35,13 +37,20 @@ class Actions.Views.Items.EditView extends Backbone.View
       @focus_next()
 
   destroy: () ->
-    if @$('textarea').val() == ''
+    if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
       @model.destroy()
       $(@el).unbind()
       @focus_prev()
       @remove()
       return false
 
+  highlight: ->
+    $('.selected textarea[name="description"]').each (i, item)->
+      $(item).parent().hide() if $(item).val() == ''
+    $('.selected').removeClass('selected')
+    $(@el).addClass('selected')
+    @$('.description').show()
+
   render: ->
-    $(this.el).html(@template({ title: @model.get('title'), _id: @model.get('_id'), template_id: @options.template.get('_id'), subitemsCount: @options.subitemsCount}))
+    $(this.el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id'), subitemsCount: @options.subitemsCount}))
     return this

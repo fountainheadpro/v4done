@@ -3,6 +3,7 @@ class Actions.Models.Item extends Backbone.Model
 
   defaults:
     title: null
+    description: null
     parent_id: null
 
 class Actions.Collections.ItemsCollection extends Backbone.Collection
