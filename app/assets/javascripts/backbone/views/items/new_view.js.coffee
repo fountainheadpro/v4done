@@ -10,8 +10,9 @@ class Actions.Views.Items.NewView extends Backbone.View
   focus_prev: Actions.Mixins.Movable['focus_prev']
 
   events:
-    "keydown textarea[name='title']": "keymap"
-    "blur textarea[name='title']": "save"
+    "keydown textarea": "keymap"
+    "blur textarea": "save"
+    "focusin textarea": "highlight"
 
   constructor: (options) ->
     super(options)
@@ -27,21 +28,31 @@ class Actions.Views.Items.NewView extends Backbone.View
     e.stopPropagation()
 
     title = @$("textarea[name='title']").val()
+    description = @$("textarea[name='description']").val()
     parentId = @options.parentItem.get('_id') if @options.parentItem?
-    @options.template.items.create({ title: title, parent_id: parentId },
-      success: (item) =>
-        @$('textarea[name="title"]').val('')
-        view = new Actions.Views.Items.EditView({ model: item, template: @options.template, subitemsCount: 0 })
-        $(@el).before(view.render().el)
-        @destroy(e) if e.keyCode != 13
-    )
+    if e.keyCode == 13 || title !=  '' || description != ''
+      @options.template.items.create({ title: title, description: description, parent_id: parentId },
+        success: (item) =>
+          @$('textarea[name="title"]').val('')
+          @$('textarea[name="description"]').val('')
+          view = new Actions.Views.Items.EditView({ model: item, template: @options.template, subitemsCount: 0 })
+          $(@el).before(view.render().el)
+          @destroy(e) if e.keyCode != 13
+      )
 
   destroy: (e) ->
-    if @$('textarea').val() == ''
+    if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
       $(@el).unbind()
       @focus_prev() if e.keyCode == 8
       @remove()
       return false
+
+  highlight: ->
+    $('.selected textarea[name="description"]').each (i, item)->
+      $(item).parent().hide() if $(item).val() == ''
+    $('.selected').removeClass('selected')
+    $(@el).addClass('selected')
+    @$('.description').show()
 
   render: ->
     $(@el).html(@template())

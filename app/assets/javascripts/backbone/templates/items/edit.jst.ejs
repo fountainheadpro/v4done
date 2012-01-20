@@ -1,1 +1,7 @@
-<a href="#/<%= template_id %>/items/<%= _id %>/items" class="label"><%= subitemsCount %> items</a><div class="title"><textarea name="title" rows="1"><%= title %></textarea></div>
+<a href="#/<%= template_id %>/items/<%= _id %>/items" class="label"><%= subitemsCount %> items</a>
+<div class="title">
+  <textarea name="title" rows="1"><%= title %></textarea>
+</div>
+<div class="description" style="display: <%= description == '' ? 'none':'block' %>">
+  <textarea name="description" rows="2"><%= description %></textarea>
+</div>
