@@ -37,8 +37,8 @@ describe "Actions.Views.Items.IndexView", ->
 
     it "create a item view for each item", ->
       expect(@editViewStub).toHaveBeenCalledTwice()
-      expect(@editViewStub).toHaveBeenCalledWith({ model: @item1, template_id: 1, subitemsCount: 0 })
-      expect(@editViewStub).toHaveBeenCalledWith({ model: @item2, template_id: 1, subitemsCount: 0 })
+      expect(@editViewStub).toHaveBeenCalledWith({ model: @item1, template: @template, subitemsCount: 0 })
+      expect(@editViewStub).toHaveBeenCalledWith({ model: @item2, template: @template, subitemsCount: 0 })
 
     it "prepends the item to the item list", ->
       expect($(@view.el).children().length).toEqual(2)
