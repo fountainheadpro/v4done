@@ -3,7 +3,6 @@ HOST_OS = RbConfig::CONFIG['host_os']
 source 'http://rubygems.org'
 gem 'rails', '3.1.1'
 gem 'therubyracer', '>= 0.9.8'
-gem 'rails-footnotes', '>= 3.7.5.rc4'
 gem "bson_ext"
 gem "mongoid"
 gem 'mongoid-tree', :require => 'mongoid/tree'
