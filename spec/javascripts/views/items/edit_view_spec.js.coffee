@@ -1,7 +1,8 @@
 describe "Actions.Views.Items.EditView", ->
   beforeEach ->
     @model = new Backbone.Model({ _id: 1, title: 'foo' })
-    @view = new Actions.Views.Items.EditView(model: @model)
+    @template = new Backbone.Model({ _id: 1, title: 'bar' })
+    @view = new Actions.Views.Items.EditView(model: @model, template: @template)
 
   describe "Instantiation", ->
     it "creates a list item element", ->
@@ -19,4 +20,4 @@ describe "Actions.Views.Items.EditView", ->
         $("#templates").html(@view.render().el)
 
       it "has the correct title text", ->
-        expect($(@view.el).find('.title')).toHaveText('foo')
+        expect($(@view.el).find('textarea[name="title"]').val()).toEqual('foo')

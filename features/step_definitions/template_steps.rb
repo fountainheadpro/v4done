@@ -38,9 +38,9 @@ end
 When /^I create new item in this template$/ do
   visit_template(@template)
   @title = "Footnotes"
-  within("#new-item") do
+  within(".new_item") do
     fill_in "title", with: @title
-    keypress("#new-item textarea", :enter)
+    keydown(".new_item textarea:first", :enter)
   end
 end
 

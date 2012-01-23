@@ -178,8 +178,6 @@ GEM
       coffee-script (~> 2.2.0)
       ejs (~> 1.0.0)
       rails (~> 3.1.0)
-    rails-footnotes (3.7.5)
-      rails (>= 3.0.0)
     railties (3.1.1)
       actionpack (= 3.1.1)
       activesupport (= 3.1.1)
@@ -275,7 +273,6 @@ DEPENDENCIES
   mongoid-tree
   rails (= 3.1.1)
   rails-backbone
-  rails-footnotes (>= 3.7.5.rc4)
   rb-fsevent
   rspec-rails (>= 2.7.0)
   sass-rails (~> 3.1.4)
