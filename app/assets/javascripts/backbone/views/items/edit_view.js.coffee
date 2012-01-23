@@ -1,4 +1,5 @@
 //= require backbone/mixins/movable
+//= require backbone/mixins/carer_position
 Actions.Views.Items ||= {}
 
 class Actions.Views.Items.EditView extends Backbone.View
@@ -15,10 +16,15 @@ class Actions.Views.Items.EditView extends Backbone.View
     "focusin textarea": "highlight"
 
   keymap: (e) ->
-    switch e.keyCode
-      when 38, 40 then @move(e)
-      when 8 then @destroy(e)
-      when 13 then @update(e)
+    if e.target.name == 'title'
+      switch e.which
+        when 38, 40 then @move(e)
+        when 8 then @destroy(e)
+        when 13 then @update(e)
+    else if e.target.name == 'description'
+      switch e.which
+        when 38 then @move(e) if Actions.Mixins.CarerPosition.atFirstLine(e.target)
+        when 40 then @move(e) if Actions.Mixins.CarerPosition.atLastLine(e.target)
 
   update: (e) ->
     e.preventDefault()
