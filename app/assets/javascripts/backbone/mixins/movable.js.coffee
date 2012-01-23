@@ -1,11 +1,11 @@
 Actions.Mixins.Movable ||= {}
 Actions.Mixins.Movable =
   move: (e) ->
-    if e.keyCode == 40 || e.keyCode == 38
+    if e.which in [38, 40]
       e.preventDefault()
       e.stopPropagation()
-      @focus_next(e.target) if e.keyCode == 40
-      @focus_prev(e.target) if e.keyCode == 38
+      @focus_next(e.target, e) if e.which == 40
+      @focus_prev(e.target, e) if e.which == 38
 
   focus_next: (current_element) ->
     if current_element? && current_element.name == 'title'
