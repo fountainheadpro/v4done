@@ -6,6 +6,6 @@ Feature: Create Item
     @template @javascript
     Scenario: I create new item
       Given I am logged in
-        And I have template with few items
+        And I have the template with items and subitems
       When I create new item in this template
       Then I should see this item

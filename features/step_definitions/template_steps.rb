@@ -11,9 +11,16 @@ Given /^he have few templates too$/ do
   create_templates(@another_user)
 end
 
-Given /^I have template with few items$/ do
+Given /^I have the template with items and subitems$/ do
   @template = current_user.templates.create title: 'Apple Pie'
-  @template.items.create title: 'Ingredients'
+  item = @template.items.create title: 'Ingredients'
+  @template.items.create title: '1 recipe pastry for a 9 inch double crust pie', parent_id: item.id
+  @template.items.create title: '1/2 cup unsalted butter', parent_id: item.id
+  @template.items.create title: '3 tablespoons all-purpose flour', parent_id: item.id
+  @template.items.create title: '1/4 cup water', parent_id: item.id
+  @template.items.create title: '1/2 cup white sugar', parent_id: item.id
+  @template.items.create title: '1/2 cup packed brown sugar', parent_id: item.id
+  @template.items.create title: '8 Granny Smith apples - peeled, cored and sliced', parent_id: item.id
   @template.items.create title: 'Directions'
 end
 
@@ -63,7 +70,7 @@ Then /^I should see this template$/ do
 end
 
 Then /^I should see that items$/ do
-  @template.items.each do |item|
+  @template.items.where(parent_id: nil).each do |item|
     find("#items").should have_content(item.title)
   end
 end
@@ -72,4 +79,8 @@ Then /^I should see this item$/ do
   find("#items").should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
+end
+
+Then /^I should see breadcrumbs: root element without separator$/ do
+  find(".breadcrumb").should have_content("Template")
 end
