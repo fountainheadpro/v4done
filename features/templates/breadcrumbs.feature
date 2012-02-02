@@ -12,7 +12,6 @@ Feature: Breadcrumbs
       When I look at the list of templates
       Then I should see breadcrumbs: root element without separator
 
-    @not-implemented
     Scenario: Breadcrumbs for a template
       When I look at this template
       Then I should see breadcrumbs: root element

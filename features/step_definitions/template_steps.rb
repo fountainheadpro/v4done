@@ -38,7 +38,7 @@ When /^I create new template$/ do
   end
 end
 
-When /^I look at the this template$/ do
+When /^I look at this template$/ do
   visit_template(@template)
 end
 
@@ -79,8 +79,4 @@ Then /^I should see this item$/ do
   find("#items").should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
-end
-
-Then /^I should see breadcrumbs: root element without separator$/ do
-  find(".breadcrumb").should have_content("Template")
 end

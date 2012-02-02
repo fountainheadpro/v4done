@@ -27,7 +27,7 @@ describe "Actions.Views.Breadcrumbs.IndexView", ->
     it "create a Breadcrumb view for all templates and current template", ->
       expect(@breadcrumbViewStub).toHaveBeenCalledTwice()
       expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'Templates', link: '#/index', active: false })
-      expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'foo', link: "#/1/items", active: true })
+      expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: '', link: '', active: true })
 
     it "prepends the template to the template list", ->
       expect($(@view.el).children().length).toEqual(2)
