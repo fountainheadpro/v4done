@@ -42,6 +42,10 @@ When /^I look at this template$/ do
   visit_template(@template)
 end
 
+When /^I look at the item of this template$/ do
+  visit_item(@template.items.where(parent_id: nil).first)
+end
+
 When /^I create new item in this template$/ do
   visit_template(@template)
   @title = "Footnotes"

@@ -16,7 +16,6 @@ Feature: Breadcrumbs
       When I look at this template
       Then I should see breadcrumbs: root element
 
-    @not-implemented
     Scenario: Breadcrumbs for an item
       When I look at the item of this template
       Then I should see breadcrumbs: root element, title of the template
