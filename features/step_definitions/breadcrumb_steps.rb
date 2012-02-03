@@ -1,17 +1,13 @@
 ### THEN ###
-
-Then /^I should see breadcrumbs: root element without separator$/ do
-  find(".breadcrumb").text.should == "Templates"
-end
-
-Then /^I should see breadcrumbs: root element$/ do
-  find(".breadcrumb").text.should == "Templates /"
-end
-
-Then /^I should see breadcrumbs: root element, title of the template$/ do
-  find(".breadcrumb").text.should == "Templates / #{@template.title} /"
-end
-
-Then /^I should see breadcrumbs: root element, title of the template, title of the parent item$/ do
-  find(".breadcrumb").text.should == "Templates / #{@template.title} / #{@parent_item.title} /"
+Then /^I should see breadcrumbs: (.*)$/ do |breadcrumbs|
+  find(".breadcrumb").text.should == case breadcrumbs
+                                     when 'root element without separator'
+                                       "Templates"
+                                     when 'root element'
+                                       "Templates /"
+                                     when 'root element, title of the template'
+                                       "Templates / #{@template.title} /"
+                                     when 'root element, title of the template, title of the parent item'
+                                       "Templates / #{@template.title} / #{@parent_item.title} /"
+                                     end
 end
