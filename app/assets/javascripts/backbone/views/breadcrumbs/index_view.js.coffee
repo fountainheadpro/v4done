@@ -22,7 +22,7 @@ class Actions.Views.Breadcrumbs.IndexView extends Backbone.View
           item
         for item in parent_items.reverse()
           @addOne(item.get('title'), "#/#{@options.template.get('_id')}/items/#{item.get('_id')}/items", false)
-        @addOne(@options.item.get('title'), '', true)
+        @addOne('', '', true)
       else
         @addOne('', '', true)
 

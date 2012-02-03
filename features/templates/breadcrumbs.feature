@@ -20,7 +20,6 @@ Feature: Breadcrumbs
       When I look at the item of this template
       Then I should see breadcrumbs: root element, title of the template
 
-    @not-implemented
     Scenario: Breadcrumbs for a subitem
       When I look at some subitem of this template
       Then I should see breadcrumbs: root element, title of the template, title of the parent item

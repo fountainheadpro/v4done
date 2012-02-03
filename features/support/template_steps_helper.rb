@@ -12,7 +12,11 @@ module TemplateStepsHelpers
   end
 
   def visit_item(item)
-    visit_template(item.template)
+    if !item.parent_id.nil?
+      visit_item(item.parent_item)
+    else
+      visit_template(item.template)
+    end
     page.find(:xpath, "//a[contains(@href, '#{item.id}')]").click
   end
 end

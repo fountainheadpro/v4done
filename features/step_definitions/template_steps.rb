@@ -43,7 +43,14 @@ When /^I look at this template$/ do
 end
 
 When /^I look at the item of this template$/ do
-  visit_item(@template.items.where(parent_id: nil).first)
+  @item = @template.items.where(parent_id: nil).first
+  visit_item(@item)
+end
+
+When /^I look at some subitem of this template$/ do
+  @subitem =  @template.items.excludes(parent_id: nil).first
+  @parent_item = @subitem.parent_item
+  visit_item(@subitem)
 end
 
 When /^I create new item in this template$/ do
