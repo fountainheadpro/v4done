@@ -19,7 +19,6 @@ class Actions.Views.Templates.NewView extends Backbone.View
     e.stopPropagation()
 
     @model.unset("errors")
-    m = @model.toJSON()
     @collection.create(@model.toJSON(),
       success: (template) =>
         @$('#title').val('')
