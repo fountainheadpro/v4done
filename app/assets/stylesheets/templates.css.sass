@@ -1,6 +1,8 @@
 // Place all the styles related to the templates controller here.
 // They will automatically be included in application.css.
 // You can use Sass here: http://sass-lang.com/
+$shadow: inset 0 1px 3px rgba(0,0,0,.1), 0 0 8px rgba(82,168,236,.6)
+
 #items
   padding-left: 20px
   form
@@ -19,10 +21,9 @@
       width: 740px
       background: transparent
       border: 1px solid transparent
-      outline: 0px solid transparent
       padding: 0px 0px 0px 0px
-      box-shadow: none
       resize: none
+      @include box-shadow(none)
     textarea[name="title"]
       font-weight: bold
     .title
@@ -39,6 +40,9 @@
     textarea
       background: white
       border: 1px solid #CCC
+    textarea:focus
+      border-color: rgba(82,168,236,.8)
+      @include box-shadow($shadow)
   .new_item
     textarea
       width: 794px
@@ -59,19 +63,18 @@ a.inner:hover
     clear: both
     textarea
       font-size: 110%
-      width: 794px
+      width: 814px
       background: transparent
       border: 1px solid transparent
-      outline: 0px solid transparent
       padding: 0 2px
-      box-shadow: none
       resize: none
+      @include box-shadow(none)
     textarea:hover
       border: 1px solid #CCC
     textarea[name="title"]
       font-weight: bold
       font-size: 24px
       line-height: 36px
-  .selected
-    textarea
-      border: 1px solid #CCC
+    textarea:focus
+      border-color: rgba(82,168,236,.8)
+      @include box-shadow($shadow)
