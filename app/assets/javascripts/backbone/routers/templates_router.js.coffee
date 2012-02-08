@@ -16,7 +16,7 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     view = new Actions.Views.Templates.IndexView(templates: @templates)
     $("#templates").html(view.render().el)
 
-    @view = new Actions.Views.Templates.NewView(collection: @templates)
+    view = new Actions.Views.Templates.NewView(collection: @templates)
     $("#templates").prepend(view.render().el)
 
   items: (id) ->
