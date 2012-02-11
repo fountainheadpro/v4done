@@ -11,9 +11,16 @@ Given /^he have few templates too$/ do
   create_templates(@another_user)
 end
 
-Given /^I have template with few items$/ do
+Given /^I have the template with items and subitems$/ do
   @template = current_user.templates.create title: 'Apple Pie'
-  @template.items.create title: 'Ingredients'
+  item = @template.items.create title: 'Ingredients'
+  @template.items.create title: '1 recipe pastry for a 9 inch double crust pie', parent_id: item.id
+  @template.items.create title: '1/2 cup unsalted butter', parent_id: item.id
+  @template.items.create title: '3 tablespoons all-purpose flour', parent_id: item.id
+  @template.items.create title: '1/4 cup water', parent_id: item.id
+  @template.items.create title: '1/2 cup white sugar', parent_id: item.id
+  @template.items.create title: '1/2 cup packed brown sugar', parent_id: item.id
+  @template.items.create title: '8 Granny Smith apples - peeled, cored and sliced', parent_id: item.id
   @template.items.create title: 'Directions'
 end
 
@@ -31,8 +38,19 @@ When /^I create new template$/ do
   end
 end
 
-When /^I look at the this template$/ do
+When /^I look at this template$/ do
   visit_template(@template)
+end
+
+When /^I look at the item of this template$/ do
+  @item = @template.items.where(parent_id: nil).first
+  visit_item(@item)
+end
+
+When /^I look at some subitem of this template$/ do
+  @subitem =  @template.items.excludes(parent_id: nil).first
+  @parent_item = @subitem.parent_item
+  visit_item(@subitem)
 end
 
 When /^I create new item in this template$/ do
@@ -63,7 +81,7 @@ Then /^I should see this template$/ do
 end
 
 Then /^I should see that items$/ do
-  @template.items.each do |item|
+  @template.items.where(parent_id: nil).each do |item|
     find("#items").should have_content(item.title)
   end
 end

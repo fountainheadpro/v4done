@@ -9,12 +9,16 @@ Actions.Mixins.Movable =
 
   focus_next: (current_element) ->
     if current_element? && current_element.name == 'title'
-      @$('textarea[name="description"]').focus()
+      next_el = @$('textarea[name="description"]')
+      next_el = $(@el).next().find('textarea[name="title"]:first') if next_el.length == 0
+      next_el.focus()
     else
-      $(@el).next().find('textarea[name="title"]').focus()
+      $(@el).next().find('textarea[name="title"]:first').focus()
 
   focus_prev: (current_element) ->
     if current_element? && current_element.name == 'description'
       @$('textarea[name="title"]').focus()
     else
-      $(@el).prev().find('textarea:visible:last').focus()
+      prev_el = $(@el).prev().find('textarea:visible:last')
+      prev_el = $(@el).parent().prev().find('textarea:visible:last') if prev_el.length == 0
+      prev_el.focus()
