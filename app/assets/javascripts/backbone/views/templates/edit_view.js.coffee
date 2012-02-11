@@ -15,6 +15,17 @@ class Actions.Views.Templates.EditView extends Backbone.View
   keymap: (e) ->
     switch e.which
       when 40 then @move(e)
+      when 13 then @update(e)
+
+  update: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    title = @$("textarea[name='title']").val()
+    if @model.get('title') != title
+      @model.save({ title: title },
+        success: (template) => @model = template
+      )
+    @focus_next() if e.keyCode == 13
 
   highlight: ->
     $('.selected textarea[name="description"]').each (i, item)->

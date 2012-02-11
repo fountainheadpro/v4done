@@ -9,6 +9,7 @@ class Actions.Models.Template extends Backbone.Model
     @items.url = "/templates/#{@get('_id')}/items"
     if @has('items')
       @items.reset(@get('items'))
+      @unset('items')
 
 class Actions.Collections.TemplatesCollection extends Backbone.Collection
   model: Actions.Models.Template
