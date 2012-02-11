@@ -11,6 +11,7 @@ class Actions.Views.Templates.EditView extends Backbone.View
   events:
     "focusin textarea": "highlight"
     "keydown textarea": "keymap"
+    "blur textarea": "update"
 
   keymap: (e) ->
     switch e.which
