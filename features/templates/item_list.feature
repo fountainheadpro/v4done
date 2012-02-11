@@ -8,6 +8,6 @@ Feature: Item lists
 
     @template @item @javascript
     Scenario: View template
-      Given I have template with few items
-      When I look at the this template
+      Given I have the template with items and subitems
+      When I look at this template
       Then I should see that items
