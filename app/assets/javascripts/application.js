@@ -13,4 +13,5 @@
 //= require backbone_datalink
 //= require backbone/actions
 //= require_tree .
-$('#topbar').dropdown();
+//= require bootstrap-dropdown
+$('.dropdown-toggle').dropdown()
