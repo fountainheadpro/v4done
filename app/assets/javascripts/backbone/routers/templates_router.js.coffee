@@ -29,7 +29,7 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     $("#templates").html(view.render().el)
 
     view = new Actions.Views.Templates.EditView(model: template)
-    $("#items").before(view.render().el)
+    $("#templates").prepend(view.render().el)
 
     view = new Actions.Views.Items.NewView(template: template)
     $("#templates #items").append(view.render().el)
@@ -43,6 +43,9 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
 
     view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
     $("#templates").html(view.render().el)
+
+    view = new Actions.Views.Items.EditView({ model: item, template: template })
+    $("#templates").prepend(view.render().el)
 
     view = new Actions.Views.Items.NewView(template: template, parentItem: item)
     $("#templates #items").append(view.render().el)
