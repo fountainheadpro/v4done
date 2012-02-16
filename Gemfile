@@ -23,21 +23,20 @@ end
 group :development do
   gem "guard-bundler", ">= 0.1.3"
   gem "guard-rails", ">= 0.0.3"
-  gem "guard-livereload", ">= 0.3.0"
   gem "guard-rspec", ">= 0.4.3"
   gem "guard-cucumber", ">= 0.6.1"
   gem "guard", ">= 0.6.2"
+  gem 'growl'
 end
 
 group :test do
+  gem "cucumber-rails", ">= 1.1.1", require: false
   gem "database_cleaner", ">= 0.6.7"
   gem "mongoid-rspec", ">= 1.4.4"
-  gem "cucumber-rails", ">= 1.1.1"
   gem "capybara", ">= 1.1.1"
   gem "launchy", ">= 2.0.5"
   gem "guard-jasmine"
   gem 'rb-fsevent'
-  gem 'growl_notify'
 end
 
 group :development, :test do

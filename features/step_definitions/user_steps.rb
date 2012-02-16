@@ -1,6 +1,6 @@
 ### GIVEN ###
 Given /^I am not logged in$/ do
-  visit '/users/sign_out'
+  sign_out
 end
 
 Given /^I am logged in$/ do
@@ -14,12 +14,12 @@ end
 
 Given /^I do not exist as a user$/ do
   User.find(:first, :conditions => { :email => valid_user[:email] }).should be_nil
-  visit '/users/sign_out'
+  sign_out
 end
 
 ### WHEN ###
 When /^I sign out$/ do
-  visit '/users/sign_out'
+  click_link "Logout"
 end
 
 When /^I sign up with valid user data$/ do

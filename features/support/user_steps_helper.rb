@@ -19,6 +19,10 @@ module UserStepsHelpers
     click_button "Sign in"
   end
 
+  def sign_out
+    delete '/users/sign_out'
+  end
+
   def current_user
     @current_user ||= User.first(conditions: { email: valid_user[:email] })
   end
