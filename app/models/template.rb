@@ -8,4 +8,8 @@ class Template
   accepts_nested_attributes_for :items, allow_destroy: true
 
   validates :title, presence: true
+
+  def publications
+    Publication.all(conditions: { "creator_id" => creator_id, "template._id" => id })
+  end
 end
