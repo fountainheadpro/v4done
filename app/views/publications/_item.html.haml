@@ -1,0 +1,8 @@
+%li
+  %strong= item.title
+  - unless item.description.blank?
+    %p= item.description
+  - unless item.child_items.empty?
+    %ul
+      - item.child_items.each do |item|
+        = render "item", item: item
