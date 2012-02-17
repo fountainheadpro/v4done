@@ -1,0 +1,10 @@
+.row
+  .span9
+    %h2= @template.title
+  .span1
+    = form_for [@template, Publication.new] do |f|
+      = f.submit 'Publish', class: 'btn-primary btn-large'
+#publications
+  %ul
+    - @publications.each do |publication|
+      %li= link_to publication.created_at.to_s(:long), publication_path(publication)
