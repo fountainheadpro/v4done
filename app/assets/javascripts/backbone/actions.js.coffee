@@ -11,5 +11,5 @@ window.Actions =
   Views: {}
   Mixins: {}
   init_templates: (templates) ->
-    new Actions.Routers.TemplatesRouter({ templates: templates })
+    Actions.router = new Actions.Routers.TemplatesRouter({ templates: templates })
     Backbone.history.start()

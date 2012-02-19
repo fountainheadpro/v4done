@@ -36,8 +36,7 @@ class Actions.Views.Items.EditView extends Backbone.View
         success: (item) => @model = item
       )
     if e.keyCode == 13
-      console.log(subitemsCount?)
-      if !$(@el).next('.item').hasClass('new_item') && subitemsCount?
+      if !$(@el).next('.item').hasClass('new_item') && @options.subitemsCount?
         parentItem = @options.template.items.byParentId(@model.get('parent_id')) if @model.has('parent_id')
         view = new Actions.Views.Items.NewView(template: @options.template, parentItem: parentItem)
         $(@el).after(view.render().el)

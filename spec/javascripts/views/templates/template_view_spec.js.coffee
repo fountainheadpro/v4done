@@ -16,7 +16,7 @@ describe "Actions.Views.Templates.TemplateView", ->
         $("#templates ul").prepend(@view.render().el)
 
       it "has the correct URL", ->
-        expect($(@view.el).find('h2 > a')).toHaveAttr('href', '#/1/items')
+        expect($(@view.el).find('h2 > a')).toHaveAttr('href', '#1/items')
 
       it "has the correct title text", ->
         expect($(@view.el).find('h2 > a')).toHaveText('foo')
