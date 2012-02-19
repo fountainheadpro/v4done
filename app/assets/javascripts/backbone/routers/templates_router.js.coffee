@@ -34,6 +34,9 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     view = new Actions.Views.Items.NewView(template: template)
     $("#templates #items").append(view.render().el)
 
+    $(".new_item:last textarea[name='title']").focus()
+
+
   subitems: (template_id, id) ->
     template = @templates.get(template_id)
     item = template.items.get(id)
@@ -49,3 +52,5 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
 
     view = new Actions.Views.Items.NewView(template: template, parentItem: item)
     $("#templates #items").append(view.render().el)
+
+    $(".new_item:last textarea[name='title']").focus()
