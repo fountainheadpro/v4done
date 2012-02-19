@@ -4,9 +4,9 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     @templates.reset options.templates
 
   routes:
-    "/index"                        : "index"
-    "/:id/items"                    : "items"
-    "/:template_id/items/:id/items" : "subitems"
+    "index"                        : "index"
+    ":id/items"                    : "items"
+    ":template_id/items/:id/items" : "subitems"
     ".*"                            : "index"
 
   index: ->

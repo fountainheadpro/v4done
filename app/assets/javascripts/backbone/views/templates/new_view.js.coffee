@@ -19,10 +19,12 @@ class Actions.Views.Templates.NewView extends Backbone.View
     e.stopPropagation()
 
     @model.unset("errors")
-    m = @model.toJSON()
-    @collection.create(@model.toJSON(), { wait: true },
+    @collection.create(@model.toJSON(),
+      wait: true,
       success: (template) =>
         @$('#title').val('')
+        template.setItemsUrl()
+        Actions.router.navigate("#{template.id}/items", {trigger: true})
 
       error: (template, jqXHR) =>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})
