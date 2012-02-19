@@ -2,7 +2,8 @@ class Actions.Models.Template extends Backbone.Model
   idAttribute: "_id"
 
   defaults:
-    title: null
+    title: ''
+    description: ''
 
   initialize: ->
     @items = new Actions.Collections.ItemsCollection()
