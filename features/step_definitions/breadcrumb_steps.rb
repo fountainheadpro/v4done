@@ -2,12 +2,12 @@
 Then /^I should see breadcrumbs: (.*)$/ do |breadcrumbs|
   find(".breadcrumb").text.should == case breadcrumbs
                                      when 'root element without separator'
-                                       "Templates"
+                                       "Goals"
                                      when 'root element'
-                                       "Templates /"
+                                       "Goals /"
                                      when 'root element, title of the template'
-                                       "Templates / #{@template.title} /"
+                                       "Goals / #{@template.title} /"
                                      when 'root element, title of the template, title of the parent item'
-                                       "Templates / #{@template.title} / #{@parent_item.title} /"
+                                       "Goals / #{@template.title} / #{@parent_item.title} /"
                                      end
 end
