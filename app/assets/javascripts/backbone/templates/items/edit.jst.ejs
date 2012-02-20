@@ -1,5 +1,5 @@
-<% if (typeof subitemsCount !== "undefined" && subitemsCount !== null) {%>
-  <a href="#<%= template_id %>/items/<%= _id %>/items" class="label"><%= subitemsCount %> items</a>
+<% if (typeof inList !== "undefined" && inList !== null && inList == true) {%>
+  <a href="#<%= template_id %>/items/<%= _id %>/items" class="label">></a>
 <% } %>
 <div class="title">
   <textarea name="title" rows="1" placeholder="Write your action title and hit enter"><%= title %></textarea>

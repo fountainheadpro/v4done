@@ -14,7 +14,7 @@ class Actions.Views.Items.IndexView extends Backbone.View
     @options.items.each(@addOne)
 
   addOne: (item) ->
-    view = new Actions.Views.Items.EditView({ model: item, template: @options.template, subitemsCount: @options.template.items.byParentId(item.get('_id')).length })
+    view = new Actions.Views.Items.EditView({ model: item, template: @options.template, inList: true})
     $(@el).append(view.render().el)
 
   render: ->
