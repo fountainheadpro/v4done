@@ -58,5 +58,5 @@ class Actions.Views.Items.EditView extends Backbone.View
     @$('.description').show()
 
   render: ->
-    $(this.el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id'), subitemsCount: @options.subitemsCount}))
+    $(this.el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id'), inList: @options.inList}))
     return this
