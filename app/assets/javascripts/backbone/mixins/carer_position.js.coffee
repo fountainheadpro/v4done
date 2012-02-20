@@ -20,10 +20,12 @@ Actions.Mixins.CarerPosition =
   atFirstLine: (el) ->
     firstLineLength = $(el).val().split('\n')[0].length
     carerPosition = @get(el)
+    firstLineLength = 125 if firstLineLength > 125
     carerPosition <= firstLineLength
 
   atLastLine: (el) ->
     lines = $(el).val().split('\n')
     lastLineLength = lines[lines.length - 1].length
     carerPosition = @get(el)
+    lastLineLength = lastLineLength % 125 if lastLineLength > 125
     carerPosition >= $(el).val().length - lastLineLength
