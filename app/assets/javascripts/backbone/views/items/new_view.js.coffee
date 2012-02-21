@@ -33,7 +33,7 @@ class Actions.Views.Items.NewView extends Backbone.View
       success: (item) =>
         @$('textarea[name="title"]').val('')
         @$('textarea[name="description"]').val('')
-        view = new Actions.Views.Items.EditView({ model: item, template: @options.template, subitemsCount: 0 })
+        view = new Actions.Views.Items.EditView({ model: item, template: @options.template, inList: true })
         $(@el).before(view.render().el)
         if e.keyCode != 13
           @destroy(e)
