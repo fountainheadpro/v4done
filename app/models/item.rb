@@ -6,6 +6,8 @@ class Item
   field :parent_id, :type => String
 
   embedded_in :template, inverse_of: :items
+  has_one :prev_item
+  has_one :next_item
 
   scope :first_level, where(parent_id: nil)
 
