@@ -19,8 +19,10 @@
             %h1
               = yield :page_header
         .row
-          .span14
+          #main.span10
             - flash.each do |name, msg|
-              = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
+              .alert.fade.in{class: css_class_for_flash(name)}
+                <a class="close" data-dismiss="alert">×</a>
+                = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String)
             = yield
       %footer
