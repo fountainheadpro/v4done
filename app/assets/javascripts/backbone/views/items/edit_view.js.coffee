@@ -46,8 +46,14 @@ class Actions.Views.Items.EditView extends Backbone.View
     if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
       @model.destroy()
       $(@el).unbind()
-      @focus_prev()
-      @remove()
+      if @options.inList? && @options.inList == true
+        @focus_prev()
+        @remove()
+      else
+        if @model.has('parent_id')
+          Actions.router.navigate("#{@options.template.id}/items/#{@model.get('parent_id')}/items", {trigger: true})
+        else
+          Actions.router.navigate("#{@options.template.id}/items", {trigger: true})
       return false
 
   highlight: ->
