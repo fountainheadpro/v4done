@@ -12,6 +12,7 @@ gem 'jquery-rails', '>= 1.0.12'
 gem "rails-backbone"
 gem "ejs"
 gem "haml-rails"
+gem "awesome_print"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
