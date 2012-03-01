@@ -12,16 +12,7 @@ Given /^he have few templates too$/ do
 end
 
 Given /^I have the template with items and subitems$/ do
-  @template = current_user.templates.create title: 'Apple Pie'
-  item = @template.items.create title: 'Ingredients'
-  @template.items.create title: '1 recipe pastry for a 9 inch double crust pie', parent_id: item.id
-  @template.items.create title: '1/2 cup unsalted butter', parent_id: item.id
-  @template.items.create title: '3 tablespoons all-purpose flour', parent_id: item.id
-  @template.items.create title: '1/4 cup water', parent_id: item.id
-  @template.items.create title: '1/2 cup white sugar', parent_id: item.id
-  @template.items.create title: '1/2 cup packed brown sugar', parent_id: item.id
-  @template.items.create title: '8 Granny Smith apples - peeled, cored and sliced', parent_id: item.id
-  @template.items.create title: 'Directions'
+  create_template_with_subitems(current_user)
 end
 
 ### WHEN ###
