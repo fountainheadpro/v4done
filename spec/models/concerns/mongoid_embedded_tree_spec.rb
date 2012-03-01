@@ -93,4 +93,33 @@ describe Mongoid::EmbeddedTree do
       end
     end
   end
+
+  describe "A tree of nodes" do
+    let(:container) { Container.create name: "Container" }
+
+    before do
+      @node1 = container.nodes.create name: "Node 1"
+        @node2 = container.nodes.create name: "Node 2", parent_id: @node1.id
+          @node3 = container.nodes.create name: "Node 3", parent_id: @node2.id
+          @node4 = container.nodes.create name: "Node 4", parent_id: @node2.id
+        @node5 = container.nodes.create name: "Node 5", parent_id: @node1.id
+          @node6 = container.nodes.create name: "Node 5", parent_id: @node5.id
+      @node7 = container.nodes.create name: "Node 7"
+        @node8 = container.nodes.create name: "Node 8", parent_id: @node7.id
+        @node9 = container.nodes.create name: "Node 9", parent_id: @node7.id
+          node10 = container.nodes.create name: "Node 10", parent_id: @node9.id
+    end
+
+    it "should exists" do
+      container.nodes.count.should be(10)
+    end
+
+    context "when destroy a parent node" do
+      it "should also destroy children" do
+        @node2.destroy
+        container.nodes.count.should be(7)
+        container.nodes.where(parent_id: @node2.id).should be_empty
+      end
+    end
+  end
 end
