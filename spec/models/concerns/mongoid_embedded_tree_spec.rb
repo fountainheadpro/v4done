@@ -78,12 +78,19 @@ describe Mongoid::EmbeddedTree do
         node.children.first.should eq(child)
       end
 
+      it "a child should know it's parent" do
+        child.parent.should eq(parent)
+      end
+
+      it "a child should have correct path" do
+        child.parent_ids.should eq([parent.id])
+      end
+
       context "the child" do
         subject { child }
         it_should_behave_like "a leaf node"
         it_should_behave_like "a child node"
       end
-
     end
   end
 end
