@@ -12,10 +12,6 @@ module Mongoid::EmbeddedTree
   end
 
   module InstanceMethods
-    def parent
-      _parent.nodes.find(parent_id) unless parent_id.nil?
-    end
-
     def root?
       parent_id.nil?
     end
@@ -24,9 +20,12 @@ module Mongoid::EmbeddedTree
       children.empty?
     end
 
+    def parent
+      _parent.send(self.class.to_s.underscore.pluralize).find(parent_id) unless parent_id.nil?
+    end
+
     def children
-      _parent.nodes.where(parent_id: id)
-      # [self.class.to_s.underscore.pluralize.to_sym]
+      _parent.send(self.class.to_s.underscore.pluralize).where(parent_id: id)
     end
 
     def update_path
