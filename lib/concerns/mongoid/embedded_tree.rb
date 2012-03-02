@@ -31,6 +31,7 @@ module Mongoid::EmbeddedTree
     end
 
     def update_path
+      self.parent_id = BSON::ObjectId.convert(Item, self.parent_id)
       self.parent_ids = parent.parent_ids + [self.parent_id] unless self.parent_id.nil?
     end
 

@@ -84,6 +84,7 @@ describe Mongoid::EmbeddedTree do
 
       it "a child should have correct path" do
         child.parent_ids.should eq([parent.id])
+        child.parent_id.should be_kind_of(BSON::ObjectId)
       end
 
       context "the child" do
