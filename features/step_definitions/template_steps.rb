@@ -39,8 +39,8 @@ When /^I look at the item of this template$/ do
 end
 
 When /^I look at some subitem of this template$/ do
-  @parent_item = @template.items.first_level.first
-  visit_item(@parent_item.child_items.first)
+  @parent_item = @template.items.roots.first
+  visit_item(@parent_item.children.first)
 end
 
 When /^I create new item in this template$/ do

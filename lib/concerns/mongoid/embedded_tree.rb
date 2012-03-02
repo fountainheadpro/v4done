@@ -3,6 +3,7 @@ module Mongoid::EmbeddedTree
 
   included do
     field :parent_id
+    index :parent_id
     field :parent_ids, :type => Array, :default => []
     index :parent_ids
 

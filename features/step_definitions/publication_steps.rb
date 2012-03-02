@@ -8,10 +8,10 @@ end
 Then /^I should see nested actions of this publication$/ do
   page.should have_content(@publication.template.title)
   within("ul.items") do
-    @publication.template.items.first_level.each do |item|
+    @publication.template.items.roots.each do |item|
       page.should have_content(item.title)
       within("li", text: item.title) do
-        item.child_items.each do |item|
+        item.children.each do |item|
           page.should have_content(item.title)
         end
       end
