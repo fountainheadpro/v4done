@@ -4,7 +4,7 @@ Feature: View a publication
   I want to to be able to view publication
   So I can get knowledge
 
-    @javascript @wip
+    @javascript
     Scenario: View template
       When I look at some publication
       Then I should see nested actions of this publication

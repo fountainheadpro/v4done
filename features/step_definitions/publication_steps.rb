@@ -1,7 +1,6 @@
 ### WHEN ###
 When /^I look at some publication$/ do
-  create_template_with_subitems(Factory.create(:user))
-  @publication = @template.creator.publications.create(template: @template)
+  @publication = Factory.create(:publication)
   visit publication_path(@publication)
 end
 

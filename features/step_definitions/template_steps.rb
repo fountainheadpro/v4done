@@ -1,6 +1,6 @@
 ### GIVEN ###
 Given /^I have few templates$/ do
-  create_templates(current_user)
+  @templates = FactoryGirl.create_list(:template, 3, creator: current_user)
 end
 
 Given /^another user exists$/ do
@@ -8,11 +8,11 @@ Given /^another user exists$/ do
 end
 
 Given /^he have few templates too$/ do
-  create_templates(@another_user)
+  @templates = FactoryGirl.create_list(:template, 3, creator: @another_user)
 end
 
 Given /^I have the template with items and subitems$/ do
-  create_template_with_subitems(current_user)
+  @template = Factory.create(:template_with_subitems, creator: current_user)
 end
 
 ### WHEN ###
@@ -39,9 +39,8 @@ When /^I look at the item of this template$/ do
 end
 
 When /^I look at some subitem of this template$/ do
-  @subitem =  @template.items.excludes(parent_id: nil).first
-  @parent_item = @subitem.parent_item
-  visit_item(@subitem)
+  @parent_item = @template.items.first_level.first
+  visit_item(@parent_item.child_items.first)
 end
 
 When /^I create new item in this template$/ do
