@@ -82,6 +82,19 @@ describe Mongoid::EmbeddedTree do
         child.parent.should eq(parent)
       end
 
+      it "a child can't be the parent for self" do
+        child.parent_id = child.id
+        child.should_not be_valid
+        child.errors[:parent_id].should_not be_nil
+      end
+
+      it "should prevent cycles" do
+        parent.parent_id = child.id
+        parent.should_not be_valid
+        parent.errors[:parent_id].should_not be_nil
+      end
+
+
       it "a child should have correct path" do
         child.parent_ids.should eq([parent.id])
         child.parent_id.should be_kind_of(BSON::ObjectId)

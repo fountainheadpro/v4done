@@ -9,8 +9,10 @@ module Mongoid::EmbeddedTree
 
     scope :roots, where(parent_id: nil)
 
-    set_callback :save, :before, :update_path
+    set_callback :validation, :before, :update_path
     set_callback :destroy, :after, :destroy_children
+
+    validate :position_in_tree
   end
 
   module InstanceMethods
@@ -37,6 +39,11 @@ module Mongoid::EmbeddedTree
 
     def destroy_children
       children.destroy_all
+    end
+
+  private
+    def position_in_tree
+      errors.add(:parent_id, :invalid) if self.parent_ids.include?(self.id)
     end
   end
 end
