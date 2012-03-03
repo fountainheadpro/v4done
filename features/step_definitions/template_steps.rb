@@ -1,6 +1,6 @@
 ### GIVEN ###
 Given /^I have few templates$/ do
-  create_templates(current_user)
+  @templates = FactoryGirl.create_list(:template, 3, creator: current_user)
 end
 
 Given /^another user exists$/ do
@@ -8,20 +8,11 @@ Given /^another user exists$/ do
 end
 
 Given /^he have few templates too$/ do
-  create_templates(@another_user)
+  @templates = FactoryGirl.create_list(:template, 3, creator: @another_user)
 end
 
 Given /^I have the template with items and subitems$/ do
-  @template = current_user.templates.create title: 'Apple Pie'
-  item = @template.items.create title: 'Ingredients'
-  @template.items.create title: '1 recipe pastry for a 9 inch double crust pie', parent_id: item.id
-  @template.items.create title: '1/2 cup unsalted butter', parent_id: item.id
-  @template.items.create title: '3 tablespoons all-purpose flour', parent_id: item.id
-  @template.items.create title: '1/4 cup water', parent_id: item.id
-  @template.items.create title: '1/2 cup white sugar', parent_id: item.id
-  @template.items.create title: '1/2 cup packed brown sugar', parent_id: item.id
-  @template.items.create title: '8 Granny Smith apples - peeled, cored and sliced', parent_id: item.id
-  @template.items.create title: 'Directions'
+  @template = Factory.create(:template_with_subitems, creator: current_user)
 end
 
 ### WHEN ###
@@ -48,9 +39,8 @@ When /^I look at the item of this template$/ do
 end
 
 When /^I look at some subitem of this template$/ do
-  @subitem =  @template.items.excludes(parent_id: nil).first
-  @parent_item = @subitem.parent_item
-  visit_item(@subitem)
+  @parent_item = @template.items.roots.first
+  visit_item(@parent_item.children.first)
 end
 
 When /^I create new item in this template$/ do

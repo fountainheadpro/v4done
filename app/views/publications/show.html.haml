@@ -3,5 +3,5 @@
 #template
   %h2= @publication.template.title
   %ul.items
-    - @publication.template.items.first_level.each do |item|
+    - @publication.template.items.roots.each do |item|
       = render "item", item: item

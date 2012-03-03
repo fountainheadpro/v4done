@@ -2,7 +2,7 @@
   %strong= item.title
   - unless item.description.blank?
     %p= item.description
-  - unless item.child_items.empty?
+  - unless item.leaf?
     %ul
-      - item.child_items.each do |item|
+      - item.children.each do |item|
         = render "item", item: item
