@@ -6,6 +6,9 @@ class Actions.Models.Item extends Backbone.Model
     description: null
     parent_id: null
 
+  isRoot: ->
+    !@has('parent_id')
+
 class Actions.Collections.ItemsCollection extends Backbone.Collection
   model: Actions.Models.Item
   url: '/items'

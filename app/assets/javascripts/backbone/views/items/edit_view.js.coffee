@@ -1,5 +1,3 @@
-//= require backbone/mixins/movable
-//= require backbone/mixins/carer_position
 Actions.Views.Items ||= {}
 
 class Actions.Views.Items.EditView extends Backbone.View
@@ -9,6 +7,8 @@ class Actions.Views.Items.EditView extends Backbone.View
   move: Actions.Mixins.Movable['move']
   focus_next: Actions.Mixins.Movable['focus_next']
   focus_prev: Actions.Mixins.Movable['focus_prev']
+  goToParentItem: Actions.Mixins.GoTo['parentItem']
+  goToItemDetails: Actions.Mixins.GoTo['itemDetails']
 
   events:
     "keydown textarea": "keymap"
@@ -16,7 +16,15 @@ class Actions.Views.Items.EditView extends Backbone.View
     "focusin textarea": "highlight"
 
   keymap: (e) ->
-    if e.target.name == 'title'
+    if e.ctrlKey
+      switch e.which
+        when 38
+          if @options.inList? && @options.inList
+            @goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
+          else
+            @goToParentItem(@options.template, @model)
+        when 40 then @goToItemDetails(@options.template, @model)
+    else if e.target.name == 'title'
       switch e.which
         when 38, 40 then @move(e)
         when 8 then @destroy(e)
@@ -50,10 +58,7 @@ class Actions.Views.Items.EditView extends Backbone.View
         @focus_prev()
         @remove()
       else
-        if @model.has('parent_id')
-          Actions.router.navigate("#{@options.template.id}/items/#{@model.get('parent_id')}/items", {trigger: true})
-        else
-          Actions.router.navigate("#{@options.template.id}/items", {trigger: true})
+        @goToParentItem(@options.template, @model)
       return false
 
   highlight: ->
