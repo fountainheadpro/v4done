@@ -19,7 +19,7 @@ class Actions.Views.Items.EditView extends Backbone.View
     if e.shiftKey
       switch e.which
         when 38 then @goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
-        when 40 then @goToItemDetails(@options.template, @model)
+        when 13,40 then @goToItemDetails(@options.template, @model)
     else if e.target.name == 'title'
       switch e.which
         when 38, 40 then @move(e)

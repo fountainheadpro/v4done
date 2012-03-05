@@ -3,6 +3,8 @@ class Item
   include Mongoid::Timestamps
   include Mongoid::EmbeddedTree
 
+  validates_presence_of :title
+
   field :title, :type => String
   field :description, :type => String
 
