@@ -16,3 +16,20 @@ describe "Item collection", ->
       expect(items.byParentId(3).length).toEqual(1)
       expect(items.byParentId(3).at(0)).toEqual(@item4)
       expect(items.byParentId(4).length).toEqual(0)
+
+
+describe "An Item", ->
+  beforeEach ->
+    @item = new Actions.Models.Item({ _id: 1, title: 'foo'})
+
+  it "should be a root", ->
+    expect(@item.isRoot()).toBeTruthy()
+
+  describe "when adding a child", ->
+    beforeEach ->
+      @child = new Actions.Models.Item({ _id: 2, title: 'bar', parent_id: @item.id})
+
+    describe "the child", ->
+      it "should not be the root", ->
+        expect(@child.isRoot()).toBeFalsy()
+

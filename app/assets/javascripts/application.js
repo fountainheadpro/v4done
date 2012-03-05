@@ -4,7 +4,6 @@
 //= require backbone
 //= require backbone_rails_sync
 //= require backbone_datalink
-//= require backbone/actions
 //= require_tree .
 //= require bootstrap-dropdown
 //= require bootstrap-alert
