@@ -1,4 +1,3 @@
-//= require backbone/mixins/movable
 Actions.Views.Items||= {}
 
 class Actions.Views.Items.NewView extends Backbone.View
@@ -8,6 +7,7 @@ class Actions.Views.Items.NewView extends Backbone.View
   move: Actions.Mixins.Movable['move']
   focus_next: Actions.Mixins.Movable['focus_next']
   focus_prev: Actions.Mixins.Movable['focus_prev']
+  goToParentItem: Actions.Mixins.GoTo['parentItem']
 
   events:
     "keydown textarea": "keymap"
@@ -17,10 +17,14 @@ class Actions.Views.Items.NewView extends Backbone.View
     super(options)
 
   keymap: (e) ->
-    switch e.keyCode
-      when 38, 40 then @move(e)
-      when 8 then @destroy(e)
-      when 13 then @save(e)
+    if e.ctrlKey
+      switch e.which
+        when 38 then @goToParentItem(@options.template, @options.parentItem)
+    else
+      switch e.keyCode
+        when 38, 40 then @move(e)
+        when 8 then @destroy(e)
+        when 13 then @save(e)
 
   save: (e) ->
     e.preventDefault()
@@ -33,7 +37,7 @@ class Actions.Views.Items.NewView extends Backbone.View
       success: (item) =>
         @$('textarea[name="title"]').val('')
         @$('textarea[name="description"]').val('')
-        view = new Actions.Views.Items.EditView({ model: item, template: @options.template, inList: true })
+        view = new Actions.Views.Items.EditView({ model: item, template: @options.template})
         $(@el).before(view.render().el)
         if e.keyCode != 13
           @destroy(e)
