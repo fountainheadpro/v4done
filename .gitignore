@@ -48,6 +48,7 @@ tmp/*
 /spec/views
 /specifications
 /.idea
+local/
 
 # scm revert files
 **.orig

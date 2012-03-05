@@ -14,7 +14,7 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
     "blur textarea": "update"
 
   keymap: (e) ->
-    if e.ctrlKey
+    if e.shiftKey
       switch e.which
         when 38 then @goToParentItem(@options.template, @model)
         when 40 then @goToItemDetails(@options.template, @model)

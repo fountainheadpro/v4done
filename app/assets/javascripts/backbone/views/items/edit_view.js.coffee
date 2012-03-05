@@ -16,7 +16,7 @@ class Actions.Views.Items.EditView extends Backbone.View
     "focusin textarea": "highlight"
 
   keymap: (e) ->
-    if e.ctrlKey
+    if e.shiftKey
       switch e.which
         when 38 then @goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
         when 40 then @goToItemDetails(@options.template, @model)

@@ -8,6 +8,8 @@ class Actions.Views.Items.NewView extends Backbone.View
   focus_next: Actions.Mixins.Movable['focus_next']
   focus_prev: Actions.Mixins.Movable['focus_prev']
   goToParentItem: Actions.Mixins.GoTo['parentItem']
+  goToItemDetails: Actions.Mixins.GoTo['itemDetails']
+
 
   events:
     "keydown textarea": "keymap"
@@ -17,7 +19,7 @@ class Actions.Views.Items.NewView extends Backbone.View
     super(options)
 
   keymap: (e) ->
-    if e.ctrlKey
+    if e.shiftKey
       switch e.which
         when 38 then @goToParentItem(@options.template, @options.parentItem)
     else
