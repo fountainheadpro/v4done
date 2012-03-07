@@ -55,12 +55,6 @@ describe Mongoid::EmbeddedTree::Ordering do
         node.next.should eq(new_node)
       end
 
-      it "should prevent cycles" do
-        node.next_id = node.id
-        node.should_not be_valid
-        node.errors[:next_id].should_not be_nil
-      end
-
       context "new node" do
         subject { new_node }
 
@@ -73,9 +67,48 @@ describe Mongoid::EmbeddedTree::Ordering do
         end
 
         it "should prevent cycles" do
-          new_node.next_id = new_node.id
+          new_node.update_attributes previous_id: new_node.id
+          new_node.should_not be_valid
+          new_node.errors[:previous_id].should_not be_nil
+          new_node.reload
+          new_node.previous_id.should_not == new_node.id
+        end
+      end
+    end
+
+    context "when adding new node before this one" do
+      let(:new_node) { Node.new(name: "New Node", next_id: node.id)}
+
+      before(:each) do
+        container.nodes << new_node
+        new_node.reload
+      end
+
+      it_should_behave_like "a last node"
+      it_should_behave_like "a next node"
+
+      it "should be able to access new node as previous item" do
+        node.reload
+        node.previous.should eq(new_node)
+      end
+
+      context "new node" do
+        subject { new_node }
+
+        it_should_behave_like "a first node"
+        it_should_behave_like "a previous node"
+
+        it "should be able to access the existing node as next item" do
+          new_node.reload
+          new_node.next.should eq(node)
+        end
+
+        it "should prevent cycles" do
+          new_node.update_attributes next_id: new_node.id
           new_node.should_not be_valid
           new_node.errors[:next_id].should_not be_nil
+          new_node.reload
+          new_node.next_id.should_not == new_node.id
         end
       end
     end

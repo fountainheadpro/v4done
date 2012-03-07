@@ -7,7 +7,7 @@ module Mongoid::EmbeddedTree::Ordering
     field :next_id
     index :next_id
 
-    set_callback :validation, :before, :update_links
+    set_callback :save, :after, :update_links
 
     validate :position_in_list
   end
@@ -29,13 +29,16 @@ module Mongoid::EmbeddedTree::Ordering
       _parent.send(self.class.to_s.underscore.pluralize).find(next_id) unless next_id.nil?
     end
 
+  private
     def update_links
-      if previous_id_changed?
-        previous.update_attribute :next_id, self.id
+      if previous_id_changed? && self.previous.next_id != self.id
+        self.previous.update_attribute :next_id, self.id
+      end
+      if next_id_changed? && self.next.previous_id != self.id
+        self.next.update_attribute :previous_id, self.id
       end
     end
 
-  private
     def position_in_list
       errors.add(:next_id, :invalid) if self.next_id == self.id
       errors.add(:previous_id, :invalid) if self.previous_id == self.id
