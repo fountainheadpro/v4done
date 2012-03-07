@@ -8,6 +8,7 @@ module Mongoid::EmbeddedTree::Ordering
     index :next_id
 
     set_callback :save, :after, :update_links
+    set_callback :destroy, :after, :update_links
 
     validate :position_in_list
   end
@@ -31,11 +32,19 @@ module Mongoid::EmbeddedTree::Ordering
 
   private
     def update_links
-      if previous_id_changed? && self.previous.next_id != self.id
-        self.previous.update_attribute :next_id, self.id
-      end
-      if next_id_changed? && self.next.previous_id != self.id
-        self.next.update_attribute :previous_id, self.id
+      if changed?
+        if previous_id_changed? && !first? && self.previous.next_id != self.id
+          self.previous.update_attributes next_id: self.id
+        end
+        if next_id_changed? && !last? && self.next.previous_id != self.id
+          self.next.update_attributes previous_id: self.id
+        end
+      elsif destroyed?
+        if !first?
+          self.previous.update_attributes next_id: self.next_id
+        elsif !last?
+          self.next.update_attributes previous_id: self.previous_id
+        end
       end
     end
 
