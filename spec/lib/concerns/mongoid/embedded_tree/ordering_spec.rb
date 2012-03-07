@@ -165,14 +165,22 @@ describe Mongoid::EmbeddedTree::Ordering do
       before(:each) do
         @node1.destroy
       end
-      it { @node2.previous_id.should be_nil }
+
+      context "the second node" do
+        subject { @node2 }
+        it_should_behave_like "a first node"
+      end
     end
 
     context "when destroying last node," do
       before(:each) do
         @node3.destroy
       end
-      it { @node2.next_id.should be_nil }
+
+      context "the previous node" do
+        subject { @node2 }
+        it_should_behave_like "a last node"
+      end
     end
   end
 end

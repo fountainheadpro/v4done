@@ -35,8 +35,10 @@ class Actions.Views.Items.EditView extends Backbone.View
     e.stopPropagation()
     title = @$("textarea[name='title']").val()
     description = @$("textarea[name='description']").val()
-    if @model.get('title') != title || @model.get('description') != description
-      @model.save({ title: title, description: description },
+    nextId = $(@el).next().data('id')
+    previousId = $(@el).prev().data('id')
+    if @model.get('title') != title || @model.get('description') != description || @model.get('next_id') != nextId || @model.get('previous_id') != previousId
+      @model.save({ title: title, description: description, next_id: nextId, previous_id: previousId},
         success: (item) => @model = item
       )
     if e.which == 13
@@ -61,6 +63,10 @@ class Actions.Views.Items.EditView extends Backbone.View
     $(@el).addClass('selected')
     @$('.description').show()
 
+  attributes: ->
+    { 'data-id': @model.id }
+
   render: ->
-    $(this.el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    $(@el).data('id', @model.id)
     return this

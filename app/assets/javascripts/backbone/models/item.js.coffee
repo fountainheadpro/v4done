@@ -6,6 +6,7 @@ class Actions.Models.Item extends Backbone.Model
     description: null
     parent_id: null
     previous_id: null
+    next_id: null
 
   isRoot: ->
     !@has('parent_id')

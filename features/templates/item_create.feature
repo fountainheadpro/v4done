@@ -13,7 +13,6 @@ Feature: Create Item
       When I create new item in this template
       Then I should see this item
 
-    @wip
     Scenario: Create new item with some positin
       When I create new item after first one
         And refresh page
