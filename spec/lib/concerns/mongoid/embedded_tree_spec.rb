@@ -94,7 +94,6 @@ describe Mongoid::EmbeddedTree do
         parent.errors[:parent_id].should_not be_nil
       end
 
-
       it "a child should have correct path" do
         child.parent_ids.should eq([parent.id])
         child.parent_id.should be_kind_of(BSON::ObjectId)
