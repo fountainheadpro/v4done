@@ -113,4 +113,41 @@ describe Mongoid::EmbeddedTree::Ordering do
       end
     end
   end
+
+  describe "A list of nodes" do
+    let(:container) { Container.create name: "Container" }
+
+    before(:each) do
+      @node1 = container.nodes.create name: "Node 1"
+      @node2 = container.nodes.create name: "Node 2", previous_id: @node1.id
+      @node3 = container.nodes.create name: "Node 3", previous_id: @node2.id
+    end
+
+    context "when adding new node between existing," do
+      before(:each) do
+        @new_node = container.nodes.create name: "Nodes 4", previous_id: @node1.id, next_id: @node2.id
+      end
+
+      it "first existing node should be able to access new node as next item" do
+        @node1.next.should eq(@new_node)
+      end
+
+      it "second existing node should be able to access new node as previous item" do
+        @node2.previous.should eq(@new_node)
+      end
+
+      context "new node" do
+        it "should be able to access first existing node as previous item" do
+          @new_node.previous.should eq(@node1)
+        end
+
+        it "should be able to access second existing node as next item" do
+          @new_node.next.should eq(@node2)
+        end
+      end
+    end
+
+    context "when destroy some node" do
+    end
+  end
 end
