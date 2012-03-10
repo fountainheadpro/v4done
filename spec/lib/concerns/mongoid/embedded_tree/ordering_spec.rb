@@ -8,13 +8,11 @@ describe Mongoid::EmbeddedTree::Ordering do
   end
 
   shared_examples_for "a last node" do
-    its (:next_id) { should be_nil }
     its (:next) { should be_nil }
     it { should be_a_last }
   end
 
   shared_examples_for "a previous node" do
-    its (:next_id) { should_not be_nil }
     its (:next) { should_not be_nil }
     it { should_not be_a_last }
   end
@@ -39,7 +37,17 @@ describe Mongoid::EmbeddedTree::Ordering do
     it_should_behave_like "a first node"
     it_should_behave_like "a last node"
 
-    context "when adding new node after this one" do
+    context "when adding new node" do
+      it "should prevent cycles" do
+        node.update_attributes previous_id: node.id
+        node.should_not be_valid
+        node.errors[:previous_id].should_not be_nil
+        node.reload
+        node.previous_id.should_not == node.id
+      end
+    end
+
+    context "when adding new node after this one," do
       let(:new_node) { Node.new(name: "New Node", previous_id: node.id)}
 
       before(:each) do
@@ -65,19 +73,11 @@ describe Mongoid::EmbeddedTree::Ordering do
           new_node.reload
           new_node.previous.should eq(node)
         end
-
-        it "should prevent cycles" do
-          new_node.update_attributes previous_id: new_node.id
-          new_node.should_not be_valid
-          new_node.errors[:previous_id].should_not be_nil
-          new_node.reload
-          new_node.previous_id.should_not == new_node.id
-        end
       end
     end
 
-    context "when adding new node before this one" do
-      let(:new_node) { Node.new(name: "New Node", next_id: node.id)}
+    context "when adding new node before this one," do
+      let(:new_node) { Node.new(name: "New Node", previous_id: nil)}
 
       before(:each) do
         container.nodes << new_node
@@ -101,14 +101,6 @@ describe Mongoid::EmbeddedTree::Ordering do
         it "should be able to access the existing node as next item" do
           new_node.reload
           new_node.next.should eq(node)
-        end
-
-        it "should prevent cycles" do
-          new_node.update_attributes next_id: new_node.id
-          new_node.should_not be_valid
-          new_node.errors[:next_id].should_not be_nil
-          new_node.reload
-          new_node.next_id.should_not == new_node.id
         end
       end
     end
