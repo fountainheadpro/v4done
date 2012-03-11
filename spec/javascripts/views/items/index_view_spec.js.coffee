@@ -23,10 +23,17 @@ describe "Actions.Views.Items.IndexView", ->
         return this
       @itemRenderSpy = sinon.spy(@editView, "render");
       @editViewStub = sinon.stub(Actions.Views.Items, "EditView").returns(@editView)
-      @item1 = new Backbone.Model({ _id: 1, title: 'foo' })
-      @item2 = new Backbone.Model({ _id: 2, title: 'bar' })
+      @item1 = new Backbone.Model({ _id: 1, title: 'foo', previous_id: null })
+      @item2 = new Backbone.Model({ _id: 2, title: 'bar', previous_id: 1 })
       @items = new Backbone.Collection([@item1, @item2])
       @items.byParentId = -> return new Backbone.Collection(0)
+      @items.byPreviousId = (previousId) =>
+        console.log('previousId: ' + previousId)
+        if previousId == null
+          return new Backbone.Collection([@item1])
+        else
+          return new Backbone.Collection([@item2])
+
       @template.items = @items
       @view.options.items = @items
       @view.options.template = @template
