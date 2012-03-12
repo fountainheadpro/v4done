@@ -55,7 +55,7 @@ describe Mongoid::EmbeddedTree do
 
     context "when adding a child" do
       let(:parent) { node }
-      let(:child) { Node.new(name: "A Child", parent_id: parent.id)}
+      let(:child) { Node.new(name: "A Child", parent_id: parent.id.to_s)}
 
       before(:each) do
         container.nodes << child

@@ -2,7 +2,7 @@ module Mongoid::EmbeddedTree::Ordering
   extend ActiveSupport::Concern
 
   included do
-    field :previous_id
+    field :previous_id, type: BSON::ObjectId
     index :previous_id
 
     set_callback :save, :after, :update_links

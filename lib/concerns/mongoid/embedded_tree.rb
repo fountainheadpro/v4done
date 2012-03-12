@@ -2,9 +2,9 @@ module Mongoid::EmbeddedTree
   extend ActiveSupport::Concern
 
   included do
-    field :parent_id
+    field :parent_id, type: BSON::ObjectId
     index :parent_id
-    field :parent_ids, :type => Array, :default => []
+    field :parent_ids, type: Array, default: []
     index :parent_ids
 
     scope :roots, where(parent_id: nil)
@@ -41,7 +41,6 @@ module Mongoid::EmbeddedTree
     end
 
     def update_path
-      self.parent_id = BSON::ObjectId.convert(Item, self.parent_id)
       self.parent_ids = parent.parent_ids + [self.parent_id] unless self.parent_id.nil?
     end
 

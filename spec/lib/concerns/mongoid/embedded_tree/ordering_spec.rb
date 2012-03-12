@@ -48,7 +48,7 @@ describe Mongoid::EmbeddedTree::Ordering do
     end
 
     context "when adding new node after this one," do
-      let(:new_node) { Node.new(name: "New Node", previous_id: node.id)}
+      let(:new_node) { Node.new(name: "New Node", previous_id: node.id.to_s)}
 
       before(:each) do
         container.nodes << new_node
