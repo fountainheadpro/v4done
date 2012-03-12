@@ -28,11 +28,12 @@ describe "Actions.Views.Items.IndexView", ->
       @items = new Backbone.Collection([@item1, @item2])
       @items.byParentId = -> return new Backbone.Collection(0)
       @items.byPreviousId = (previousId) =>
-        console.log('previousId: ' + previousId)
         if previousId == null
           return new Backbone.Collection([@item1])
-        else
+        else if previousId == 1
           return new Backbone.Collection([@item2])
+        else
+          return new Backbone.Collection(0)
 
       @template.items = @items
       @view.options.items = @items

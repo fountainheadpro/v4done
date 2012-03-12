@@ -16,4 +16,5 @@ Feature: Create Item
     Scenario: Create new item with some positin
       When I create new item after first one
         And refresh page
-      Then I should see this item as second
+      Then I should see that items
+        And I should see this new item as second

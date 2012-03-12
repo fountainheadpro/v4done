@@ -12,14 +12,19 @@ class Actions.Views.Items.IndexView extends Backbone.View
 
   addAll: () ->
     rendered = []
+    itemsCount = @options.items.length
     @options.items.byPreviousId(null).each (item) =>
       if !_.include(rendered, item.get('_id'))
         @addOne(item)
         rendered.push(item.get('_id'))
-        @options.items.byPreviousId(item.get('_id')).each (next_item) =>
-          if !_.include(rendered, next_item.get('_id'))
-            @addOne(next_item)
-            rendered.push(next_item.get('_id'))
+        item = @options.items.byPreviousId(item.get('_id')).first()
+        i = 0
+        while item? && i != itemsCount
+          i = i + 1
+          if !_.include(rendered, item.get('_id'))
+            @addOne(item)
+            rendered.push(item.get('_id'))
+          item = @options.items.byPreviousId(item.get('_id')).first()
 
 
   addOne: (item) ->

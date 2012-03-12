@@ -94,7 +94,7 @@ Then /^I should see this item$/ do
   @template.items.where(title: @title).should exist
 end
 
-Then /^I should see this item as second$/ do
+Then /^I should see this new item as second$/ do
   find('#items .item:nth-child(2)').should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
