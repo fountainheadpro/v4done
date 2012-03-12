@@ -104,6 +104,25 @@ describe Mongoid::EmbeddedTree::Ordering do
         end
       end
     end
+
+    context "when adding a child node," do
+      let(:child) { Node.new(name: "A Child", parent_id: node.id)}
+
+      before(:each) do
+        container.nodes << child
+        child.reload
+      end
+
+      it_should_behave_like "a first node"
+      it_should_behave_like "a last node"
+
+      context "the child" do
+        subject { child }
+
+        it_should_behave_like "a first node"
+        it_should_behave_like "a last node"
+      end
+    end
   end
 
   describe "A list of nodes" do

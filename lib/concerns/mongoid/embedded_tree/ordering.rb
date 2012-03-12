@@ -30,8 +30,7 @@ module Mongoid::EmbeddedTree::Ordering
   private
     def update_links
       if first? || previous_id_changed?
-        previous_node = _parent.send(self.class.to_s.underscore.pluralize).where(previous_id: self.previous_id).excludes(id: self.id).first
-        previous_node.try(:update_attributes, { previous_id: self.id })
+        self.siblings.where(previous_id: self.previous_id).first.try(:update_attributes, { previous_id: self.id })
       end
     end
 
