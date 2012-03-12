@@ -25,11 +25,19 @@ module Mongoid::EmbeddedTree
     end
 
     def parent
-      _parent.send(self.class.to_s.underscore.pluralize).find(parent_id) unless parent_id.nil?
+      _parent.send(self.class.to_s.underscore.pluralize).find(self.parent_id) unless parent_id.nil?
     end
 
     def children
-      _parent.send(self.class.to_s.underscore.pluralize).where(parent_id: id)
+      _parent.send(self.class.to_s.underscore.pluralize).where(parent_id: self.id)
+    end
+
+    def siblings
+      siblings_and_self.excludes(id: self.id)
+    end
+
+    def siblings_and_self
+      _parent.send(self.class.to_s.underscore.pluralize).where(parent_id: self.parent_id)
     end
 
     def update_path
