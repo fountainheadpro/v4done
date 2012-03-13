@@ -52,6 +52,18 @@ When /^I create new item in this template$/ do
   end
 end
 
+When /^I create new item after first one$/ do
+  visit_template(@template)
+  @title = "Some text"
+  keydown("#items .item:first textarea:first", :enter)
+  find('#items .new_item').fill_in('title', with: @title)
+  keydown("#items .new_item:first textarea:first", :enter)
+end
+
+When /^refresh page$/ do
+  page.driver.browser.execute_script('location.reload();')
+end
+
 ### THEN ###
 Then /^I should see all my templates$/ do
   @templates.each do |template|
@@ -78,6 +90,12 @@ end
 
 Then /^I should see this item$/ do
   find("#items").should have_content(@title)
+  @template.reload
+  @template.items.where(title: @title).should exist
+end
+
+Then /^I should see this new item as second$/ do
+  find('#items .item:nth-child(2)').should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
 end

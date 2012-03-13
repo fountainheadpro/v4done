@@ -48,9 +48,14 @@ describe Mongoid::EmbeddedTree do
       container.nodes.count.should be(1)
     end
 
+    it "should not have siblings" do
+      node.siblings.should be_empty
+      node.siblings_and_self.should eq([node])
+    end
+
     context "when adding a child" do
       let(:parent) { node }
-      let(:child) { Node.new(name: "A Child", parent_id: parent.id)}
+      let(:child) { Node.new(name: "A Child", parent_id: parent.id.to_s)}
 
       before(:each) do
         container.nodes << child
@@ -94,16 +99,53 @@ describe Mongoid::EmbeddedTree do
         parent.errors[:parent_id].should_not be_nil
       end
 
-
       it "a child should have correct path" do
         child.parent_ids.should eq([parent.id])
         child.parent_id.should be_kind_of(BSON::ObjectId)
+      end
+
+      it "should not have siblings" do
+        node.siblings.should be_empty
+        node.siblings_and_self.should eq([node])
       end
 
       context "the child" do
         subject { child }
         it_should_behave_like "a leaf node"
         it_should_behave_like "a child node"
+
+        it "should not have siblings" do
+          child.siblings.should be_empty
+          child.siblings_and_self.should eq([child])
+        end
+      end
+    end
+
+    context "when adding another node" do
+      let(:other_node) { Node.new(name: "Another Node")}
+
+      before(:each) do
+        container.nodes << other_node
+        other_node.reload
+      end
+
+
+      it_should_behave_like "a root node"
+
+      it "should have siblings" do
+        node.siblings.should eq([other_node])
+        node.siblings_and_self.should eq([node, other_node])
+      end
+
+      context "the other node" do
+        subject { other_node }
+
+        it_should_behave_like "a leaf node"
+
+        it "should have siblings" do
+          other_node.siblings.should eq([node])
+          other_node.siblings_and_self.should eq([node, other_node])
+        end
       end
     end
   end

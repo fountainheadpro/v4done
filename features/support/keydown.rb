@@ -1,6 +1,6 @@
 module Keydown
   def keydown(element, key)
-    keypress_script = "var e = jQuery.Event('keydown', { keyCode: #{keycode(key)} }); $('#{element}').trigger(e);"
+    keypress_script = "var e = jQuery.Event('keydown', { keyCode: #{keycode(key)}, which: #{keycode(key)} }); $('#{element}').trigger(e);"
     page.driver.browser.execute_script(keypress_script)
   end
 

@@ -23,10 +23,20 @@ describe "Actions.Views.Items.IndexView", ->
         return this
       @itemRenderSpy = sinon.spy(@editView, "render");
       @editViewStub = sinon.stub(Actions.Views.Items, "EditView").returns(@editView)
-      @item1 = new Backbone.Model({ _id: 1, title: 'foo' })
-      @item2 = new Backbone.Model({ _id: 2, title: 'bar' })
-      @items = new Backbone.Collection([@item1, @item2])
+      @item1 = new Backbone.Model({ _id: 1, title: 'foo', previous_id: null })
+      @item2 = new Backbone.Model({ _id: 2, title: 'bar', previous_id: 1 })
+      @item3 = new Backbone.Model({ _id: 3, title: 'foo2', previous_id: null }) # it should be rendred
+      @item4 = new Backbone.Model({ _id: 4, title: 'bar2', previous_id: 1 }) # and this too
+      @items = new Backbone.Collection([@item1, @item2, @item3, @item4])
       @items.byParentId = -> return new Backbone.Collection(0)
+      @items.byPreviousId = (previousId) =>
+        if previousId == null
+          return new Backbone.Collection([@item1, @item3])
+        else if previousId == 1
+          return new Backbone.Collection([@item2, @item4])
+        else
+          return new Backbone.Collection(0)
+
       @template.items = @items
       @view.options.items = @items
       @view.options.template = @template
@@ -36,12 +46,14 @@ describe "Actions.Views.Items.IndexView", ->
       Actions.Views.Items.EditView.restore()
 
     it "create a item view for each item", ->
-      expect(@editViewStub).toHaveBeenCalledTwice()
+      expect(@editViewStub.callCount).toEqual(4)
       expect(@editViewStub).toHaveBeenCalledWith({ model: @item1, template: @template })
       expect(@editViewStub).toHaveBeenCalledWith({ model: @item2, template: @template })
+      expect(@editViewStub).toHaveBeenCalledWith({ model: @item3, template: @template })
+      expect(@editViewStub).toHaveBeenCalledWith({ model: @item4, template: @template })
 
     it "prepends the item to the item list", ->
-      expect($(@view.el).children().length).toEqual(2)
+      expect($(@view.el).children().length).toEqual(4)
 
     it "returns the view object", ->
       expect(@view.render()).toEqual(@view)

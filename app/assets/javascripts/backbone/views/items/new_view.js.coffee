@@ -36,7 +36,9 @@ class Actions.Views.Items.NewView extends Backbone.View
     title = @$("textarea[name='title']").val()
     description = @$("textarea[name='description']").val()
     parentId = @options.parentItem.get('_id') if @options.parentItem?
-    @options.template.items.create({ title: title, description: description, parent_id: parentId },
+    nextId = $(@el).next().data('id')
+    previousId = $(@el).prev().data('id')
+    @options.template.items.create({ title: title, description: description, parent_id: parentId, next_id: nextId, previous_id: previousId },
       success: (item) =>
         if details
           @goToItemDetails(@options.template, item)

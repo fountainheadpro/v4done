@@ -2,6 +2,7 @@ class Item
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::EmbeddedTree
+  include Mongoid::EmbeddedTree::Ordering
 
   validates_presence_of :title
 

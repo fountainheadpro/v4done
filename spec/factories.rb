@@ -18,10 +18,12 @@ FactoryGirl.define do
       end
 
       after_create do |template, evaluator|
+        item = nil
         evaluator.items_count.times do |i|
-          item = template.items.create title: "Item #{i}"
+          item = template.items.create title: "Item #{i}", previous_id: item.try(:id)
+          subitem = nil
           evaluator.subitems_count.times do |j|
-            template.items.create title: "Subitem #{j}", parent_id: item.id
+            subitem = template.items.create title: "Subitem #{j}", parent_id: item.id, previous_id: subitem.try(:id)
           end
         end
       end
