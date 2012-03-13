@@ -158,7 +158,40 @@ describe Mongoid::EmbeddedTree::Ordering do
       end
     end
 
-    context "when destroy some node" do
+    context "when destroying some node from the midle of the list," do
+      before(:each) do
+        @node2.destroy
+      end
+
+      it "the previous of destroyed should be able to access the next of destroyed as next item" do
+        @node1.next.should eq(@node3)
+      end
+
+      it "the ndext of destroyed should be able to access the previous of destroyed as previous item" do
+        @node3.previous.should eq(@node1)
+      end
+    end
+
+    context "when destroying first node," do
+      before(:each) do
+        @node1.destroy
+      end
+
+      context "the second node" do
+        subject { @node2 }
+        it_should_behave_like "a first node"
+      end
+    end
+
+    context "when destroying last node," do
+      before(:each) do
+        @node3.destroy
+      end
+
+      context "the previous node" do
+        subject { @node2 }
+        it_should_behave_like "a last node"
+      end
     end
   end
 end
