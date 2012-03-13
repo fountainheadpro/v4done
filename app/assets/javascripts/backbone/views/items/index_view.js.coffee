@@ -25,6 +25,11 @@ class Actions.Views.Items.IndexView extends Backbone.View
             @addOne(item)
             rendered.push(item.get('_id'))
           item = @options.items.byPreviousId(item.get('_id')).first()
+    if itemsCount != rendered.length
+      @options.items.each (item) =>
+        if !_.include(rendered, item.get('_id'))
+          @addOne(item)
+          rendered.push(item.get('_id'))
 
 
   addOne: (item) ->
