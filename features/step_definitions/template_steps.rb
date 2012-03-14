@@ -34,7 +34,7 @@ When /^I look at this template$/ do
 end
 
 When /^I look at the item of this template$/ do
-  @item = @template.items.where(parent_id: nil).first
+  @item = @template.items.roots.first
   visit_item(@item)
 end
 
@@ -46,18 +46,27 @@ end
 When /^I create new item in this template$/ do
   visit_template(@template)
   @title = "Footnotes"
-  within(".new_item") do
-    fill_in "title", with: @title
-    keydown(".new_item textarea:first", :enter)
-  end
+  create_item(@title)
 end
 
 When /^I create new item after first one$/ do
   visit_template(@template)
   @title = "Some text"
-  keydown("#items .item:first textarea:first", :enter)
-  find('#items .new_item').fill_in('title', with: @title)
-  keydown("#items .new_item:first textarea:first", :enter)
+  create_item(@title, after: 1)
+end
+
+When /^I create new subitem for some item in this template$/ do
+  @item = @template.items.roots.first
+  visit_item(@item)
+  @title = "New subitem"
+  create_item(@title)
+end
+
+When /^I create new subitem after first one for some item in this template$/ do
+  @item = @template.items.roots.first
+  visit_item(@item)
+  @title = "New second subitem"
+  create_item(@title, after: 1)
 end
 
 When /^refresh page$/ do
@@ -83,18 +92,24 @@ Then /^I should see this template$/ do
 end
 
 Then /^I should see that items$/ do
-  @template.items.where(parent_id: nil).each do |item|
+  @template.items.roots.each do |item|
     find("#items").should have_content(item.title)
   end
 end
 
-Then /^I should see this item$/ do
+Then /^I should see that subitems$/ do
+  @item.children.each do |item|
+    find("#items").should have_content(item.title)
+  end
+end
+
+Then /^I should see this (?:|sub)item$/ do
   find("#items").should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
 end
 
-Then /^I should see this new item as second$/ do
+Then /^I should see this new (?:|sub)item as second$/ do
   find('#items .item:nth-child(2)').should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
