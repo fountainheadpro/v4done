@@ -60,6 +60,25 @@ When /^I create new item after first one$/ do
   keydown("#items .new_item:first textarea:first", :enter)
 end
 
+When /^I create new subitem for some item in this template$/ do
+  @item = @template.items.roots.first
+  visit_item(@item)
+  @title = "New subitem"
+  within(".new_item") do
+    fill_in "title", with: @title
+    keydown(".new_item textarea:first", :enter)
+  end
+end
+
+When /^I create new subitem after first one for some item in this template$/ do
+  @item = @template.items.roots.first
+  visit_item(@item)
+  @title = "New second subitem"
+  keydown("#items .item:first textarea:first", :enter)
+  find('#items .new_item').fill_in('title', with: @title)
+  keydown("#items .new_item:first textarea:first", :enter)
+end
+
 When /^refresh page$/ do
   page.driver.browser.execute_script('location.reload();')
 end
@@ -88,13 +107,19 @@ Then /^I should see that items$/ do
   end
 end
 
-Then /^I should see this item$/ do
+Then /^I should see that subitems$/ do
+  @item.children.each do |item|
+    find("#items").should have_content(item.title)
+  end
+end
+
+Then /^I should see this (?:|sub)item$/ do
   find("#items").should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
 end
 
-Then /^I should see this new item as second$/ do
+Then /^I should see this new (?:|sub)item as second$/ do
   find('#items .item:nth-child(2)').should have_content(@title)
   @template.reload
   @template.items.where(title: @title).should exist
