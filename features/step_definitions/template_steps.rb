@@ -46,23 +46,20 @@ end
 When /^I create new item in this template$/ do
   visit_template(@template)
   @title = "Footnotes"
-  within(".new_item") do
-    fill_in "title", with: @title
-    keydown(".new_item textarea:first", :enter)
-  end
+  create_item(@title)
 end
 
 When /^I create new item after first one$/ do
   visit_template(@template)
   @title = "Some text"
-  create_item(@title)
+  create_item(@title, after: 1)
 end
 
 When /^I create new subitem for some item in this template$/ do
   @item = @template.items.roots.first
   visit_item(@item)
   @title = "New subitem"
-  create_item(@title, after: 1)
+  create_item(@title)
 end
 
 When /^I create new subitem after first one for some item in this template$/ do
