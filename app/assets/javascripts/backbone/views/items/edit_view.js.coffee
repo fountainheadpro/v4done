@@ -35,10 +35,9 @@ class Actions.Views.Items.EditView extends Backbone.View
     e.stopPropagation()
     title = @$("textarea[name='title']").val()
     description = @$("textarea[name='description']").val()
-    nextId = $(@el).next().data('id')
     previousId = $(@el).prev().data('id')
-    if @model.get('title') != title || @model.get('description') != description || @model.get('next_id') != nextId || @model.get('previous_id') != previousId
-      @model.save({ title: title, description: description, next_id: nextId, previous_id: previousId},
+    if @model.get('title') != title || @model.get('description') != description || @model.get('previous_id') != previousId
+      @model.save({ title: title, description: description, previous_id: previousId},
         success: (item) => @model = item
       )
     if e.which == 13
