@@ -24,7 +24,6 @@ Feature: Create Item
         And refresh page
       Then I should see this subitem
 
-    @wip
     Scenario: Create new subitem with some position
       When I create new subitem after first one for some item in this template
         And refresh page
