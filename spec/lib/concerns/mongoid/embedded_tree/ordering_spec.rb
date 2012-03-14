@@ -125,7 +125,7 @@ describe Mongoid::EmbeddedTree::Ordering do
     end
   end
 
-  describe "A list of nodes" do
+  describe "A list of three nodes" do
     let(:container) { Container.create name: "Container" }
 
     before(:each) do
@@ -134,63 +134,114 @@ describe Mongoid::EmbeddedTree::Ordering do
       @node3 = container.nodes.create name: "Node 3", previous_id: @node2.id
     end
 
-    context "when adding new node between existing," do
+    context "when adding new node between first and second," do
       before(:each) do
-        @new_node = container.nodes.create name: "Nodes 4", previous_id: @node1.id, next_id: @node2.id
+        @new_node = container.nodes.create name: "Nodes 4", previous_id: @node1.id
       end
 
-      it "first existing node should be able to access new node as next item" do
+      it "first node should be able to access new node as next" do
         @node1.next.should eq(@new_node)
       end
 
-      it "second existing node should be able to access new node as previous item" do
+      it "second node should be able to access new node as previous" do
         @node2.previous.should eq(@new_node)
       end
 
       context "new node" do
-        it "should be able to access first existing node as previous item" do
+        it "should be able to access first node as previous" do
           @new_node.previous.should eq(@node1)
         end
 
-        it "should be able to access second existing node as next item" do
+        it "should be able to access second node as next" do
           @new_node.next.should eq(@node2)
         end
       end
     end
 
-    context "when destroying some node from the midle of the list," do
+    context "when destroying second node" do
       before(:each) do
         @node2.destroy
+        container.reload
+        @node1 = container.nodes.first
+        @node3 = container.nodes.last
       end
 
-      it "the previous of destroyed should be able to access the next of destroyed as next item" do
-        @node1.next.should eq(@node3)
+      context "the first node" do
+        subject { @node1 }
+
+        it_should_behave_like "a first node"
+
+        it "should be able to access the last node as next" do
+          @node1.next.should eq(@node3)
+        end
       end
 
-      it "the ndext of destroyed should be able to access the previous of destroyed as previous item" do
-        @node3.previous.should eq(@node1)
+      context "the last node" do
+        subject { @node3 }
+
+        it_should_behave_like "a last node"
+
+        it "should be able to access the first node as previous" do
+          @node3.previous.should eq(@node1)
+        end
       end
     end
 
     context "when destroying first node," do
       before(:each) do
         @node1.destroy
+        container.reload
+        @node2 = container.nodes.first
+        @node3 = container.nodes.last
       end
 
       context "the second node" do
         subject { @node2 }
+
         it_should_behave_like "a first node"
+
+        it "should be able to access the last node as next" do
+          @node2.next.should eq(@node3)
+        end
+      end
+
+      context "the last node" do
+        subject { @node3 }
+
+        it_should_behave_like "a last node"
+
+        it "should be able to access the second node as previous" do
+          @node3.previous.should eq(@node2)
+        end
       end
     end
 
     context "when destroying last node," do
       before(:each) do
         @node3.destroy
+        container.reload
+        @node1 = container.nodes.first
+        @node2 = container.nodes.last
       end
 
-      context "the previous node" do
+      context "the first node" do
+        subject { @node1 }
+
+        it_should_behave_like "a first node"
+
+        it "should be able to access the second node as next" do
+          @node1.next.should eq(@node2)
+        end
+      end
+
+      context "the second node" do
         subject { @node2 }
+
         it_should_behave_like "a last node"
+
+        it "should be able to access the first node as previous" do
+          @node2.previous.should eq(@node1)
+        end
       end
     end
   end

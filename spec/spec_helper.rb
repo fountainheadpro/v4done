@@ -45,4 +45,5 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  # config.filter_run_including :focus => true
 end

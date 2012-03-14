@@ -30,14 +30,11 @@ module Mongoid::EmbeddedTree::Ordering
 
   private
     def update_links
-      if first? || previous_id_changed?
+      if destroyed? && !last?
+        _parent.reload
+        self.next.update_attributes previous_id: self.previous_id
+      elsif changed? && (first? || previous_id_changed?)
         self.siblings.where(previous_id: self.previous_id).first.try(:update_attributes, { previous_id: self.id })
-      elsif destroyed?
-        if !first?
-          self.previous.update_attributes next_id: self.next_id
-        elsif !last?
-          self.next.update_attributes previous_id: self.previous_id
-        end
       end
     end
 
