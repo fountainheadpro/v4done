@@ -34,7 +34,7 @@ When /^I look at this template$/ do
 end
 
 When /^I look at the item of this template$/ do
-  @item = @template.items.where(parent_id: nil).first
+  @item = @template.items.roots.first
   visit_item(@item)
 end
 
@@ -55,28 +55,21 @@ end
 When /^I create new item after first one$/ do
   visit_template(@template)
   @title = "Some text"
-  keydown("#items .item:first textarea:first", :enter)
-  find('#items .new_item').fill_in('title', with: @title)
-  keydown("#items .new_item:first textarea:first", :enter)
+  create_item(@title)
 end
 
 When /^I create new subitem for some item in this template$/ do
   @item = @template.items.roots.first
   visit_item(@item)
   @title = "New subitem"
-  within(".new_item") do
-    fill_in "title", with: @title
-    keydown(".new_item textarea:first", :enter)
-  end
+  create_item(@title, after: 1)
 end
 
 When /^I create new subitem after first one for some item in this template$/ do
   @item = @template.items.roots.first
   visit_item(@item)
   @title = "New second subitem"
-  keydown("#items .item:first textarea:first", :enter)
-  find('#items .new_item').fill_in('title', with: @title)
-  keydown("#items .new_item:first textarea:first", :enter)
+  create_item(@title, after: 1)
 end
 
 When /^refresh page$/ do
@@ -102,7 +95,7 @@ Then /^I should see this template$/ do
 end
 
 Then /^I should see that items$/ do
-  @template.items.where(parent_id: nil).each do |item|
+  @template.items.roots.each do |item|
     find("#items").should have_content(item.title)
   end
 end
