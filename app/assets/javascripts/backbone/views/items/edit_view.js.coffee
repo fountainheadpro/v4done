@@ -2,7 +2,7 @@ Actions.Views.Items ||= {}
 
 class Actions.Views.Items.EditView extends Backbone.View
   template: JST["backbone/templates/items/edit"]
-  className: 'item'
+  className: 'item edit_item'
 
   move: Actions.Mixins.Movable['move']
   focus_next: Actions.Mixins.Movable['focus_next']
@@ -35,7 +35,7 @@ class Actions.Views.Items.EditView extends Backbone.View
     e.stopPropagation()
     title = @$("textarea[name='title']").val()
     description = @$("textarea[name='description']").val()
-    previousId = $(@el).prev().data('id')
+    previousId = $(@el).prevAll('.item.edit_item:first').data('id')
     if @model.get('title') != title || @model.get('description') != description || @model.get('previous_id') != previousId
       @model.save({ title: title, description: description, previous_id: previousId},
         success: (item) => @model = item
@@ -66,6 +66,6 @@ class Actions.Views.Items.EditView extends Backbone.View
     { 'data-id': @model.id }
 
   render: ->
+    $(@el).data('id', @model.get('_id'))
     $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
-    $(@el).data('id', @model.id)
     return this
