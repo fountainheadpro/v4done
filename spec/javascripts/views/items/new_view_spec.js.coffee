@@ -1,5 +1,6 @@
 describe "Actions.Views.Items.NewView", ->
   beforeEach ->
+    setFixtures('<div id="templates"></div>')
     @template = new Backbone.Model({ _id: 1, title: 'bar'})
     @template.items = new Backbone.Collection()
     @view = new Actions.Views.Items.NewView(template: @template, parentItem: null)
@@ -12,9 +13,9 @@ describe "Actions.Views.Items.NewView", ->
       new_view = new Actions.Views.Items.NewView(template: @template, parentItem: null)
       template = $("#templates")
       template.html(view2.render().el)
-      template.prepend(view3.render().el)
-      template.prepend(new_view.render().el)
-      template.prepend(@view.render().el)
+      template.append(view3.render().el)
+      template.append(new_view.render().el)
+      template.append(@view.render().el)
       template.find(".new_item:last textarea[name='title']").val('foo')
 
     afterEach ->
@@ -23,4 +24,4 @@ describe "Actions.Views.Items.NewView", ->
     it "should set correct previous_id", ->
       @view.save(jQuery.Event('keydown', { keyCode: 13, which: 13 }))
       expect(@itemCreateStub).toHaveBeenCalledOnce()
-      expect(@itemCreateStub).toHaveBeenCalledWith({ description: '', title: '', previous_id: 3, parent_id: undefined})
+      expect(@itemCreateStub).toHaveBeenCalledWith({ description: '', title: 'foo', previous_id: 3, parent_id: undefined})
