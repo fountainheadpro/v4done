@@ -16,9 +16,9 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
 
   keymap: (e) ->
     if e.shiftKey
+      @update(e) if e.which in [38]
       switch e.which
         when 38 then @goToParentItem(@options.template, @model)
-        when 40 then @goToItemDetails(@options.template, @model)
     else if e.target.name == 'title'
       switch e.which
         when 40 then @move(e)
@@ -38,7 +38,7 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
       @model.save({ title: title, description: description },
         success: (item) => @model = item
       )
-    if e.keyCode == 13
+    if e.keyCode == 13 && !e.shiftKey
       if !$(@el).next('.item').hasClass('new_item')
         view = new Actions.Views.Items.NewView(template: @options.template, parentItem: @model)
         $(@el).next().prepend(view.render().el)

@@ -3,6 +3,7 @@ describe "Actions.Views.Items.EditView", ->
     setFixtures('<div id="templates"></div>')
     @model = new Backbone.Model({ _id: 1, title: 'foo' })
     @template = new Backbone.Model({ _id: 1, title: 'bar' })
+    @template.items = new Backbone.Collection()
     @view = new Actions.Views.Items.EditView(model: @model, template: @template)
 
   describe "Instantiation", ->
@@ -42,3 +43,50 @@ describe "Actions.Views.Items.EditView", ->
       @view.update(jQuery.Event('keydown', { keyCode: 13, which: 13 }))
       expect(@modelSaveStub).toHaveBeenCalledOnce()
       expect(@modelSaveStub).toHaveBeenCalledWith({ description: '', title: 'foo', previous_id: 3})
+
+  describe "Shortcuts", ->
+    describe "shift + enter", ->
+      beforeEach ->
+        @viewUpdateStub = sinon.stub(@view, 'update')
+        @viewGoToDetailsStub = sinon.stub(@view, 'goToItemDetails')
+        @e = jQuery.Event('keydown', { keyCode: 13, which: 13, shiftKey: true });
+        @view.keymap(@e)
+
+      it "should save item", ->
+        expect(@viewUpdateStub).toHaveBeenCalledOnce()
+        expect(@viewUpdateStub).toHaveBeenCalledWith(@e)
+
+      it "should go to details", ->
+        expect(@viewGoToDetailsStub).toHaveBeenCalledOnce()
+        expect(@viewGoToDetailsStub).toHaveBeenCalledWith(@template, @model)
+
+    describe "shift + ↑", ->
+      beforeEach ->
+        @viewUpdateStub = sinon.stub(@view, 'update')
+        @viewGoToParentStub = sinon.stub(@view, 'goToParentItem')
+        sinon.stub(@template.items, 'get').returns(@model)
+        @e = jQuery.Event('keydown', { keyCode: 38, which: 38, shiftKey: true });
+        @view.keymap(@e)
+
+      it "should save item", ->
+        expect(@viewUpdateStub).toHaveBeenCalledOnce()
+        expect(@viewUpdateStub).toHaveBeenCalledWith(@e)
+
+      it "should go to details", ->
+        expect(@viewGoToParentStub).toHaveBeenCalledOnce()
+        expect(@viewGoToParentStub).toHaveBeenCalledWith(@template, @model)
+
+    describe "shift + ↓", ->
+      beforeEach ->
+        @viewUpdateStub = sinon.stub(@view, 'update')
+        @viewGoToDetailsStub = sinon.stub(@view, 'goToItemDetails')
+        @e = jQuery.Event('keydown', { keyCode: 40, which: 40, shiftKey: true });
+        @view.keymap(@e)
+
+      it "should save item", ->
+        expect(@viewUpdateStub).toHaveBeenCalledOnce()
+        expect(@viewUpdateStub).toHaveBeenCalledWith(@e)
+
+      it "should go to details", ->
+        expect(@viewGoToDetailsStub).toHaveBeenCalledOnce()
+        expect(@viewGoToDetailsStub).toHaveBeenCalledWith(@template, @model)

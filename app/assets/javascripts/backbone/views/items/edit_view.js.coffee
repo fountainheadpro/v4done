@@ -17,6 +17,7 @@ class Actions.Views.Items.EditView extends Backbone.View
 
   keymap: (e) ->
     if e.shiftKey
+      @update(e) if e.which in [13, 38, 40]
       switch e.which
         when 38 then @goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
         when 13,40 then @goToItemDetails(@options.template, @model)
@@ -40,7 +41,7 @@ class Actions.Views.Items.EditView extends Backbone.View
       @model.save({ title: title, description: description, previous_id: previousId},
         success: (item) => @model = item
       )
-    if e.which == 13
+    if e.which == 13 && !e.shiftKey
       if !$(@el).next('.item').hasClass('new_item')
         parentItem = @options.template.items.get(@model.get('parent_id')) if @model.has('parent_id')
         view = new Actions.Views.Items.NewView(template: @options.template, parentItem: parentItem)
