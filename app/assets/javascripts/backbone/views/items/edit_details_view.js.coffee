@@ -12,6 +12,7 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
   events:
     "keydown textarea": "keymap"
     "blur textarea": "update"
+    "focusin textarea": "highlight"
 
   keymap: (e) ->
     if e.shiftKey
@@ -49,6 +50,13 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
       $(@el).unbind()
       @goToParentItem(@options.template, @model)
       return false
+
+  highlight: ->
+    $('.selected textarea[name="description"]').each (i, item)->
+      $(item).parent().hide() if $(item).val() == ''
+    $('.selected').removeClass('selected')
+    $(@el).addClass('selected')
+    @$('.description').show()
 
   render: ->
     $(this.el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
