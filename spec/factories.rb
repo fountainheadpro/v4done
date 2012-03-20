@@ -20,10 +20,19 @@ FactoryGirl.define do
       after_create do |template, evaluator|
         item = nil
         evaluator.items_count.times do |i|
-          item = template.items.create title: "Item #{i}", previous_id: item.try(:id)
+          item = template.items.create(
+            title: "Item #{i}",
+            description: "Description for item #{i}",
+            previous_id: item.try(:id)
+          )
           subitem = nil
           evaluator.subitems_count.times do |j|
-            subitem = template.items.create title: "Subitem #{j}", parent_id: item.id, previous_id: subitem.try(:id)
+            subitem = template.items.create(
+              title: "Subitem #{j}",
+              description: "Description for subitem #{j}",
+              parent_id: item.id,
+              previous_id: subitem.try(:id)
+            )
           end
         end
       end
@@ -48,10 +57,19 @@ FactoryGirl.define do
       after_create do |project, evaluator|
         action = nil
         evaluator.actions_count.times do |i|
-          action = project.actions.create title: "Action #{i}", previous_id: action.try(:id)
+          action = project.actions.create(
+            title: "Action #{i}",
+            description: "Description for action #{i}",
+            previous_id: action.try(:id)
+          )
           subaction = nil
           evaluator.subactions_count.times do |j|
-            subaction = project.actions.create title: "Subaction #{j}", parent_id: action.id, previous_id: subaction.try(:id)
+            subaction = project.actions.create(
+              title: "Subaction #{j}",
+              description: "Description for subaction #{j}",
+              parent_id: action.id,
+              previous_id: subaction.try(:id)
+            )
           end
         end
       end

@@ -7,7 +7,9 @@ Actions::Application.routes.draw do
     resources :publications, only: [:index, :create, :show], shallow: true
   end
   resources :projects, only: [] do
-    resources :actions, only: [:index]
+    resources :actions, only: [:index] do
+      resources :actions, only: [:index]
+    end
   end
 
   devise_for :users
