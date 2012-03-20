@@ -4,10 +4,9 @@ class Item
   include Mongoid::EmbeddedTree
   include Mongoid::EmbeddedTree::Ordering
 
-  validates_presence_of :title
-
   field :title, :type => String
   field :description, :type => String
-
   embedded_in :template, inverse_of: :items
+
+  validates :title, presence: true
 end
