@@ -4,7 +4,7 @@ class Project
   include CreatedBy
 
   field :title, type: String
-  field :description, :type => String
+  field :description, type: String
   embeds_many :actions, inverse_of: :project
 
   validates :title, presence: true

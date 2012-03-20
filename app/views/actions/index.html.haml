@@ -1,0 +1,9 @@
+= content_for :header do
+  = link_to @project.title, project_actions_path(@project), { class: 'brand' }
+
+
+#actions
+  - @actions.each do |action|
+    .action
+      = check_box_tag "action[#{action.id}]", 1, action.status
+      = label_tag "action[#{action.id}]", action.title
