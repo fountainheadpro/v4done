@@ -10,7 +10,7 @@
   - @actions.each do |action|
     .action.row-fluid
       .span11.action_info
-        = check_box_tag "action[#{action.id}]", 1, action.status
+        = check_box_tag "action[#{action.id}]", 1, action.completed?
         = label_tag "action[#{action.id}]", action.title
         .description= action.description
       .span1.action_details

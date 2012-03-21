@@ -6,7 +6,7 @@ class Action
 
   field :title, type: String
   field :description, type: String
-  field :status, type: Boolean, default: false
+  field :completed, type: Boolean, default: false
   embedded_in :project, inverse_of: :actions
 
   validates :title, presence: true
