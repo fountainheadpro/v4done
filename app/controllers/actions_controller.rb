@@ -5,7 +5,12 @@ class ActionsController < ApplicationController
   # GET /projects/1/actions
   def index
     @project = Project.find(params[:project_id])
-    @actions = @project.actions.roots
+    if params[:action_id].nil?
+      @actions = @project.actions.roots
+    else
+      @parent_action = @project.actions.find(params[:action_id])
+      @actions = @parent_action.children
+    end
     respond_with([@project, @actions])
   end
 end

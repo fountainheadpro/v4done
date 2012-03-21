@@ -22,12 +22,10 @@ Feature: Navigating TODO list
     Then I should see the full description
       And other actions pushed down to allow me to the whole description
 
-  @not-implemented
   Scenario: Sub-actions Screen
     When I open a composite action from this project
     Then I should see the action title on the header
       And I should see the action description on top of the screen
-      And the description can be expanded is it extends beyond 3 lines.
       And I should see the list of subactions, each with status and link to subactions
 
   @not-implemented

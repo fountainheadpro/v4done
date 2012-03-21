@@ -1,11 +1,15 @@
 = content_for :header do
   = link_to @project.title, project_actions_path(@project), { class: 'brand' }
 
+- unless @parent_action.nil?
+  .page-header
+    %h2= @parent_action.title
+    %p= @parent_action.description
 
 #actions
   - @actions.each do |action|
     .action.row-fluid
-      .span11
+      .span11.action_info
         = check_box_tag "action[#{action.id}]", 1, action.status
         = label_tag "action[#{action.id}]", action.title
         .description= action.description
