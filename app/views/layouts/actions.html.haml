@@ -1,0 +1,18 @@
+!!!
+%html
+  %head
+    %title Actions
+    = stylesheet_link_tag    "application"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          = yield :header
+    .container-fluid
+      .row-fluid
+        .span12
+          .content
+            = yield
+    %footer
