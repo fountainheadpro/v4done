@@ -2,6 +2,7 @@
 @import "bootstrap"
 @import "templates.css.sass"
 @import "actions"
+@import "bootstrap-responsive"
 
 html, body
   background-color: #eee
@@ -39,3 +40,10 @@ body
 
 .topbar .btn
   border: 0
+
+@media (max-width: 979px)
+  body
+    padding-top: 0
+
+  .navbar-fixed-top
+    margin-bottom: 0
