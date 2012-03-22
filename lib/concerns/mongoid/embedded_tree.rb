@@ -1,4 +1,5 @@
 module Mongoid::EmbeddedTree
+  include Mongoid::Hierarchy
   extend ActiveSupport::Concern
 
   included do
