@@ -10,4 +10,11 @@ class Action
   embedded_in :project, inverse_of: :actions
 
   validates :title, presence: true
+
+  def init(item)
+    self.title=item.title
+    self.description=item.description
+    self
+  end
+
 end
