@@ -10,6 +10,7 @@ FactoryGirl.define do
   factory :template do
     creator
     sequence(:title) { |n| "Template #{n}" }
+    sequence(:description) { |n| "Description #{n}" }
 
     factory :template_with_subitems do
       ignore do
