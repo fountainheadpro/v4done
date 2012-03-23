@@ -12,5 +12,9 @@ class Project
 
   def self.create_from_publication(publication)
     project = self.create publication: publication, title: publication.template.title, description: publication.template.description
+    publication.template.items.each do |item|
+      project.actions << Action.new(title: item.title, description: item.description)
+    end
+    project
   end
 end

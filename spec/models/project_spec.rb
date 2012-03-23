@@ -15,9 +15,13 @@ describe Project do
     project.actions.roots.last.children.count.should eq(3)
   end
 
-  describe "created from publication" do
+  describe "when creating from a publication" do
     let(:publication) { Factory.create(:publication) }
     let(:project) { Project.create_from_publication(publication) }
+
+    it "should return project" do
+      project.should be_a(Project)
+    end
 
     it "should be able to access the publication" do
       project.publication.should eq(publication)
@@ -28,7 +32,16 @@ describe Project do
       project.description.should eq(publication.template.description)
     end
 
-    it "should have the same number of actions as the publication"
-    it "should have the same actions as the publication"
+    it "should have the same number of actions as the publication" do
+      project.actions.count.should eq(publication.template.items.count)
+    end
+
+    context "the actions" do
+      it "should have the same titles and descriptions" do
+        publication.template.items.each do |item|
+          project.actions.where(title: item.title, description: item.description).should exist
+        end
+      end
+    end
   end
 end
