@@ -13,7 +13,13 @@ class Project
   def self.create_from_publication(publication)
     project = self.create publication: publication, title: publication.template.title, description: publication.template.description
     publication.template.items.each do |item|
-      project.actions << Action.new(title: item.title, description: item.description)
+      project.actions << Action.new(
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        parent_id: item.parent_id,
+        previous_id: item.previous_id
+      )
     end
     project
   end

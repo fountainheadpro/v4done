@@ -42,6 +42,39 @@ describe Project do
           project.actions.where(title: item.title, description: item.description).should exist
         end
       end
+
+      it "should have the same hierarchy" do
+        publication.template.items.each do |item|
+          action = project.actions.where(title: item.title, description: item.description).first
+          if item.root?
+            action.should be_root
+          else
+            action.should_not be_root
+            parent_action = project.actions.where(title: item.parent.title, description: item.parent.description).first
+            action.parent.should eq(parent_action)
+          end
+        end
+      end
+
+      it "should have the same order" do
+        publication.template.items.each do |item|
+          action = project.actions.where(title: item.title, description: item.description).first
+          if item.first?
+            action.should be_first
+          else
+            action.should_not be_first
+            previous_action = project.actions.where(title: item.previous.title, description: item.previous.description).first
+            action.previous.should eq(previous_action)
+          end
+          if item.last?
+            action.should be_last
+          else
+            action.should_not be_last
+            next_action = project.actions.where(title: item.next.title, description: item.next.description).first
+            action.next.should eq(next_action)
+          end
+        end
+      end
     end
   end
 end
