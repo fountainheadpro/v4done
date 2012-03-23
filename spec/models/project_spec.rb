@@ -76,5 +76,26 @@ describe Project do
         end
       end
     end
+
+    context "when template is nil" do
+      before(:each) do
+        publication.template = nil
+        publication.save
+      end
+
+      it { should be_a(Project) }
+      it { should be_invalid }
+      it { should be_new_record }
+    end
+
+    context "when publication is nil" do
+      before(:each) do
+        publication = nil
+      end
+
+      it { should be_a(Project) }
+      it { should be_invalid }
+      it { should be_new_record }
+    end
   end
 end

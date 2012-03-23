@@ -11,8 +11,8 @@ class Project
   validates :title, presence: true
 
   def self.create_from_publication(publication)
-    project = self.create publication: publication, title: publication.template.title, description: publication.template.description
-    publication.template.items.each do |item|
+    project = self.create publication: publication, title: publication.template.try(:title), description: publication.template.try(:description)
+    publication.template.try(:items).try(:each)do |item|
       project.actions << Action.new(
         id: item.id,
         title: item.title,
