@@ -1,7 +1,12 @@
 - unless current_user.nil?
   = link_to '← Back to publications', template_publications_path(@publication.template)
 #template
-  %h2= @publication.template.title
-  %ul.items
-    - @publication.template.items.roots.each do |item|
-      = render "item", item: item
+  .row
+    .span8
+      %h2= @publication.template.title
+      %ul.items
+        - @publication.template.items.roots.each do |item|
+          = render "item", item: item
+    .span2
+      = form_tag publication_import_actions_path(@publication) do |f|
+        = submit_tag 'Accomplish', class: 'btn-primary btn-large'
