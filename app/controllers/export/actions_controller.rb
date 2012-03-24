@@ -1,4 +1,4 @@
-class Import::ActionsController < ApplicationController
+class Export::ActionsController < ApplicationController
   def create
     publication = Publication.find(params[:publication_id])
     project = Project.create_from_publication(publication)

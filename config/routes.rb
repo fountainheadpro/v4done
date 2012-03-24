@@ -7,7 +7,7 @@ Actions::Application.routes.draw do
   resources :templates, except: [:new, :edit] do
     resources :items, only: [:create, :update, :show, :destroy]
     resources :publications, only: [:index, :create, :show], shallow: true do
-      namespace :import do
+      namespace :export do
         resources :actions, only: [:create]
       end
     end

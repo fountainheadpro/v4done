@@ -8,5 +8,5 @@
         - @publication.template.items.roots.each do |item|
           = render "item", item: item
     .span2
-      = form_tag publication_import_actions_path(@publication) do |f|
+      = form_tag publication_export_actions_path(@publication) do |f|
         = submit_tag 'Accomplish', class: 'btn-primary btn-large'
