@@ -9,11 +9,12 @@
 #actions
   - @actions.each do |action|
     .action.row-fluid
-      .action_info
+      .action_status
         = check_box_tag "action[#{action.id}]", 1, action.completed?
-        = label_tag "action[#{action.id}]", action.title
-        .description= action.description
-      .action_details
+      = link_to project_action_actions_path(@project, action) do
+        .action_info
+          = label_tag "action[#{action.id}]", action.title
         - unless action.leaf?
-          = link_to project_action_actions_path(@project, action) do
+          .action_details
             %i{class: "icon-chevron-right"}
+      .description= action.description
