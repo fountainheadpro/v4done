@@ -8,7 +8,7 @@ describe ExportMailer do
     it "renders the headers" do
       mail.subject.should eq("Actions")
       mail.to.should eq(["to@example.org"])
-      mail.from.should eq(["subscription@actions.im"])
+      mail.from.should eq(["subscription@actions-im.mailgun.org"])
     end
 
     it "renders the body" do
