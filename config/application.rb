@@ -58,17 +58,6 @@ module Actions
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     config.assets.precompile += ['mobile.css']
-
-    config.action_mailer.default_url_options = { :host => "actions.im" }
-    config.action_mailer.smtp_settings = {
-      port:           587,
-      address:        'smtp.sendgrid.net',
-      user_name:      ENV['SENDGRID_USERNAME'],
-      password:       ENV['SENDGRID_PASSWORD'],
-      domain:         'actions.im',
-      authentication: :plain
-    }
-    config.action_mailer.delivery_method = :smtp
   end
 end
 
