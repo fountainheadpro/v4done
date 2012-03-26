@@ -16,8 +16,9 @@ describe Project do
   end
 
   describe "when creating from a publication" do
+    let(:additional_atts) { {} }
     let(:publication) { Factory.create(:publication) }
-    let(:project) { Project.create_from_publication(publication) }
+    let(:project) { Project.create_from_publication(publication, additional_atts) }
 
     it "should return project" do
       project.should be_a(Project)
@@ -96,6 +97,15 @@ describe Project do
       it { should be_a(Project) }
       it { should be_invalid }
       it { should be_new_record }
+    end
+
+    context "additional attributes" do
+      let(:additional_atts) { { owner: { email: 'test@example.com' } } }
+
+      it "should save it" do
+        project.reload
+        project['owner']['email'].should eq('test@example.com')
+      end
     end
   end
 end
