@@ -6,16 +6,12 @@
     %h2= @parent_action.title
     %p= @parent_action.description
 
-#actions
-  - @actions.each do |action|
-    .action.row-fluid
-      .action_status
-        = check_box_tag "action[#{action.id}]", 1, action.completed?
-      = link_to (action.leaf? ? "#" : project_action_actions_path(@project, action)) do
-        .action_info
-          = label_tag "action[#{action.id}]", action.title
-        - unless action.leaf?
-          .action_details
-            %i{class: "icon-chevron-right"}
-      .description
-        = action.description
+= content_for :page_header do
+  &nbsp;
+
+#project
+
+:javascript
+  $(function() {
+    Project.init_project(#{ @project.to_json.html_safe });
+  });

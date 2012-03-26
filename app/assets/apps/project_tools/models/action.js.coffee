@@ -16,7 +16,7 @@ class Project.Models.Action extends Backbone.Model
 
 
 class Project.Collections.ActionsCollection extends Backbone.Collection
-  model: Actions.Models.Item
+  model: Project.Models.Action
   url: '/actions'
 
   byParentId: (parentId) ->
