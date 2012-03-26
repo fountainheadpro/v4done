@@ -38,6 +38,7 @@ group :test do
   gem "launchy", ">= 2.0.5"
   gem "guard-jasmine"
   gem 'rb-fsevent'
+  gem 'email_spec'
 end
 
 group :development, :test do

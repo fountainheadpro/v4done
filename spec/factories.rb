@@ -10,6 +10,7 @@ FactoryGirl.define do
   factory :template do
     creator
     sequence(:title) { |n| "Template #{n}" }
+    sequence(:description) { |n| "Description #{n}" }
 
     factory :template_with_subitems do
       ignore do
@@ -28,8 +29,8 @@ FactoryGirl.define do
           subitem = nil
           evaluator.subitems_count.times do |j|
             subitem = template.items.create(
-              title: "Subitem #{j}",
-              description: "Description for subitem #{j}",
+              title: "Subitem #{i}.#{j}",
+              description: "Description for subitem #{i}.#{j}",
               parent_id: item.id,
               previous_id: subitem.try(:id)
             )
