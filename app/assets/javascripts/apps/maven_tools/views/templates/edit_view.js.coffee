@@ -1,7 +1,7 @@
 Actions.Views.Templates ||= {}
 
 class Actions.Views.Templates.EditView extends Backbone.View
-  template: JST["maven_tools/templates/templates/edit"]
+  template: JST["apps/maven_tools/templates/templates/edit"]
   className: 'template'
 
   move: Actions.Mixins.Movable['move']

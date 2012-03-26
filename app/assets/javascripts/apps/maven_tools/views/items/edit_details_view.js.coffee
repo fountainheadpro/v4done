@@ -1,14 +1,13 @@
 Actions.Views.Items ||= {}
 
-class Actions.Views.Items.EditView extends Backbone.View
-  template: JST["maven_tools/templates/items/edit"]
-  className: 'item edit_item'
+class Actions.Views.Items.EditDetailsView extends Backbone.View
+  template: JST["apps/maven_tools/templates/items/edit_details"]
+  className: 'item'
 
   move: Actions.Mixins.Movable['move']
   focus_next: Actions.Mixins.Movable['focus_next']
   focus_prev: Actions.Mixins.Movable['focus_prev']
   goToParentItem: Actions.Mixins.GoTo['parentItem']
-  goToItemDetails: Actions.Mixins.GoTo['itemDetails']
 
   events:
     "keydown textarea": "keymap"
@@ -17,13 +16,12 @@ class Actions.Views.Items.EditView extends Backbone.View
 
   keymap: (e) ->
     if e.shiftKey
-      @update(e) if e.which in [13, 38, 40]
+      @update(e) if e.which in [38]
       switch e.which
-        when 38 then @goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
-        when 13,40 then @goToItemDetails(@options.template, @model)
+        when 38 then @goToParentItem(@options.template, @model)
     else if e.target.name == 'title'
       switch e.which
-        when 38, 40 then @move(e)
+        when 40 then @move(e)
         when 8 then @destroy(e)
         when 13 then @update(e)
     else if e.target.name == 'description'
@@ -36,24 +34,21 @@ class Actions.Views.Items.EditView extends Backbone.View
     e.stopPropagation()
     title = @$("textarea[name='title']").val()
     description = @$("textarea[name='description']").val()
-    previousId = $(@el).prevAll('.item.edit_item:first').data('id')
-    if @model.get('title') != title || @model.get('description') != description || @model.get('previous_id') != previousId
-      @model.save({ title: title, description: description, previous_id: previousId},
+    if @model.get('title') != title || @model.get('description') != description
+      @model.save({ title: title, description: description },
         success: (item) => @model = item
       )
-    if e.which == 13 && !e.shiftKey
+    if e.keyCode == 13 && !e.shiftKey
       if !$(@el).next('.item').hasClass('new_item')
-        parentItem = @options.template.items.get(@model.get('parent_id')) if @model.has('parent_id')
-        view = new Actions.Views.Items.NewView(template: @options.template, parentItem: parentItem)
-        $(@el).after(view.render().el)
+        view = new Actions.Views.Items.NewView(template: @options.template, parentItem: @model)
+        $(@el).next().prepend(view.render().el)
       @focus_next()
 
   destroy: () ->
     if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
       @model.destroy()
       $(@el).unbind()
-      @focus_prev()
-      @remove()
+      @goToParentItem(@options.template, @model)
       return false
 
   highlight: ->
@@ -63,10 +58,6 @@ class Actions.Views.Items.EditView extends Backbone.View
     $(@el).addClass('selected')
     @$('.description').show()
 
-  attributes: ->
-    { 'data-id': @model.id }
-
   render: ->
-    $(@el).data('id', @model.get('_id'))
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    $(this.el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
     return this

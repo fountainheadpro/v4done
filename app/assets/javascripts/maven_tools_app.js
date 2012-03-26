@@ -6,7 +6,7 @@
 //= require backbone_datalink
 //= require bootstrap-dropdown
 //= require bootstrap-alert
-//= require ../apps/maven_tools/actions.js
+//= require apps/maven_tools/actions.js
 
 jQuery(document).ready(function($) {
   $('.dropdown-toggle').dropdown();

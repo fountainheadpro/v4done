@@ -6,4 +6,4 @@
 //= require backbone_datalink
 //= require bootstrap-dropdown
 //= require bootstrap-alert
-//= require ../apps/project_tools/project.js
+//= require apps/project_tools/project.js

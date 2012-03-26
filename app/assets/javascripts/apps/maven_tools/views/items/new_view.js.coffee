@@ -1,7 +1,7 @@
 Actions.Views.Items||= {}
 
 class Actions.Views.Items.NewView extends Backbone.View
-  template: JST["maven_tools/templates/items/new"]
+  template: JST["apps/maven_tools/templates/items/new"]
   className: 'item new_item'
 
   move: Actions.Mixins.Movable['move']
