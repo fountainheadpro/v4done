@@ -1,39 +1,3 @@
-:javascript
-  Object.prototype.touch = function(func) {
-    var target, func;
-    if (window.Touch){
-      this.addEventListener('touchstart', function(e){
-        e.preventDefault();
-        if (!e.touches || e.touches.length > 1) return;
-        target = this;
-        addClass(this, 'touched');
-      }, false);
-      window.addEventListener('touchend', function(e){
-        if (target) removeClass(target, 'touched');
-      });
-      this.addEventListener('touchend', function(e){
-        e.preventDefault();
-        if (func) func.apply(this, [e]);
-      }, false);
-    } else {
-      this.addEventListener('click', func);
-    }
-  }
-
-  var addClass = function(element, className) {
-    var re = new RegExp('(\\s|^)'+className+'(\\s|$)');
-    if (re.test(element.className)) return;
-    element.className += ' ' + className;
-  }
-  var removeClass = function(element, className) {
-    var re = new RegExp('(\\s|^)'+className+'(\\s|$)');
-    element.className = element.className.replace(re,' ');
-  }
-
-  $('.action').touch(function(e) {
-      addClass($('.action'), 'touched');
-    });
-
 = content_for :header do
   = link_to @project.title, project_actions_path(@project), { class: 'brand' }
 

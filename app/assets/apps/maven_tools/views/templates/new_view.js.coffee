@@ -1,7 +1,7 @@
 Actions.Views.Templates ||= {}
 
 class Actions.Views.Templates.NewView extends Backbone.View
-  template: JST["backbone/templates/templates/new"]
+  template: JST["maven_tools/templates/templates/new"]
 
   events:
     "submit #new-template": "save"

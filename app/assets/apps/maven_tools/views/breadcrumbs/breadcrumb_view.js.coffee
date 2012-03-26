@@ -1,7 +1,7 @@
 Actions.Views.Breadcrumbs ||= {}
 
 class Actions.Views.Breadcrumbs.BreadcrumbView extends Backbone.View
-  template: JST["backbone/templates/breadcrumbs/breadcrumb"]
+  template: JST["maven_tools/templates/breadcrumbs/breadcrumb"]
   tagName: 'li'
 
   render: ->

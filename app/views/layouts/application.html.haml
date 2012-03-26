@@ -3,7 +3,7 @@
   %head
     %title Goals
     = stylesheet_link_tag    "application"
-    = javascript_include_tag "application"
+    = javascript_include_tag "maven_tools_app"
     = csrf_meta_tags
   %body
     .navbar.navbar-fixed-top
@@ -18,7 +18,7 @@
             %h1
               = yield :page_header
         .row
-          #main.span8
+          #main.span10
             - flash.each do |name, msg|
               .alert.fade.in{class: css_class_for_flash(name)}
                 <a class="close" data-dismiss="alert">×</a>
