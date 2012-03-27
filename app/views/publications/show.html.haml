@@ -1,7 +1,16 @@
 - unless current_user.nil?
   = link_to '← Back to publications', template_publications_path(@publication.template)
 #template
-  %h2= @publication.template.title
-  %ul.items
-    - @publication.template.items.roots.each do |item|
-      = render "item", item: item
+  .row
+    .span7
+      %h2= @publication.template.title
+      %ul.items
+        - @publication.template.items.roots.each do |item|
+          = render "item", item: item
+    .span3
+      #send-to-actions{ style:"display:block" }
+        %strong Get Todo-list
+        = form_tag publication_export_actions_path(@publication), class: 'form-horizontal' do |f|
+          %p.help-block Enter an email or phone number
+          = text_field_tag :email_or_phone_number, '', class: 'input-medium', placeholder: 'Email or phone number'
+          = submit_tag 'Get!', class: 'btn'
