@@ -17,4 +17,12 @@ class Action
     self
   end
 
+  def child_count
+    children.count
+  end
+
+  def serializable_hash(options = {})
+    super({:methods => [ :child_count ]}.merge(options||{}))
+  end
+
 end

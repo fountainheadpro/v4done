@@ -9,7 +9,7 @@ class Project.Routers.ProjectRouter extends Backbone.Router
     ".*"                              : "actions"
 
   actions: (id) ->
-    view = new Project.Views.Actions.IndexView(@actions)
+    view = new Project.Views.Actions.IndexView(@actions.roots())
     $("#project").html(view.render().el)
 
   child_actions: (project_id, id) ->

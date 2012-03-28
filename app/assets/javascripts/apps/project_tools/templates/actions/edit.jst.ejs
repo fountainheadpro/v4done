@@ -4,11 +4,11 @@
   </div>
   <a href='<%=url%>'>
     <div class='action_info'>
-      = label_tag "action[#{id}]", title
+      <label><%= title %></label>
     </div>
     <% if (!leaf) {%>
       <div class='action_details'>
-        <i class="icon-chevron-right"></i>
+        <%= child_count %> <i class="icon-chevron-right"></i>
       </div>
     <%}%>
   </a>

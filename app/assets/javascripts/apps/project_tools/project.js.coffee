@@ -11,6 +11,8 @@ window.Project =
   Routers: {}
   Views: {}
   Mixins: {}
-  init_project: (project) ->
+  init: (project) ->
+    #window.addEventListener("load", ( -> setTimeout ( -> window.scrollTo(0,1))), false)
     Project.router = new Project.Routers.ProjectRouter({ project: project })
     Backbone.history.start()
+

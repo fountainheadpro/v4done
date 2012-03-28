@@ -6,18 +6,23 @@ class Project.Models.Action extends Backbone.Model
     description: null
     parent_id: null
     previous_id: null
-    items_count: 0
+    child_count: 0
 
   isRoot: ->
     !@has('parent_id')
 
   isLeaf: ->
-    child_count < 1
+    (@get('child_count') == 0)
 
 
 class Project.Collections.ActionsCollection extends Backbone.Collection
   model: Project.Models.Action
   url: '/actions'
+
+  roots: ->
+    filteredItems = @select((action) -> return action.isRoot())
+    return new Project.Collections.ActionsCollection(filteredItems)
+
 
   byParentId: (parentId) ->
     filteredItems = @select((action) -> return action.get('parent_id') == parentId)
@@ -26,3 +31,5 @@ class Project.Collections.ActionsCollection extends Backbone.Collection
   byPreviousId: (previousId) ->
     filteredItems = @select((action) -> return action.get('previous_id') == previousId)
     return new Project.Collections.ActionsCollection(filteredItems)
+
+

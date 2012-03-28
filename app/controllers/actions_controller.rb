@@ -13,6 +13,5 @@ class ActionsController < ApplicationController
     #  @actions = @parent_action.children
     #end
     #respond_with([@project, @actions])
-    @project
   end
 end

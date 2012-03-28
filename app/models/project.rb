@@ -32,6 +32,11 @@ class Project
     self
   end
 
+  def as_json(options={})
+    options||={}
+    super({:include=>[:actions]})
+  end
+
   private
   def items_depth_first(project,items, action=nil)
     items.each{|i|
@@ -45,6 +50,7 @@ class Project
       end
     }
   end
+
   
   
 end

@@ -13,5 +13,5 @@
 
 :javascript
   $(function() {
-    Project.init_project(#{ @project.to_json.html_safe });
+    Project.init(#{ @project.to_json().html_safe });
   });
