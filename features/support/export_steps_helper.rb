@@ -1,7 +1,7 @@
-module EmailStepsHelpers
+module ExportStepsHelpers
   def current_email_address
     last_email_address || "example@example.com"
   end
 end
 
-World(EmailStepsHelpers)
+World(ExportStepsHelpers)
