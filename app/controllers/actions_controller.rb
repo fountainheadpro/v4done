@@ -14,12 +14,4 @@ class ActionsController < ApplicationController
     #end
     #respond_with([@project, @actions])
   end
-
-  # PUT /actions/1/action.json
-  def update
-    @action = Project.find(params[:project_id]).items.find(params[:id])
-    @action.update_attributes(params[:action])
-    respond_with(@action)
-  end
-
 end
