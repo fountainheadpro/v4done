@@ -1,16 +1,16 @@
 <div class="action row-fluid">
   <div class="action_status">
-    <input type='checkbox' id="action[<%=id%>]" value=1 <%if (checked) {%> "checked" <%}%>/>
+    <input type='checkbox' id="action[<%= id %>]" value=1 <% if (checked) { %> "checked" <% } %>/>
   </div>
     <div class='action_info'>
       <label><%= title %></label>
     </div>
-    <% if (!leaf) {%>
+    <% if (!leaf) { %>
       <div class='action_details'>
         <%= child_count %> <i class="icon-chevron-right"></i>
       </div>
-    <%}%>
+    <% } %>
   <div class="description">
-    <%=description%>
+    <%= description %>
    </div>
 </div>
