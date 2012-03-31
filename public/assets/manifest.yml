@@ -1,5 +1,12 @@
 --- 
+<<<<<<< HEAD
 application.css: application-dfe1e3c4cb2a4ade7f852b5a60004789.css
 mobile.css: mobile-bc2db829dc6bca3178d42e53da8bd0c4.css
+=======
+maven_tools_app.js: maven_tools_app-983041e4e69db23c6c46fcb599d0b5ec.js
+project_tools_app.js: project_tools_app-5d1ec623016fb1a758823d8713e531f0.js
+application.css: application-6151cf8c7004e7baaea93b12f3a48506.css
+mobile.css: mobile-60dda5734b917bfb186d4602a2d03a64.css
+>>>>>>> js-projects
 glyphicons-halflings-white.png: glyphicons-halflings-white-33137abcd2c204b90921315632a32a69.png
 glyphicons-halflings.png: glyphicons-halflings-16cd9c1e6492843e6e32e0ab12967378.png
