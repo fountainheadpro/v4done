@@ -13,6 +13,7 @@ gem "rails-backbone"
 gem "ejs"
 gem "haml-rails"
 gem "awesome_print"
+gem "moonshado-sms"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'

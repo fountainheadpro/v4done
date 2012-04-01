@@ -74,4 +74,10 @@ Actions::Application.configure do
     domain:         'heroku.com',
     authentication: :plain
   }
+
+  config.after_initialize do
+    Moonshado::Sms.configure do |config|
+      config.api_key = ENV['MOONSHADOSMS_URL']
+    end
+  end
 end
