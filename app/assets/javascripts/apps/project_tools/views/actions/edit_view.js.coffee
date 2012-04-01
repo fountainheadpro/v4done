@@ -4,8 +4,9 @@ class Project.Views.Actions.EditView extends Backbone.View
   template: JST["apps/project_tools/templates/actions/edit"]
 
   events:
-    "touchstart div.action": "show_sub_actions"
+    "touch div.action": "show_sub_actions"
     "click div.action": "show_sub_actions"
+    "click input.incomplete": "save_status"
 
   show_sub_actions: (e) ->
     #e.preventDefault()
@@ -13,6 +14,13 @@ class Project.Views.Actions.EditView extends Backbone.View
     unless (@model.isLeaf())
       Project.router.navigate("#{@model.get('_id')}", {trigger: true})
     return false
+
+  save_status: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    @model.save({ completed: true, _id: @model.id, project_id: @options.project.id},
+            success: (item) => @model = item
+          )
 
   attributes: ->
     { 'data-id': @model.id }

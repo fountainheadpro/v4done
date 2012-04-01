@@ -23,7 +23,6 @@ class Project.Collections.ActionsCollection extends Backbone.Collection
     filteredItems = @select((action) -> return action.isRoot())
     return new Project.Collections.ActionsCollection(filteredItems)
 
-
   byParentId: (parentId) ->
     filteredItems = @select((action) -> return action.get('parent_id') == parentId)
     return new Project.Collections.ActionsCollection(filteredItems)
