@@ -37,6 +37,7 @@ tmp/*
 /public/cache
 /public/stylesheets/compiled
 /public/system
+/public/assets
 /spec/tmp/*
 /cache
 /capybara*
@@ -49,6 +50,7 @@ tmp/*
 /specifications
 /.idea
 local/
+public/assets
 
 # scm revert files
 **.orig

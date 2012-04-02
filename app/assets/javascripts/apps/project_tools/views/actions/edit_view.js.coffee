@@ -4,8 +4,12 @@ class Project.Views.Actions.EditView extends Backbone.View
   template: JST["apps/project_tools/templates/actions/edit"]
 
   events:
-    "touchstart div.action": "show_sub_actions"
+    "touch div.action": "show_sub_actions"
     "click div.action": "show_sub_actions"
+    "click input.incomplete": "save_status"
+
+  initialize: () ->
+    @model.bind('change', @render, @)
 
   show_sub_actions: (e) ->
     #e.preventDefault()
@@ -14,10 +18,16 @@ class Project.Views.Actions.EditView extends Backbone.View
       Project.router.navigate("#{@model.get('_id')}", {trigger: true})
     return false
 
+  save_status: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    @model.toggle()
+
   attributes: ->
     { 'data-id': @model.id }
 
   render: ->
-    $(@el).data('id', @model.get('_id'))
-    $(@el).html(@template({ title: @model.get('title'), checked: @model.get('completed'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
+    $(@el).data('id', @model.get('id'))
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
+    @$(".incomplete").checked=@model.get('complete')
     return this

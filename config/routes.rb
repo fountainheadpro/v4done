@@ -14,8 +14,8 @@ Actions::Application.routes.draw do
   end
 
   resources :projects, only: [] do
-    resources :actions, only: [:index] do
-      resources :actions, only: [:index]
+    resources :actions, only: [:index, :update] do
+      resources :actions, only: [:index, :update]
     end
   end
 
