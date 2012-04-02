@@ -14,10 +14,15 @@ class Project.Models.Action extends Backbone.Model
   isLeaf: ->
     (@get('child_count') == 0)
 
+  toggle: ->
+    @.save({complete: !@.get('complete')});
+
+
+
 
 class Project.Collections.ActionsCollection extends Backbone.Collection
   model: Project.Models.Action
-  url: '/actions'
+  url: 'actions'
 
   roots: ->
     filteredItems = @select((action) -> return action.isRoot())
@@ -30,5 +35,4 @@ class Project.Collections.ActionsCollection extends Backbone.Collection
   byPreviousId: (previousId) ->
     filteredItems = @select((action) -> return action.get('previous_id') == previousId)
     return new Project.Collections.ActionsCollection(filteredItems)
-
 
