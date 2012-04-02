@@ -8,6 +8,9 @@ class Project.Views.Actions.EditView extends Backbone.View
     "click div.action": "show_sub_actions"
     "click input.incomplete": "save_status"
 
+  initialize: () ->
+    @model.bind('change', @render, @)
+
   show_sub_actions: (e) ->
     #e.preventDefault()
     #e.stopPropagation()
@@ -18,14 +21,13 @@ class Project.Views.Actions.EditView extends Backbone.View
   save_status: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    @model.save({ completed: true, _id: @model.id, project_id: @options.project.id},
-            success: (item) => @model = item
-          )
+    @model.toggle()
 
   attributes: ->
     { 'data-id': @model.id }
 
   render: ->
-    $(@el).data('id', @model.get('_id'))
-    $(@el).html(@template({ title: @model.get('title'), checked: @model.get('completed'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
+    $(@el).data('id', @model.get('id'))
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
+    @$(".incomplete").checked=@model.get('complete')
     return this

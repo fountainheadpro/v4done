@@ -1,7 +1,7 @@
 class ActionsController < ApplicationController
   layout 'actions'
   #respond_to :html, :only => [:index]
-  respond_to :json, :only => [:index]
+  respond_to :json, :only => [:index, :update]
 
   # GET /projects/1/actions
   def index
@@ -15,5 +15,11 @@ class ActionsController < ApplicationController
     #respond_with([@project, @actions])
   end
 
+   # PUT /actions/1/action.json
+  def update
+    @action = Project.find(params[:project_id]).actions.find(params[:id])
+    @action.update_attributes(params[:action])
+    respond_with(@action)
+  end
 
 end
