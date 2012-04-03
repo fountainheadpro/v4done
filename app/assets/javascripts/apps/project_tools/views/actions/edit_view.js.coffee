@@ -5,9 +5,10 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
   className: "action row-fluid"
 
   events:
-    "touch"       : "showSubactions"
-    "click"       : "showSubactions"
-    "click input.incomplete" : "saveStatus"
+    "touch"              : "showSubactions"
+    "click"              : "showSubactions"
+    "click input.status" : "saveStatus"
+    "swipe"              : "saveStatus"
 
   initialize: () ->
     @model.bind('change', @render, @)
@@ -27,6 +28,5 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
 
   render: ->
     $(@el).data('id', @model.get('_id'))
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf() }))
-    @$(".incomplete").checked = @model.get('complete')
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf(), completed: @model.get('completed') }))
     return this

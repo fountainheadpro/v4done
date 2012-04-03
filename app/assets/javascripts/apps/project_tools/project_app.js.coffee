@@ -12,5 +12,7 @@ window.ProjectApp =
   Mixins: {}
   init: (project) ->
     ProjectApp.router = new ProjectApp.Routers.ProjectRouter({ project: project })
+    $.mobile.linkBindingEnabled = false
+    $.mobile.showLoadMsg = false
     Backbone.history.start()
 

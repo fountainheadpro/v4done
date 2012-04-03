@@ -1,5 +1,5 @@
 <div class="action_status">
-  <input type='checkbox' class='incomplete' id="action[<%= id %>]"/>
+  <input type='checkbox' class='status' id="action[<%= id %>]" <%= completed ? 'checked="checked"' : '' %> />
 </div>
   <div class='action_info'>
     <label><%= title %></label>
