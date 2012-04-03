@@ -28,6 +28,6 @@ class Project.Views.Actions.EditView extends Backbone.View
 
   render: ->
     $(@el).data('id', @model.get('id'))
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
     @$(".incomplete").checked=@model.get('complete')
     return this

@@ -5,12 +5,13 @@ end
 
 ### WHEN ###
 When /^I open this project$/ do
-  visit project_actions_url(@project)
+  visit project_actions_path(@project)
 end
 
 When /^I open a composite action from this project$/ do
   @action = @project.actions.roots.first
-  visit project_action_actions_url(@project, @action)
+  visit project_actions_path(@project)
+  find("div[data-id='#{@action.id}'] > div.action:first").click()
 end
 
 ### THEN ###
@@ -25,7 +26,6 @@ Then /^I should see the list of actions, each with status and link to subactions
       within('.action', text: action.title) do
         page.should have_content(action.description)
         page.should have_unchecked_field("action[#{action.id}]")
-        page.should have_css("a[href='#{project_action_actions_path(@project, action)}']")
       end
     end
   end
@@ -46,7 +46,6 @@ Then /^I should see the list of subactions, each with status and link to subacti
       within('.action', text: subaction.title) do
         page.should have_content(subaction.description)
         page.should have_unchecked_field("action[#{subaction.id}]")
-        page.should have_css("a[href='#{project_action_actions_path(@project, subaction)}']")
       end
     end
   end

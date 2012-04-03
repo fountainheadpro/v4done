@@ -25,7 +25,7 @@ When /^I create new template$/ do
   @title = 'Banana Pie'
   within("#new-template") do
     fill_in "title", with: @title
-    click_button "Create Template"
+    click_button "Create How To"
   end
 end
 
