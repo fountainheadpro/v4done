@@ -6,7 +6,8 @@ class Project.Views.Actions.EditView extends Backbone.View
   events:
     "touch div.action": "show_sub_actions"
     "click div.action": "show_sub_actions"
-    "click input.incomplete": "save_status"
+    "click input.status": "save_status"
+    "swipe div.action": "save_status"
 
   initialize: () ->
     @model.bind('change', @render, @)
@@ -28,6 +29,5 @@ class Project.Views.Actions.EditView extends Backbone.View
 
   render: ->
     $(@el).data('id', @model.get('id'))
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
-    @$(".incomplete").checked=@model.get('complete')
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('id'), child_count: @model.get('child_count'), leaf: @model.isLeaf(), completed: @model.get('completed')}))
     return this

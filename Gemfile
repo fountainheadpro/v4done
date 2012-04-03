@@ -20,6 +20,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.1.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'bootstrap-sass', '~> 2.0.0'
+  gem 'jquery_mobile_rails', '>=1.0.1'
 end
 
 group :development do

@@ -13,5 +13,7 @@ window.Project =
   init: (project) ->
     #window.addEventListener("load", ( -> setTimeout ( -> window.scrollTo(0,1))), false)
     Project.router = new Project.Routers.ProjectRouter({ project: project })
+    $.mobile.linkBindingEnabled = false
+    $.mobile.showLoadMsg = false
     Backbone.history.start()
 

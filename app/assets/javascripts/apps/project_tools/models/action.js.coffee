@@ -15,10 +15,7 @@ class Project.Models.Action extends Backbone.Model
     (@get('child_count') == 0)
 
   toggle: ->
-    @.save({complete: !@.get('complete')});
-
-
-
+    @.save({completed: !@.get('completed')});
 
 class Project.Collections.ActionsCollection extends Backbone.Collection
   model: Project.Models.Action
