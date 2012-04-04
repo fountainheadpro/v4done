@@ -13,9 +13,10 @@ class ProjectApp.Routers.ProjectRouter extends Backbone.Router
 
   childActions: (actionId) ->
     view = new ProjectApp.Views.Actions.IndexView(actions: @project.actions.byParentId(actionId))
-    $(".brand").html(@project.actions.get(actionId).get("title"))
-    if @actions.get(actionId).isLeaf
-      $(".brand").attr("href","#actions/##{@actions.get(action_id).get("parent_id")||""}/actions")
+    if @actions.get(actionId).get("parent_id")
+      $(".brand").html(@project.actions.get(actionId).get("title"))
+      $(".brand").attr("href","#actions/#{@actions.get(actionId).get("parent_id")}/actions")
     else
+      $(".brand").html(@project.title)
       $(".brand").attr("href","#actions")
     $("#project").html(view.render().el)
