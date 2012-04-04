@@ -12,7 +12,7 @@ class Actions.Views.Breadcrumbs.IndexView extends Backbone.View
     $(@el).append(view.render().el)
 
   render: ->
-    @addOne('Goals', '#index', !@options.template?)
+    #@addOne('Goals', '#index', !@options.template?)
     if @options.template?
       if @options.item?
         @addOne(@options.template.get('title'), "##{@options.template.get('_id')}/items", false)
