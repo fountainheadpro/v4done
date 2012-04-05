@@ -1,7 +1,6 @@
-class Project.Routers.ProjectRouter extends Backbone.Router
+class ProjectApp.Routers.ProjectRouter extends Backbone.Router
   initialize: (options) ->
-    @actions = new Project.Collections.ActionsCollection()
-    @actions.reset options.project.actions
+    @project = new ProjectApp.Models.Project(options.project)
 
   routes:
     ":id/actions"                     : "actions"
@@ -9,10 +8,10 @@ class Project.Routers.ProjectRouter extends Backbone.Router
     ".*"                              : "actions"
 
   actions: (id) ->
-    view = new Project.Views.Actions.IndexView(actions: @actions.roots())
+    view = new ProjectApp.Views.Actions.IndexView(actions: @project.actions.roots())
     $("#project").html(view.render().el)
 
   childActions: (actionId) ->
-    view = new Project.Views.Actions.IndexView(actions: @actions.byParentId(actionId))
-    $(".brand").html(@actions.get(actionId).get("title"))
+    view = new ProjectApp.Views.Actions.IndexView(actions: @project.actions.byParentId(actionId))
+    $(".brand").html(@project.actions.get(actionId).get("title"))
     $("#project").html(view.render().el)

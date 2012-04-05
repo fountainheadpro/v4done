@@ -1,6 +1,6 @@
-Project.Views.Actions ||= {}
+ProjectApp.Views.Actions ||= {}
 
-class Project.Views.Actions.IndexView extends Backbone.View
+class ProjectApp.Views.Actions.IndexView extends Backbone.View
   tagName: "div"
   id: "actions"
 
@@ -13,7 +13,7 @@ class Project.Views.Actions.IndexView extends Backbone.View
       @addOne(action)
 
   addOne: (action) ->
-    view = new Project.Views.Actions.EditView({ model: action })
+    view = new ProjectApp.Views.Actions.EditView({ model: action })
     $(@el).append(view.render().el)
 
   render: ->

@@ -1,5 +1,5 @@
 = content_for :header do
-  = link_to @project.title, project_actions_path(@project), { class: 'brand' }
+  = link_to @project.title, project_path(@project), { class: 'brand' }
 
 - unless @parent_action.nil?
   .page-header
@@ -13,5 +13,5 @@
 
 :javascript
   $(function() {
-    Project.init(#{ @project.to_json().html_safe });
+    ProjectApp.init(#{ @project.to_json().html_safe });
   });

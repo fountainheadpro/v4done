@@ -1,6 +1,6 @@
-Project.Views.Actions ||= {}
+ProjectApp.Views.Actions ||= {}
 
-class Project.Views.Actions.EditView extends Backbone.View
+class ProjectApp.Views.Actions.EditView extends Backbone.View
   template: JST["apps/project_tools/templates/actions/edit"]
 
   events:
@@ -15,7 +15,7 @@ class Project.Views.Actions.EditView extends Backbone.View
     #e.preventDefault()
     #e.stopPropagation()
     unless (@model.isLeaf())
-      Project.router.navigate("#{@model.get('_id')}", { trigger: true })
+      ProjectApp.router.navigate("#{@model.get('_id')}", { trigger: true })
     return false
 
   saveStatus: (e) ->
