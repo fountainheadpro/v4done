@@ -5,14 +5,14 @@ class Project.Routers.ProjectRouter extends Backbone.Router
 
   routes:
     ":id/actions"                     : "actions"
-    ":action_id"                    : "child_actions"
+    ":actionId"                       : "childActions"
     ".*"                              : "actions"
 
   actions: (id) ->
     view = new Project.Views.Actions.IndexView(@actions.roots())
     $("#project").html(view.render().el)
 
-  child_actions: (action_id) ->
-    view = new Project.Views.Actions.IndexView(@actions.byParentId(action_id))
-    $(".brand").html(@actions.get(action_id).get("title"))
+  childActions: (actionId) ->
+    view = new Project.Views.Actions.IndexView(@actions.byParentId(actionId))
+    $(".brand").html(@actions.get(actionId).get("title"))
     $("#project").html(view.render().el)

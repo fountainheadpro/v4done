@@ -6,8 +6,8 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
   routes:
     "index"                        : "index"
     ":id/items"                    : "items"
-    ":template_id/items/:id/items" : "subitems"
-    ".*"                            : "index"
+    ":templateId/items/:id/items"  : "subitems"
+    ".*"                           : "index"
 
   index: ->
     view = new Actions.Views.Breadcrumbs.IndexView(template: null, item: null)
@@ -37,8 +37,8 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     $(".new_item:last textarea[name='title']").focus()
 
 
-  subitems: (template_id, id) ->
-    template = @templates.get(template_id)
+  subitems: (templateId, id) ->
+    template = @templates.get(templateId)
     item = template.items.get(id)
 
     view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
