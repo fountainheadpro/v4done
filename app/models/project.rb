@@ -27,7 +27,7 @@ class Project
 
   def as_json(options = {})
     options ||= {}
-    super({ include: [:actions] })
+    super({ include: [:actions], except: [:owner] })
   end
 end
 
