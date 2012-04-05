@@ -2,6 +2,7 @@ ProjectApp.Views.Actions ||= {}
 
 class ProjectApp.Views.Actions.EditView extends Backbone.View
   template: JST["apps/project_tools/templates/actions/edit"]
+  className: "action row-fluid"
 
   events:
     "touch div.action"       : "showSubactions"
