@@ -5,7 +5,7 @@ class Project.Routers.ProjectRouter extends Backbone.Router
 
   routes:
     ":id/actions"                     : "actions"
-    ":actionId"                      : "childActions"
+    ":actionId"                       : "childActions"
     ".*"                              : "actions"
 
   actions: (id) ->
