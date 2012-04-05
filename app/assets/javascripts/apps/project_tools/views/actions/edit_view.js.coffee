@@ -15,7 +15,7 @@ class Project.Views.Actions.EditView extends Backbone.View
     #e.preventDefault()
     #e.stopPropagation()
     unless (@model.isLeaf())
-      Project.router.navigate("#{@model.get('_id')}", {trigger: true})
+      Project.router.navigate("#{@model.get('_id')}", { trigger: true })
     return false
 
   save_status: (e) ->
@@ -28,6 +28,6 @@ class Project.Views.Actions.EditView extends Backbone.View
 
   render: ->
     $(@el).data('id', @model.get('id'))
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf()}))
-    @$(".incomplete").checked=@model.get('complete')
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf() }))
+    @$(".incomplete").checked = @model.get('complete')
     return this

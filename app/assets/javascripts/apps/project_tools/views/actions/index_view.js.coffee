@@ -14,7 +14,7 @@ class Project.Views.Actions.IndexView extends Backbone.View
 
 
   addOne: (action) ->
-    view = new Project.Views.Actions.EditView({ model: action, project: @options})
+    view = new Project.Views.Actions.EditView({ model: action, project: @options })
     $(@el).append(view.render().el)
 
   render: ->
