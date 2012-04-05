@@ -9,12 +9,11 @@ class Project.Views.Actions.IndexView extends Backbone.View
     @options.bind('reset', @addAll)
 
   addAll: () ->
-    @options.each (action) =>
+    @options.actions.each (action) =>
       @addOne(action)
 
-
   addOne: (action) ->
-    view = new Project.Views.Actions.EditView({ model: action, project: @options })
+    view = new Project.Views.Actions.EditView({ model: action })
     $(@el).append(view.render().el)
 
   render: ->

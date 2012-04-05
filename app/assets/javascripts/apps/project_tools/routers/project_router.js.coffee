@@ -9,10 +9,10 @@ class Project.Routers.ProjectRouter extends Backbone.Router
     ".*"                              : "actions"
 
   actions: (id) ->
-    view = new Project.Views.Actions.IndexView(@actions.roots())
+    view = new Project.Views.Actions.IndexView(actions: @actions.roots())
     $("#project").html(view.render().el)
 
   childActions: (actionId) ->
-    view = new Project.Views.Actions.IndexView(@actions.byParentId(actionId))
+    view = new Project.Views.Actions.IndexView(actions: @actions.byParentId(actionId))
     $(".brand").html(@actions.get(actionId).get("title"))
     $("#project").html(view.render().el)
