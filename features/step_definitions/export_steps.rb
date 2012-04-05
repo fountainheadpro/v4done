@@ -17,5 +17,5 @@ Then /^I should receive email with link to todo\-list$/ do
   mailbox_for(current_email_address).size.should == 1
   open_email(current_email_address)
   current_email.subject.should =~ Regexp.new(@publication.template.title)
-  current_email.body.should =~ Regexp.new(project_path(Project.where(publication_id: @publication.id).first))
+  current_email.body.should =~ Regexp.new(path_to_current_project)
 end
