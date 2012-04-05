@@ -5,8 +5,8 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
   className: "action row-fluid"
 
   events:
-    "touch div.action"       : "showSubactions"
-    "click div.action"       : "showSubactions"
+    "touch"       : "showSubactions"
+    "click"       : "showSubactions"
     "click input.incomplete" : "saveStatus"
 
   initialize: () ->

@@ -11,7 +11,7 @@ end
 When /^I open a composite action from this project$/ do
   @action = @project.actions.roots.first
   visit project_path(@project)
-  find("div[data-id='#{@action.id}'] > div.action:first").click()
+  find("div[data-id='#{@action.id}']").click()
 end
 
 ### THEN ###
