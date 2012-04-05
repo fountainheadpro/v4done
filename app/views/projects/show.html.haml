@@ -1,0 +1,9 @@
+= content_for :header do
+  = link_to @project.title, project_path(@project), { class: 'brand' }
+
+#project
+
+:javascript
+  $(function() {
+    ProjectApp.init(#{ @project.to_json().html_safe });
+  });

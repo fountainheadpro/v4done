@@ -6,6 +6,7 @@ Feature: Navigating TODO list
   Background:
     Given I have project with few actions and subactions
 
+  @javascript
   Scenario: Top Level Actions Screen
     When I open this project
     Then I should see the goal on the header
@@ -22,6 +23,7 @@ Feature: Navigating TODO list
     Then I should see the full description
       And other actions pushed down to allow me to the whole description
 
+  @javascript
   Scenario: Sub-actions Screen
     When I open a composite action from this project
     Then I should see the action title on the header

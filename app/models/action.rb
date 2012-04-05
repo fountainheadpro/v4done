@@ -10,4 +10,13 @@ class Action
   embedded_in :project, inverse_of: :actions
 
   validates :title, presence: true
+
+  def child_count
+    children.count
+  end
+
+  def serializable_hash(options = {})
+    super({ methods: [:child_count] }.merge(options || {}))
+  end
+
 end

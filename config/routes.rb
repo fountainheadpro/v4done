@@ -13,10 +13,8 @@ Actions::Application.routes.draw do
     end
   end
 
-  resources :projects, only: [] do
-    resources :actions, only: [:index] do
-      resources :actions, only: [:index]
-    end
+  resources :projects, only: [:show] do
+    resources :actions, only: [:update]
   end
 
   devise_for :users

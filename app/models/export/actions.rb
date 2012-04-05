@@ -21,7 +21,7 @@ class Export::Actions
         when "test"
           "test.org"
         end
-        Moonshado::Sms.new(project.owner['phone_number'], Rails.application.routes.url_helpers.project_actions_url(project, host: host)).deliver_sms
+        Moonshado::Sms.new(project.owner['phone_number'], Rails.application.routes.url_helpers.project_url(project, host: host)).deliver_sms
       end
     end
   end
