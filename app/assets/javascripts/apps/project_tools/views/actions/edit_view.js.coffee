@@ -13,8 +13,6 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
     @model.bind('change', @render, @)
 
   showSubactions: (e) ->
-    #e.preventDefault()
-    #e.stopPropagation()
     unless (@model.isLeaf())
       ProjectApp.router.navigate("actions/#{@model.get('_id')}/actions", { trigger: true })
     return false
