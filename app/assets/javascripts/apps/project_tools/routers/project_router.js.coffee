@@ -3,9 +3,9 @@ class ProjectApp.Routers.ProjectRouter extends Backbone.Router
     @project = new ProjectApp.Models.Project(options.project)
 
   routes:
-    ":id/actions"                     : "actions"
-    ":actionId"                       : "childActions"
-    ".*"                              : "actions"
+    "actions"                     : "actions"
+    "actions/:actionId/actions"   : "childActions"
+    ".*"                          : "actions"
 
   actions: (id) ->
     view = new ProjectApp.Views.Actions.IndexView(actions: @project.actions.roots())

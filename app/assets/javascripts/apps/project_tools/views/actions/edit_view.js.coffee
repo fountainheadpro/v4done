@@ -15,7 +15,7 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
     #e.preventDefault()
     #e.stopPropagation()
     unless (@model.isLeaf())
-      ProjectApp.router.navigate("#{@model.get('_id')}", { trigger: true })
+      ProjectApp.router.navigate("actions/#{@model.get('_id')}/actions", { trigger: true })
     return false
 
   saveStatus: (e) ->
