@@ -32,9 +32,9 @@ class Project
     self
   end
 
-  def as_json(options={})
-    options||={}
-    super({:include=>[:actions]})
+  def as_json(options = {})
+    options ||= {}
+    super({ include: [:actions] })
   end
 
   private
@@ -51,7 +51,7 @@ class Project
     }
   end
 
-  
-  
+
+
 end
 
