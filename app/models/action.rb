@@ -11,12 +11,6 @@ class Action
 
   validates :title, presence: true
 
-  def init(item)
-    self.title=item.title
-    self.description=item.description
-    self
-  end
-
   def child_count
     children.count
   end
