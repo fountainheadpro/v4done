@@ -5,13 +5,13 @@ end
 
 ### WHEN ###
 When /^I open this project$/ do
-  visit project_actions_path(@project)
+  visit project_path(@project)
 end
 
 When /^I open a composite action from this project$/ do
   @action = @project.actions.roots.first
-  visit project_actions_path(@project)
-  find("div[data-id='#{@action.id}'] > div.action:first").click()
+  visit project_path(@project)
+  find("div[data-id='#{@action.id}']").click()
 end
 
 ### THEN ###

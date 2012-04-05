@@ -4,14 +4,13 @@
 #= require_tree ./views
 #= require_tree ./routers
 
-window.Project =
+window.ProjectApp =
   Models: {}
   Collections: {}
   Routers: {}
   Views: {}
   Mixins: {}
   init: (project) ->
-    #window.addEventListener("load", ( -> setTimeout ( -> window.scrollTo(0,1))), false)
-    Project.router = new Project.Routers.ProjectRouter({ project: project })
+    ProjectApp.router = new ProjectApp.Routers.ProjectRouter({ project: project })
     Backbone.history.start()
 
