@@ -10,8 +10,8 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     ".*"                           : "index"
 
   index: ->
-    #view = new Actions.Views.Breadcrumbs.IndexView(template: null, item: null)
-    $(".page-header").html("")
+    view = new Actions.Views.Breadcrumbs.IndexView(template: null, item: null)
+    $(".page-header").html(view.render().el)
 
     view = new Actions.Views.Templates.IndexView(templates: @templates)
     $("#templates").html(view.render().el)
@@ -22,8 +22,8 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
   items: (id) ->
     template = @templates.get(id)
 
-    #view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: null)
-    $(".page-header").html("")
+    view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: null)
+    $(".page-header").html(view.render().el)
 
     view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(null))
     $("#templates").html(view.render().el)
