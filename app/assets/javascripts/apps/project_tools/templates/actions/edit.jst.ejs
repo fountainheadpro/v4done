@@ -1,16 +1,12 @@
-<div class="action_status">
+<div class="action-status">
   <input type='checkbox' class='status' id="action[<%= id %>]" <%= completed ? 'checked="checked"' : '' %> />
 </div>
-  <div class='action_info'>
-    <label><%= title %></label>
-  </div>
+<div class="action-info">
   <% if (!leaf) { %>
-    <div class='action_details'>
-      <%= child_count %> <i class="icon-chevron-right"></i>
-    </div>
+    <span class="action-details"><%= child_count %> <i class="icon-chevron-right"></i></span>
   <% } %>
-<% if (description != null && description != '') { %>
-  <div class="description">
-    <%= description %>
-  </div>
-<% } %>
+  <span class="action-title"><%= title %></span>
+  <% if (description != null && description != '') { %>
+    <p class="action-description"><%= description %></p>
+  <% } %>
+</div>
