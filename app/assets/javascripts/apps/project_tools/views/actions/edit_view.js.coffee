@@ -6,9 +6,9 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
 
   events:
     "mousedown"               : "highlight"
-    "touchstart"               : "highlight"
-    "thouchend"                : "unhighlight"
-    "mouseup"                : "unhighlight"
+    "touchstart"              : "highlight"
+    "thouchend"               : "unhighlight"
+    "mouseup"                 : "unhighlight"
     "touch div.action-info"   : "showSubactions"
     "click div.action-info"   : "showSubactions"
     "click input.status"      : "saveStatus"
