@@ -18,7 +18,7 @@ class ProjectApp.Models.Action extends Backbone.Model
     @get('completed') == true
 
   toggle: ->
-    @.save({completed: !@.get('completed')});
+    @.save({ completed: !@.get('completed') })
 
 class ProjectApp.Collections.ActionsCollection extends Backbone.Collection
   model: ProjectApp.Models.Action
