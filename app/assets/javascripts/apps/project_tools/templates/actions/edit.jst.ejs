@@ -9,6 +9,8 @@
       <%= child_count %> <i class="icon-chevron-right"></i>
     </div>
   <% } %>
-<div class="description">
-  <%= description %>
-</div>
+<% if (description != null && description != '') { %>
+  <div class="description">
+    <%= description %>
+  </div>
+<% } %>
