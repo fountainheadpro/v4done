@@ -5,17 +5,29 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
   className: "action row-fluid"
 
   events:
+    "mousedown"               : "highlight"
+    "touchstart"               : "highlight"
+    "thouchend"                : "unhighlight"
+    "mouseup"                : "unhighlight"
     "touch div.action-info"   : "showSubactions"
     "click div.action-info"   : "showSubactions"
     "click input.status"      : "saveStatus"
     "click div.action-status" : "saveStatus"
     "swipe"                   : "saveStatus"
 
+
   initialize: () ->
     @model.bind('change', @render, @)
 
+  highlight: ->
+    unless @model.isLeaf()
+      $(@el).addClass('active')
+
+  unhighlight: ->
+    $(@el).removeClass('active')
+
   showSubactions: (e) ->
-    unless (@model.isLeaf())
+    unless @model.isLeaf()
       ProjectApp.router.navigate("actions/#{@model.get('_id')}/actions", { trigger: true })
     return false
 
