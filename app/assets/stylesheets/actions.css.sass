@@ -1,44 +1,41 @@
-.action
-  padding: 10px 0
+a.nav-home
+  float: left
+  margin-right: 1%
+
+div.action
   border-bottom: 1px solid #555
 
   &:last-child
     border-bottom: 0 none transparent
 
-  .action_status
+  &.completed
+    background-color: #DEE
+
+    span.action-title
+      text-decoration: line-through
+
+  div.action-status
     float: left
-    display: inline
-    width: 3%
-    padding: 0.5%
-    margin-left: 0
+    padding: 10px 15px
 
-  .action_info
-    float: left
-    display: inline
-    width: 89.261%
-    padding-left: 2.128%
-    margin-left: 0
+  div.action-info
+    padding: 10px 0
+    margin-left: 42px
 
-  .action_details
-    float: left
-    display: inline
-    width: 3%
-    padding-right: 1.064%
-    margin-left: 0%
+    span.action-details
+      float: right
+      padding-right: 1.064%
+      margin-left: 0%
 
-  .description
-    float: left
-    display: block
-    width: 96%
-    padding-left: 2%
-    padding-right: 2%
-    padding-top: 5px
-    padding-bottom: 5px
-    margin-left: 0%
+    span.action-title
+      font-weight: bold
 
-    a
-      padding: 10% 30%
-
-  label
-    display: inline
-    font-weight: bold
+    span.action-description
+      float: left
+      display: block
+      width: 96%
+      padding-left: 2%
+      padding-right: 2%
+      padding-top: 5px
+      padding-bottom: 5px
+      margin-left: 0%

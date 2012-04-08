@@ -1,5 +1,8 @@
 = content_for :header do
-  = link_to @project.title, project_path(@project), { class: 'brand' }
+  = link_to project_path(@project), { class: 'btn nav-home' } do
+    %i{ class: "icon-home" }
+  .nav_header
+    = link_to @project.title, project_path(@project), { class: 'brand', id: 'action_header'  }
 
 #project
 

@@ -14,8 +14,11 @@ class ProjectApp.Models.Action extends Backbone.Model
   isLeaf: ->
     (@get('child_count') == 0)
 
+  isCompleted: ->
+    @get('completed') == true
+
   toggle: ->
-    @.save({ complete: !@.get('complete') })
+    @.save({ completed: !@.get('completed') })
 
 class ProjectApp.Collections.ActionsCollection extends Backbone.Collection
   model: ProjectApp.Models.Action
