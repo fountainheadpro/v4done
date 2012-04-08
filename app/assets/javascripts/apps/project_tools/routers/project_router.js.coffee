@@ -9,7 +9,7 @@ class ProjectApp.Routers.ProjectRouter extends Backbone.Router
 
   actions: (id) ->
     view = new ProjectApp.Views.Actions.IndexView(actions: @project.actions.roots())
-    $("#action_header").html(@project.title)
+    $("#action_header").html(@project.get('title'))
     $("#action_header").attr("href", "#actions")
     $("#project").html(view.render().el)
 
