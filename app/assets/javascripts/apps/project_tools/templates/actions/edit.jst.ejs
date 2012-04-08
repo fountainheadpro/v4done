@@ -3,7 +3,7 @@
 </div>
 <div class="action-info">
   <% if (!leaf) { %>
-    <span class="action-details"><%= child_count %> <i class="icon-chevron-right"></i></span>
+    <span class="action-details"><span class="badge"><%= child_count %></span><i class="icon-chevron-right"></i></span>
   <% } %>
   <span class="action-title"><%= title %></span>
   <% if (description != null && description != '') { %>
