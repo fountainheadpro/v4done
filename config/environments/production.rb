@@ -78,7 +78,7 @@ Actions::Application.configure do
 
   config.after_initialize do
     Moonshado::Sms.configure do |config|
-      config.api_key = ENV['MOONSHADOSMS_URL']
+      config.api_key = ENV['MOONSHADOSMS_URL'].to_s
     end
   end
 end
