@@ -1,5 +1,7 @@
 //= require jquery
+//= require config/jquery.mobile
 //= require jquery_ujs
+//= require jquery.mobile
 //= require underscore
 //= require backbone
 //= require backbone_rails_sync
