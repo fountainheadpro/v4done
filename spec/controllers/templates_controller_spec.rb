@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe TemplatesController do
-  let(:user) { Factory(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   before(:each) do
     sign_in user
@@ -9,7 +9,7 @@ describe TemplatesController do
 
   describe "GET index" do
     it "assigns all templates as @templates" do
-      template = Factory(:template, creator: user)
+      template = FactoryGirl.create(:template, creator: user)
       get :index
       assigns(:templates).should eq([template])
     end
@@ -17,7 +17,7 @@ describe TemplatesController do
 
   describe "GET show" do
     it "respond with :success" do
-      template = Factory(:template, creator: user)
+      template = FactoryGirl.create(:template, creator: user)
       get :show, id: template.id, format: :json
       response.should be_success
     end
@@ -25,7 +25,7 @@ describe TemplatesController do
 
   describe "POST create" do
     describe "with valid params" do
-      let(:valid_params) { { template: Factory.attributes_for(:template), format: :json } }
+      let(:valid_params) { { template: FactoryGirl.attributes_for(:template), format: :json } }
 
       it "creates a new Template" do
         expect {
@@ -55,7 +55,7 @@ describe TemplatesController do
   end
 
   describe "PUT update" do
-    let(:template) { Factory(:template, creator: user) }
+    let(:template) { FactoryGirl.create(:template, creator: user) }
 
     it "updates the requested template" do
       Template.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
@@ -63,7 +63,7 @@ describe TemplatesController do
     end
 
     describe "with valid params" do
-      let(:valid_params) { { id: template.id, template: Factory.attributes_for(:template), format: :json } }
+      let(:valid_params) { { id: template.id, template: FactoryGirl.attributes_for(:template), format: :json } }
 
       it "response with blank body" do
         put :update, valid_params
@@ -94,14 +94,14 @@ describe TemplatesController do
   describe "DELETE destroy" do
 
     it "destroys the requested template" do
-      template = Factory(:template, creator: user)
+      template = FactoryGirl.create(:template, creator: user)
       expect {
         delete :destroy, id: template.id, format: :json
       }.to change(Template, :count).by(-1)
     end
 
     it "redirects to the templates list" do
-      template = Factory(:template, creator: user)
+      template = FactoryGirl.create(:template, creator: user)
       delete :destroy, id: template.id, format: :json
       response.should be_success
     end

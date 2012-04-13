@@ -4,12 +4,12 @@ Given /^I am not logged in$/ do
 end
 
 Given /^I am logged in$/ do
-  @current_user = Factory.create(:user, valid_user)
+  @current_user = FactoryGirl.create(:user, valid_user)
   sign_in valid_user
 end
 
 Given /^I exist as a user$/ do
-  @current_user = Factory.create(:user, valid_user)
+  @current_user = FactoryGirl.create(:user, valid_user)
 end
 
 Given /^I do not exist as a user$/ do

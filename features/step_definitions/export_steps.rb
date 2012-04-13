@@ -1,6 +1,6 @@
 ### GIVEN ###
 Given /^I found some interesting goal$/ do
-  @publication = Factory.create(:publication)
+  @publication = FactoryGirl.create(:publication)
   visit publication_path(@publication)
 end
 
