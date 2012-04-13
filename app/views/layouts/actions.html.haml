@@ -5,7 +5,7 @@
     = stylesheet_link_tag    "mobile"
     = javascript_include_tag "project_tools_app"
     = csrf_meta_tags
-    %meta{ name:"viewport", content:"width=device-width, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" }
+    %meta{ name:"viewport", content:"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" }
     %meta{ name:"application-name", content:"actions.im" }
     %meta{ name:"apple-mobile-web-app-capable", content:"yes" }
     %meta{ name:"apple-mobile-web-app-status-bar-style", content:"black" }
@@ -15,8 +15,6 @@
         .container-fluid
           = yield :header
     .container-fluid
-      .row-fluid
-        .span12
-          .content
-            = yield
+      #content
+        = yield
     %footer

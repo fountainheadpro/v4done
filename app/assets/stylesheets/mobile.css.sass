@@ -1,8 +1,6 @@
-@import "variables"
 @import "bootstrap"
-@import "templates.css.sass"
-@import "actions"
 @import "bootstrap-responsive"
+@import "actions"
 
 html, body
   background-color: #eee
@@ -10,39 +8,27 @@ html, body
 body
   padding-top: 40px
 
-.status
-  width: 25px
-  height: 25px
-  padding: 0 5px 0 0
-  clear: left
-  float: left
+div.navbar
+  margin-bottom: 0
 
-.container-fluid
-  .content
-    padding: 0
-    margin-bottom: 20px
+body > div.container-fluid
+  padding: 0
+  margin: 0 20px
+
+  div#content
     background-color: #fff
     @include border-radius(0 0 6px 6px)
     @include box-shadow(0 1px 2px rgba(0,0,0,.15))
-
-    .page-header
-      background-color: #f5f5f5
-      padding: 10px 20px
-      margin: 0
-
-
 
 @media (max-width: 979px)
   body
     padding-top: 0
 
-  .navbar-fixed-top
-    margin-bottom: 0
+@media (max-width: 767px)
+  body > div.container-fluid
+    margin: 0
 
 @media (max-width: 480px)
-  .container-fluid, body
+  body > div.container-fluid
     padding: 0
-
-  .navbar
-    padding: 0 20px
-
+    margin: 0 -20px
