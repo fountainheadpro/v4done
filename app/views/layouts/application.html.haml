@@ -13,10 +13,6 @@
           = render 'shared/navigation'
     .container
       .content
-        - if content_for? :page_header
-          .page-header
-            %h1
-              = yield :page_header
         .row
           #main.span10
             - flash.each do |name, msg|

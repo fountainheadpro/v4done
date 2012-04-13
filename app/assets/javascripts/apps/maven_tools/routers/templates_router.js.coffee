@@ -22,9 +22,6 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
   items: (id) ->
     template = @templates.get(id)
 
-    view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: null)
-    $(".page-header").html(view.render().el)
-
     view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(null))
     $("#templates").html(view.render().el)
 
@@ -41,14 +38,17 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     template = @templates.get(templateId)
     item = template.items.get(id)
 
-    view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
-    $(".page-header").html(view.render().el)
-
-    view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
+    view = new Actions.Views.Templates.EditView(model: template)
     $("#templates").html(view.render().el)
 
+    view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
+    $("#templates").append(view.render().el)
+
     view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
-    $("#templates").prepend(view.render().el)
+    $("#templates").append(view.render().el)
+
+    view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
+    $("#templates").append(view.render().el)
 
     view = new Actions.Views.Items.NewView(template: template, parentItem: item)
     $("#templates #items").append(view.render().el)
