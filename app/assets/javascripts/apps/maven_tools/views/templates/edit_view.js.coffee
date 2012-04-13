@@ -3,6 +3,7 @@ Actions.Views.Templates ||= {}
 class Actions.Views.Templates.EditView extends Backbone.View
   template: JST["apps/maven_tools/templates/templates/edit"]
   className: 'template'
+  tagName: 'header'
 
   move: Actions.Mixins.Movable['move']
   focus_next: Actions.Mixins.Movable['focus_next']
@@ -43,5 +44,5 @@ class Actions.Views.Templates.EditView extends Backbone.View
         window.location.replace("/publications/#{data._id}")
 
   render: ->
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description') }))
+    $(@el).html(@template({ id: @model.id, title: @model.get('title'), description: @model.get('description') }))
     return this

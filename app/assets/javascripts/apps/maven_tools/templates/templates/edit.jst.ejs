@@ -1,4 +1,10 @@
-<a href="#index">← Back to templates</a>
+<nav>
+  <ul class="nav">
+    <li><a href="#index">← Back to templates</a></li>
+    <li><a href="/templates/<%= id %>/publications">Go to publications →</a></li>
+  </ul>
+</nav>
+<div style="clear:both" />
 <div id="new-publication">
   <button class="btn btn-primary btn-large" data-disable-with="Publishing...">Publish</button>
 </div>
@@ -6,5 +12,5 @@
   <textarea name="title" rows="1"><%= title %></textarea>
 </div>
 <div class="description" style="display: <%= description == '' ? 'none':'block' %>">
-  <textarea name="description" rows="3" placeholder="Description"><%= description %></textarea>
+  <textarea name="description" rows="3" placeholder="Add a goal description"><%= description %></textarea>
 </div>

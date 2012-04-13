@@ -1,9 +1,8 @@
 Actions.Views.Items ||= {}
 
 class Actions.Views.Items.IndexView extends Backbone.View
-  tagName: "div"
+  tagName: "section"
   id: "items"
-  className: "row"
 
   initialize: () ->
     _.bindAll(this, 'addOne', 'addAll', 'render')
@@ -36,6 +35,7 @@ class Actions.Views.Items.IndexView extends Backbone.View
     $(@el).append(view.render().el)
 
   render: ->
+    $(@el).append('<header></header')
     @addAll()
 
     return this
