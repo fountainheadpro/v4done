@@ -9,9 +9,10 @@ class Actions.Views.Templates.EditView extends Backbone.View
   focus_prev: Actions.Mixins.Movable['focus_prev']
 
   events:
-    "focusin textarea": "highlight"
-    "keydown textarea": "keymap"
-    "blur textarea": "update"
+    "focusin textarea" : "highlight"
+    "keydown textarea" : "keymap"
+    "blur textarea"    : "update"
+    "click button"     : "publish"
 
   keymap: (e) ->
     switch e.which
@@ -35,6 +36,11 @@ class Actions.Views.Templates.EditView extends Backbone.View
     $('.selected').removeClass('selected')
     $(@el).addClass('selected')
     @$('.description').show()
+
+  publish: ->
+    $.post "/templates/#{@model.id}/publications.json", (data) ->
+      if data._id
+        window.location.replace("/publications/#{data._id}")
 
   render: ->
     $(@el).html(@template({ title: @model.get('title'), description: @model.get('description') }))
