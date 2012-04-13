@@ -7,10 +7,7 @@ describe "Actions.Views.Items.IndexView", ->
 
   describe "Instantiation", ->
     it "creates a div element", ->
-      expect(@view.el.nodeName).toEqual("DIV")
-
-    it "have a class of 'row'", ->
-      expect($(@view.el)).toHaveClass('row')
+      expect(@view.el.nodeName).toEqual("SECTION")
 
     it "have a id of 'unstyled'", ->
       expect($(@view.el)).toHaveId('items')
@@ -53,7 +50,7 @@ describe "Actions.Views.Items.IndexView", ->
       expect(@editViewStub).toHaveBeenCalledWith({ model: @item4, template: @template })
 
     it "prepends the item to the item list", ->
-      expect($(@view.el).children().length).toEqual(4)
+      expect($(@view.el).children().length).toEqual(5) # 4 items + header
 
     it "returns the view object", ->
       expect(@view.render()).toEqual(@view)

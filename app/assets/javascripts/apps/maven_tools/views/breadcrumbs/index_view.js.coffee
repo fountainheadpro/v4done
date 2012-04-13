@@ -12,9 +12,7 @@ class Actions.Views.Breadcrumbs.IndexView extends Backbone.View
     $(@el).append(view.render().el)
 
   render: ->
-    @addOne('Goals', '#index', !@options.template?)
-    if @options.template?
-      if @options.item?
+    if @options.template? && @options.item?
         @addOne(@options.template.get('title'), "##{@options.template.get('_id')}/items", false)
         item = @options.item
         parent_items = while parent_id = item.get('parent_id')
@@ -22,7 +20,5 @@ class Actions.Views.Breadcrumbs.IndexView extends Backbone.View
           item
         for item in parent_items.reverse()
           @addOne(item.get('title'), "##{@options.template.get('_id')}/items/#{item.get('_id')}/items", false)
-
-      @addOne('', '', true)
 
     return this

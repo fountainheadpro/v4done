@@ -1,5 +1,5 @@
 class PublicationsController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
   before_filter :authenticate_user!, only: [:index, :create]
   before_filter :find_template, only: [:index, :create]
 

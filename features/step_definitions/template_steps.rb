@@ -110,7 +110,7 @@ Then /^I should see this (?:|sub)item$/ do
 end
 
 Then /^I should see this new (?:|sub)item as second$/ do
-  find('#items .item:nth-child(2)').should have_content(@title)
+  find('#items .item:nth-child(3)').should have_content(@title) # first element is header, so sub item would third
   @template.reload
   @template.items.where(title: @title).should exist
 end
