@@ -22,5 +22,6 @@ Actions.Mixins.Movable =
       @$('textarea[name="title"]').focus()
     else
       prevEl = $(@el).prev().find('textarea:visible:last')
+      prevEl = $(@el).parent().prev().find('textarea:visible:last') if prevEl.length == 0
       prevEl = $(@el).parent().parent().prev().find('textarea:visible:last') if prevEl.length == 0
       prevEl.focus()
