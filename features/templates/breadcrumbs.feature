@@ -10,8 +10,8 @@ Feature: Breadcrumbs
 
     Scenario: Breadcrumbs for an item
       When I look at the item of this template
-      Then I should see breadcrumbs: root element, title of the template
+      Then I should see breadcrumbs: title of the template
 
     Scenario: Breadcrumbs for a subitem
       When I look at some subitem of this template
-      Then I should see breadcrumbs: root element, title of the template, title of the parent item
+      Then I should see breadcrumbs: title of the template, title of the parent item

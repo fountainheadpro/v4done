@@ -18,19 +18,20 @@ describe "Actions.Views.Breadcrumbs.IndexView", ->
       @templateRenderSpy = sinon.spy(@breadcrumbView, "render");
       @breadcrumbViewStub = sinon.stub(Actions.Views.Breadcrumbs, "BreadcrumbView").returns(@breadcrumbView)
       @template = new Backbone.Model({ _id: 1, title: 'foo' })
+      @item = new Backbone.Model({ _id: 2, title: 'bar' })
       @view.options.template = @template
+      @view.options.item = @item
       @view.render()
 
     afterEach ->
       Actions.Views.Breadcrumbs.BreadcrumbView.restore()
 
     it "create a Breadcrumb view for all templates and current template", ->
-      expect(@breadcrumbViewStub).toHaveBeenCalledTwice()
-      expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'Goals', link: '#index', active: false })
-      expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: '', link: '', active: true })
+      expect(@breadcrumbViewStub).toHaveBeenCalledOnce()
+      expect(@breadcrumbViewStub).toHaveBeenCalledWith({ title: 'foo', link: '#1/items', active: false })
 
     it "prepends the template to the template list", ->
-      expect($(@view.el).children().length).toEqual(2)
+      expect($(@view.el).children().length).toEqual(1)
 
     it "returns the view object", ->
       expect(@view.render()).toEqual(@view)
