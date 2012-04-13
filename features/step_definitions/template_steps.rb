@@ -12,7 +12,7 @@ Given /^he have few templates too$/ do
 end
 
 Given /^I have the template with items and subitems$/ do
-  @template = Factory.create(:template_with_subitems, creator: current_user)
+  @template = FactoryGirl.create(:template_with_subitems, creator: current_user)
 end
 
 ### WHEN ###

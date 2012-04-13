@@ -1,6 +1,6 @@
 ### WHEN ###
 When /^I look at some publication$/ do
-  @publication = Factory.create(:publication)
+  @publication = FactoryGirl.create(:publication)
   visit publication_path(@publication)
 end
 
