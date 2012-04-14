@@ -52,7 +52,7 @@ tmp/*
 /.idea
 local/
 public/assets
-
+rails_best_practices_output.html
 # scm revert files
 **.orig
 
