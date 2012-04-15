@@ -22,6 +22,9 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
   show: (templateId, itemId) ->
     template = @templates.get(templateId)
 
+    if !tempalte? || template.isDeleted()
+      window.location.replace("/deleted_templates/#{templateId}")
+
     view = new Actions.Views.Templates.EditView(model: template)
     $("section#templates").html(view.render().el)
 
