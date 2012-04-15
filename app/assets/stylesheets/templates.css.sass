@@ -100,12 +100,23 @@ section#templates
       @include box-shadow(inset 0 1px 0 $white)
       padding: 2px 5px
       margin: 0 0 2px
+      textarea
+        width: 750px
 
       div.title
         display: inline
+      div.description
+        padding-left: 18px
       & > a.item-details
         float: right
         margin-right: 5px
+      & > i.destroy
+        visibility: hidden
+        float: left
+        margin: 3px 4px 0 0
+        cursor: pointer
+      &:hover > i.destroy, &.selected > i.destroy
+        visibility: visible
 
     div.new_item
       & > span.label
