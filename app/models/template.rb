@@ -1,6 +1,7 @@
 class Template
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   include CreatedBy
 
   field :title, type: String
