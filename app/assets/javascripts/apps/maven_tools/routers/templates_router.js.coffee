@@ -19,10 +19,12 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     view = new Actions.Views.Templates.NewView(collection: @templates)
     $("section#templates").prepend(view.render().el)
 
+    $("#deleted-templates").show()
+
   show: (templateId, itemId) ->
     template = @templates.get(templateId)
 
-    if !tempalte? || template.isDeleted()
+    if !template? || template.isDeleted()
       window.location.replace("/deleted_templates/#{templateId}")
 
     view = new Actions.Views.Templates.EditView(model: template)
@@ -46,4 +48,5 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     view = new Actions.Views.Items.NewView(template: template, parentItem: item)
     $("section#items").append(view.render().el)
 
+    $("#deleted-templates").hide()
     $("div.new_item:last textarea[name='title']").focus()
