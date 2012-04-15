@@ -9,7 +9,7 @@
       %h2= @publication.template.title
       %ul.items
         - @publication.template.items.roots.each do |item|
-          = render "item", item: item
+          = render "shared/item", item: item
     .span3
       #send-to-actions{ style:"display:block" }
         %strong Get Todo-list

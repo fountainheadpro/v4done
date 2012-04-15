@@ -1,0 +1,13 @@
+%nav
+  %ul.nav
+    %li= link_to '← Back to templates', templates_path
+
+%section#deleted-templates
+  %header
+    %h1 Deleted templates
+  %ul.unstyled
+    - @templates.each do |template|
+      %li
+        %h2
+          = link_to template.title, deleted_template_path(template.id)
+          %small Deleted at: #{template.deleted_at.to_s(:short)}

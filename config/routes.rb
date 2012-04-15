@@ -13,6 +13,12 @@ Actions::Application.routes.draw do
     end
   end
 
+  resources :deleted_templates, only: [:index, :show] do
+    member do
+      post 'restore'
+    end
+  end
+
   resources :projects, only: [:show] do
     resources :actions, only: [:update]
   end
