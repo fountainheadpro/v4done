@@ -14,6 +14,10 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
   model: Actions.Models.Item
   url: '/items'
 
+  roots: ->
+    filteredItems = @select((item) -> return item.isRoot())
+    return new Actions.Collections.ItemsCollection(filteredItems)
+
   byParentId: (parentId) ->
     filteredItems = @select((item) -> return item.get('parent_id') == parentId)
     return new Actions.Collections.ItemsCollection(filteredItems)

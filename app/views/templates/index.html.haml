@@ -1,5 +1,8 @@
 %section#templates
 
+#deleted-templates
+  = link_to "Deleted templates", deleted_templates_path, id: 'deleted-templates'
+
 :javascript
   $(function() {
     Actions.init_templates(#{ @templates.to_json.html_safe });

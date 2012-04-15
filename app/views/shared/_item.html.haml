@@ -5,4 +5,4 @@
   - unless item.leaf?
     %ul
       - item.children.each do |item|
-        = render "item", item: item
+        = render "shared/item", item: item
