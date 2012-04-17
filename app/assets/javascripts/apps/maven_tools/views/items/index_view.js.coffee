@@ -11,7 +11,7 @@ class Actions.Views.Items.IndexView extends Backbone.View
   addAll: (withId = null) ->
     @options.items.byPreviousId(withId).each (item) =>
       @addOne(item)
-      @addAll(item.id)
+      @addAll(item.get('_id'))
 
   addOne: (item) ->
     view = new Actions.Views.Items.EditView({ model: item, template: @options.template})
