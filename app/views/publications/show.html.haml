@@ -7,6 +7,7 @@
   .row
     .span7
       %h2= @publication.template.title
+      %p= @publication.template.description
       %ul.items
         - @publication.template.items.roots.each do |item|
           = render "shared/item", item: item
