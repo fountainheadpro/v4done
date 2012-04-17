@@ -4,5 +4,5 @@
     %p= item.description
   - unless item.leaf?
     %ul
-      - item.children.each do |item|
+      - item.children.each_with_position do |item|
         = render "shared/item", item: item
