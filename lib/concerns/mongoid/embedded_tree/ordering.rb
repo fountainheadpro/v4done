@@ -44,15 +44,10 @@ module Mongoid::EmbeddedTree::Ordering
   end
 
   module ClassMethods
-    def each_with_position(&block)
-      each_with(nil, &block)
-    end
-
-    private
-    def each_with(id, &block)
+    def each_with_position(id = nil, &block)
       where(previous_id: id).each do |node|
         block.call(node)
-        each_with(node.id, &block)
+        each_with_position(node.id, &block)
       end
     end
   end
