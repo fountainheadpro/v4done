@@ -20,6 +20,6 @@ Feature: Sign in
       Given I exist as a user
         And I am not logged in
       When I sign in with valid credintials
-      Then I see a successfull sign in message
+      Then I see my name on page
       When I return to the site
       Then I should be signed in

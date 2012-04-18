@@ -4,4 +4,9 @@ class Publication
   include CreatedBy
 
   embeds_one :template
+
+  def self.newest()
+    where(:created_at => {'$gte' => DateTime.now-300.days,'$lt' => DateTime.now})
+  end
+
 end

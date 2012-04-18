@@ -1,6 +1,7 @@
 class Template
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   include CreatedBy
 
   field :title, type: String
@@ -12,4 +13,5 @@ class Template
   def publications
     Publication.all(conditions: { "creator_id" => creator_id, "template._id" => id })
   end
+
 end

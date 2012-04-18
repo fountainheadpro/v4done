@@ -12,16 +12,10 @@
           = link_to 'actions.im', root_path, {class: 'brand'}
           = render 'shared/navigation'
     .container
-      .content
-        - if content_for? :page_header
-          .page-header
-            %h1
-              = yield :page_header
-        .row
-          #main.span10
-            - flash.each do |name, msg|
-              .alert.fade.in{class: css_class_for_flash(name)}
-                <a class="close" data-dismiss="alert">×</a>
-                = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) && msg.present?
-            = yield
+      #content
+        - flash.each do |name, msg|
+          .alert.fade.in{class: css_class_for_flash(name)}
+            <a class="close" data-dismiss="alert">×</a>
+            = content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) && msg.present?
+        = yield
       %footer

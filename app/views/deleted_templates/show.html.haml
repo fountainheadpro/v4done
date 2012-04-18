@@ -1,0 +1,12 @@
+%nav
+  %ul.nav
+    %li= link_to '← Back to deleted templates', deleted_templates_path
+
+%section#deleted-template
+  .alert This templates was deleted at #{@template.deleted_at.to_s(:short)}
+  %header
+    = button_to "Restore", { action: :restore }, { class: "btn btn-primary btn-large restore" }
+    %h1= @template.title
+  %ul
+    - @template.items.roots.each do |item|
+      = render "shared/item", item: item

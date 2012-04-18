@@ -1,25 +1,37 @@
-Project.Views.Actions ||= {}
+ProjectApp.Views.Actions ||= {}
 
-class Project.Views.Actions.EditView extends Backbone.View
+class ProjectApp.Views.Actions.EditView extends Backbone.View
   template: JST["apps/project_tools/templates/actions/edit"]
+  className: "action row-fluid"
 
   events:
-    "touch div.action": "show_sub_actions"
-    "click div.action": "show_sub_actions"
-    "click input.status": "save_status"
-    "swipe div.action": "save_status"
+    "mousedown"               : "highlight"
+    "touchstart"              : "highlight"
+    "thouchend"               : "unhighlight"
+    "mouseup"                 : "unhighlight"
+    "touch div.action-info"   : "showSubactions"
+    "click div.action-info"   : "showSubactions"
+    "click input.status"      : "saveStatus"
+    "click div.action-status" : "saveStatus"
+    "swipe"                   : "saveStatus"
+
 
   initialize: () ->
     @model.bind('change', @render, @)
 
-  show_sub_actions: (e) ->
-    #e.preventDefault()
-    #e.stopPropagation()
-    unless (@model.isLeaf())
-      Project.router.navigate("#{@model.get('_id')}", {trigger: true})
+  highlight: ->
+    unless @model.isLeaf()
+      $(@el).addClass('active')
+
+  unhighlight: ->
+    $(@el).removeClass('active')
+
+  showSubactions: (e) ->
+    unless @model.isLeaf()
+      ProjectApp.router.navigate("actions/#{@model.get('_id')}/actions", { trigger: true })
     return false
 
-  save_status: (e) ->
+  saveStatus: (e) ->
     e.preventDefault()
     e.stopPropagation()
     @model.toggle()
@@ -28,6 +40,7 @@ class Project.Views.Actions.EditView extends Backbone.View
     { 'data-id': @model.id }
 
   render: ->
-    $(@el).data('id', @model.get('id'))
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('id'), child_count: @model.get('child_count'), leaf: @model.isLeaf(), completed: @model.get('completed')}))
+    $(@el).data('id', @model.get('_id'))
+    $(@el).toggleClass('completed', @model.isCompleted())
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), id: @model.get('_id'), child_count: @model.get('child_count'), leaf: @model.isLeaf(), completed: @model.get('completed') }))
     return this

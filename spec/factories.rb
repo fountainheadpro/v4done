@@ -42,7 +42,7 @@ FactoryGirl.define do
 
   factory :publication do
     creator
-    template { Factory.create(:template_with_subitems, creator: creator) }
+    template { FactoryGirl.create(:template_with_subitems, creator: creator) }
   end
 
   factory :project do

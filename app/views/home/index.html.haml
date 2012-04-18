@@ -1,1 +1,8 @@
-%h3 Home
+-@newest_publications.each do |p|
+  .row
+    .span4
+      =p.creator.name
+      published
+    .span8
+      %h3= link_to p.template.title, publication_path(p)
+      %p=p.template.description

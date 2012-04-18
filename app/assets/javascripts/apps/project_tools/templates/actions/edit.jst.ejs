@@ -1,16 +1,12 @@
-<div class="action row-fluid">
-  <div class="action_status">
-    <input type='checkbox' class='status' id="action[<%=id%>]" <%= completed ? 'checked="checked"' : '' %>/>
-  </div>
-    <div class='action_info'>
-      <label><%= title %></label>
-    </div>
-    <% if (!leaf) {%>
-      <div class='action_details'>
-        <%= child_count %> <i class="icon-chevron-right"></i>
-      </div>
-    <%}%>
-  <div class="description">
-    <%=description%>
-   </div>
+<div class="action-status">
+  <input type='checkbox' class='status' id="action[<%= id %>]" <%= completed ? 'checked="checked"' : '' %> />
+</div>
+<div class="action-info">
+  <% if (!leaf) { %>
+    <span class="action-details"><span class="badge"><%= child_count %></span><i class="icon-chevron-right"></i></span>
+  <% } %>
+  <span class="action-title"><%= title %></span>
+  <% if (description != null && description != '') { %>
+    <p class="action-description"><%= description %></p>
+  <% } %>
 </div>

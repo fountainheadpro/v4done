@@ -14,7 +14,7 @@ module TemplateStepsHelpers
   end
 
   def create_item(title, opts = {})
-    keydown("#items .item:nth-child(#{opts[:after]}) textarea:first", :enter) if opts.try(:[], :after).to_i > 0
+    keydown("section#items > .item:eq(#{opts[:after].to_i - 1}) textarea:first", :enter) if opts.try(:[], :after).to_i > 0
     find('#items .new_item').fill_in('title', with: title)
     keydown("#items .new_item:first textarea:first", :enter)
   end

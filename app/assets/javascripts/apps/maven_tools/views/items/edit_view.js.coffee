@@ -11,8 +11,9 @@ class Actions.Views.Items.EditView extends Backbone.View
   goToItemDetails: Actions.Mixins.GoTo['itemDetails']
 
   events:
+    "click i.destroy" : "destroy"
     "keydown textarea": "keymap"
-    "blur textarea": "update"
+    "blur textarea"   : "update"
     "focusin textarea": "highlight"
 
   keymap: (e) ->
@@ -48,8 +49,9 @@ class Actions.Views.Items.EditView extends Backbone.View
         $(@el).after(view.render().el)
       @focus_next()
 
-  destroy: () ->
-    if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
+  destroy: (e) ->
+    backspase = e.which == 8
+    if (@$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == '') || (!backspase && confirm("Are you sure?"))
       @model.destroy()
       $(@el).unbind()
       @focus_prev()

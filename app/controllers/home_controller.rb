@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
+
   def index
-    redirect_to "/templates"
+    @newest_publications=Publication.newest
   end
+
 end

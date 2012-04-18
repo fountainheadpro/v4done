@@ -12,7 +12,7 @@ describe ExportMailer do
     end
 
     it "renders the body" do
-      mail.body.encoded.should match(project_actions_url(project))
+      mail.body.encoded.should match(project_url(project))
     end
   end
 
