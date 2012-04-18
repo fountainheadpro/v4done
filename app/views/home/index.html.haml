@@ -2,7 +2,7 @@
   .row
     .span4
       =p.creator.name
-      published
+      <i>published</i>
     .span8
       %h3= link_to p.template.title, publication_path(p)
       %p=p.template.description

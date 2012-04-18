@@ -1,7 +1,11 @@
 = content_for :page_header do
   &nbsp;
 
-#templates
+%section#templates
+
+#deleted-templates
+  = link_to "Deleted templates", deleted_templates_path, id: 'deleted-templates'
+
 
 :javascript
   $(function() {
