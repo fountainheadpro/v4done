@@ -1,8 +1,9 @@
 -@newest_publications.each do |p|
   .row
-    .span4
+    .span8
       =p.creator ? p.creator.name : "Anonymous"
-      <i>published</i>
+      %i published
+      %i= p.created_at.strftime("%m/%d/%Y at %I:%M%p")
     .span8
       %h3= link_to p.template.title, publication_path(p)
       %p=p.template.description

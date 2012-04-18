@@ -6,7 +6,16 @@ class Publication
   embeds_one :template
 
   def self.newest()
-    where(:created_at => {'$gte' => DateTime.now-300.days,'$lt' => DateTime.now}).asc(:updated_at).entries
+    template_pub_map={}
+    all_publications = where(:created_at => {'$gte' => DateTime.now-300.days,'$lt' => DateTime.now}).desc(:created_at).entries
+    all_publications.each{|p|
+      if(template_pub_map[p.template.id].present?)
+        template_pub_map[p.template.id]=p if template_pub_map[p.template.id].created_at<p.created_at
+      else
+        template_pub_map[p.template.id]=p
+      end
+    }
+    template_pub_map.values.sort {|x,y| y.created_at <=> x.created_at}
   end
 
 end
