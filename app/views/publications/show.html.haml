@@ -7,8 +7,9 @@
   .row
     .span7
       %h2= @publication.template.title
+      %p= @publication.template.description
       %ul.items
-        - @publication.template.items.roots.each do |item|
+        - @publication.template.items.roots.each_with_position do |item|
           = render "shared/item", item: item
     .span3
       #send-to-actions{ style:"display:block" }

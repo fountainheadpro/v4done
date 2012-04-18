@@ -28,7 +28,7 @@ module Mongoid::EmbeddedTree::Ordering
       _parent.send(self.class.to_s.underscore.pluralize).where(previous_id: self.id).first
     end
 
-  private
+    private
     def update_links
       if destroyed? && !last?
         _parent.reload
@@ -40,6 +40,15 @@ module Mongoid::EmbeddedTree::Ordering
 
     def position_in_list
       errors.add(:previous_id, :invalid) if self.previous_id == self.id
+    end
+  end
+
+  module ClassMethods
+    def each_with_position(id = nil, &block)
+      where(previous_id: id).each do |node|
+        block.call(node)
+        each_with_position(node.id, &block)
+      end
     end
   end
 end
