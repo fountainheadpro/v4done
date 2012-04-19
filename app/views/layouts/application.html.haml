@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Goals
+    %title= @page_title or 'actions.im'
     = stylesheet_link_tag    "application"
     = javascript_include_tag "maven_tools_app"
     = csrf_meta_tags

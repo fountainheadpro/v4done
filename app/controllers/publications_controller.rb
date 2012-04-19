@@ -15,7 +15,9 @@ class PublicationsController < ApplicationController
 
   # GET /publications/1.html
   def show
-    respond_with(@publication = Publication.find(params[:id]))
+    @publication = Publication.find(params[:id])
+    @page_title = "#{@publication.template.title} - actions.im"
+    respond_with(@publication)
   end
 
 private
