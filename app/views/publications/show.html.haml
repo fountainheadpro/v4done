@@ -18,3 +18,10 @@
           %p.help-block Enter an email or phone number
           = text_field_tag :email_or_phone_number, '', class: 'input-medium', placeholder: 'Email or phone number'
           = submit_tag 'Get!', class: 'btn'
+      #social-share
+        %ul.unstyled
+          %li
+            .g-plusone
+
+
+= javascript_include_tag 'social_sharing'
