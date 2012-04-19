@@ -23,6 +23,9 @@
           %li
             .g-plusone
           %li= link_to "Tweet", "https://twitter.com/share", { :class => "twitter-share-button", "data-size" => "large", "data-hashtags" => "actionsim"}
+          %li
+            #fb-root
+            %div{ :class => "fb-like", "data-send" => "false", "data-layout" => "button_count", "data-width" => "220", "data-show-faces" => "true"}
 
 
 = javascript_include_tag 'social_sharing'
