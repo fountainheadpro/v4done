@@ -23,5 +23,7 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
     return new Actions.Collections.ItemsCollection(filteredItems)
 
   byPreviousId: (previousId) ->
-    filteredItems = @select((item) -> return item.get('previous_id') == previousId)
+    filteredItems = @select (item) ->
+      item.set('previous_id', null) if !item.get('previous_id')?
+      return item.get('previous_id') == previousId
     return new Actions.Collections.ItemsCollection(filteredItems)
