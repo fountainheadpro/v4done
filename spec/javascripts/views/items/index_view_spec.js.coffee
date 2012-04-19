@@ -26,14 +26,7 @@ describe "Actions.Views.Items.IndexView", ->
       @item4 = new Backbone.Model({ _id: 4, title: 'bar2', previous_id: 1 }) # and this too
       @items = new Backbone.Collection([@item1, @item2, @item3, @item4])
       @items.byParentId = -> return new Backbone.Collection(0)
-      @items.byPreviousId = (previousId) =>
-        if previousId == null
-          return new Backbone.Collection([@item1, @item3])
-        else if previousId == 1
-          return new Backbone.Collection([@item2, @item4])
-        else
-          return new Backbone.Collection(0)
-
+      @items.sortByPosition = () => return new Backbone.Collection([@item1, @item2, @item4, @item3])
       @template.items = @items
       @view.options.items = @items
       @view.options.template = @template
