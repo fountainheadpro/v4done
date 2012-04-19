@@ -36,3 +36,12 @@ class ProjectApp.Collections.ActionsCollection extends Backbone.Collection
     filteredItems = @select((action) -> return action.get('previous_id') == previousId)
     return new ProjectApp.Collections.ActionsCollection(filteredItems)
 
+  sortByPosition: (previousId = null) ->
+    sortedActions = []
+    @byPreviousId(previousId).each (action) =>
+      sortedActions.push action
+      sortedActions.push @sortByPosition(action.get('_id'))
+    if previousId?
+      return _.flatten(sortedActions)
+    else
+      return new ProjectApp.Collections.ActionsCollection(_.flatten(sortedActions))

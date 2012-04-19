@@ -8,10 +8,9 @@ class ProjectApp.Views.Actions.IndexView extends Backbone.View
     _.bindAll(this, 'addOne', 'addAll', 'render')
     @options.actions.bind('reset', @addAll)
 
-  addAll: (withId = null) ->
-    @options.actions.byPreviousId(withId).each (action) =>
+  addAll: () ->
+    @options.actions.sortByPosition().each (action) =>
       @addOne(action)
-      @addAll(action.id)
 
   addOne: (action) ->
     view = new ProjectApp.Views.Actions.EditView({ model: action })

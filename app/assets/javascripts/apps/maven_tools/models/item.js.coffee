@@ -27,3 +27,13 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
       item.set('previous_id', null) if !item.get('previous_id')?
       return item.get('previous_id') == previousId
     return new Actions.Collections.ItemsCollection(filteredItems)
+
+  sortByPosition: (previousId = null) ->
+    sortedItems = []
+    @byPreviousId(previousId).each (item) =>
+      sortedItems.push item
+      sortedItems.push @sortByPosition(item.get('_id'))
+    if previousId?
+      return _.flatten(sortedItems)
+    else
+      return new Actions.Collections.ItemsCollection(_.flatten(sortedItems))
