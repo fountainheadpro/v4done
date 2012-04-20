@@ -10,12 +10,12 @@ class PublicationsController < ApplicationController
 
   # POST /templates/1/publications.html
   def create
-    @publication=Publication.where({"template._id" => BSON::ObjectId(params[:template_id])}).order_by([[ :created_at, :desc ]]).limit(1).first
+    @publication = Publication.where({ "template._id" => BSON::ObjectId(params[:template_id]) }).order_by([:created_at, :desc]).limit(1).first
     if @publication.blank?
       @publication = current_user.publications.create(template: @template)
     else
-      @publication.template=@template
-      @publication.save!()
+      @publication.template = @template
+      @publication.save!
     end
     respond_with(@publication)
   end
