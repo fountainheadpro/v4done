@@ -15,7 +15,7 @@ class PublicationsController < ApplicationController
       @publication = current_user.publications.create(template: @template)
     else
       @publication.template = @template
-      @publication.save!
+      @publication.save
     end
     respond_with(@publication)
   end
