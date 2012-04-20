@@ -1,9 +1,10 @@
 -@newest_publications.each do |p|
-  .row
+  .row.news_feed_item
     .span8
       = p.creator ? p.creator.name : "Anonymous"
       %i published
-      %i= p.created_at.strftime("%m/%d/%Y at %I:%M%p")
+      = distance_of_time_in_words_to_now(p.created_at)
+      ago
     .span8
-      %h3= link_to p.template.title, publication_path(p)
+      %b= link_to p.template.title, publication_path(p)
       %p= p.template.description
