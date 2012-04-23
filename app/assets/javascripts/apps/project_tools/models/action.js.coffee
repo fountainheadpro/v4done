@@ -44,4 +44,7 @@ class ProjectApp.Collections.ActionsCollection extends Backbone.Collection
     if previousId?
       return _.flatten(sortedActions)
     else
+      sortedActions = _(sortedActions).flatten()
+      if sortedActions.length < @.length
+        sortedActions.push(@.without.apply(@, sortedActions))
       return new ProjectApp.Collections.ActionsCollection(_.flatten(sortedActions))
