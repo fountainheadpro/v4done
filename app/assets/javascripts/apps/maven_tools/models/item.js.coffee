@@ -36,4 +36,7 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
     if previousId?
       return _.flatten(sortedItems)
     else
+      sortedItems = _(sortedItems).flatten()
+      if sortedItems.length < @.length
+        sortedItems.push(@.without.apply(@, sortedItems))
       return new Actions.Collections.ItemsCollection(_.flatten(sortedItems))

@@ -60,6 +60,19 @@ describe "Item collection", ->
         expect(sortedItems.at(1)).toEqual(@item3)
         expect(sortedItems.at(2)).toEqual(@item2)
 
+    describe "cycled collection", ->
+      it "should returns items in correct order", ->
+        @item1 = new Actions.Models.Item({ _id: 1, title: 'first'})
+        @item2 = new Actions.Models.Item({ _id: 2, title: 'second', previous_id: 3})
+        @item3 = new Actions.Models.Item({ _id: 3, title: 'third', previous_id: 2})
+        @items = new Actions.Collections.ItemsCollection([@item3, @item2, @item1])
+
+        sortedItems = @items.sortByPosition()
+        expect(sortedItems.length).toEqual(3)
+        expect(sortedItems.at(0)).toEqual(@item1)
+        expect(sortedItems.at(1)).toEqual(@item3)
+        expect(sortedItems.at(2)).toEqual(@item2)
+
 describe "An Item", ->
   beforeEach ->
     @item = new Actions.Models.Item({ _id: 1, title: 'foo'})
