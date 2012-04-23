@@ -22,7 +22,7 @@ class TemplatesController < ApplicationController
   # PUT /templates/1.json
   def update
     template = current_user.templates.find(params[:id])
-    template.update_attributes(params[:template])
+    template.update_attributes(params[:template].merge({}))
     respond_with(template)
   end
 

@@ -7,10 +7,7 @@ describe "Actions.Views.Items.IndexView", ->
 
   describe "Instantiation", ->
     it "creates a div element", ->
-      expect(@view.el.nodeName).toEqual("DIV")
-
-    it "have a class of 'row'", ->
-      expect($(@view.el)).toHaveClass('row')
+      expect(@view.el.nodeName).toEqual("SECTION")
 
     it "have a id of 'unstyled'", ->
       expect($(@view.el)).toHaveId('items')
@@ -29,14 +26,7 @@ describe "Actions.Views.Items.IndexView", ->
       @item4 = new Backbone.Model({ _id: 4, title: 'bar2', previous_id: 1 }) # and this too
       @items = new Backbone.Collection([@item1, @item2, @item3, @item4])
       @items.byParentId = -> return new Backbone.Collection(0)
-      @items.byPreviousId = (previousId) =>
-        if previousId == null
-          return new Backbone.Collection([@item1, @item3])
-        else if previousId == 1
-          return new Backbone.Collection([@item2, @item4])
-        else
-          return new Backbone.Collection(0)
-
+      @items.sortByPosition = () => return new Backbone.Collection([@item1, @item2, @item4, @item3])
       @template.items = @items
       @view.options.items = @items
       @view.options.template = @template
@@ -53,7 +43,7 @@ describe "Actions.Views.Items.IndexView", ->
       expect(@editViewStub).toHaveBeenCalledWith({ model: @item4, template: @template })
 
     it "prepends the item to the item list", ->
-      expect($(@view.el).children().length).toEqual(4)
+      expect($(@view.el).children().length).toEqual(5) # 4 items + header
 
     it "returns the view object", ->
       expect(@view.render()).toEqual(@view)

@@ -1,21 +1,24 @@
-class Project.Routers.ProjectRouter extends Backbone.Router
+class ProjectApp.Routers.ProjectRouter extends Backbone.Router
   initialize: (options) ->
-    @actions = new Project.Collections.ActionsCollection()
-    @actions.reset options.project.actions
-    @project_title=options.project.title
+    @project = new ProjectApp.Models.Project(options.project)
 
   routes:
-    ":id/actions"                     : "actions"
-    ":action_id"                    : "child_actions"
-    ".*"                              : "actions"
+    "actions"                     : "actions"
+    "actions/:actionId/actions"   : "childActions"
+    ".*"                          : "actions"
 
   actions: (id) ->
-    view = new Project.Views.Actions.IndexView(@actions.roots())
-    $("#action_header").html(@project_title)
+    view = new ProjectApp.Views.Actions.IndexView(actions: @project.actions.roots())
+    $("#action_header").html(@project.get('title'))
+    $("#action_header").attr("href", "#actions")
     $("#project").html(view.render().el)
 
-  child_actions: (action_id) ->
-    view = new Project.Views.Actions.IndexView(@actions.byParentId(action_id))
-    $("#action_header").html(@actions.get(action_id).get("title"))
-    $("#action_header").attr("href","#{window.location.pathname}##{@actions.get(action_id).get("parent_id")||""}")
+  childActions: (actionId) ->
+    action = @project.actions.get(actionId)
+    view = new ProjectApp.Views.Actions.IndexView(actions: @project.actions.byParentId(actionId))
+    $("#action_header").html(action.get("title"))
+    if action.isRoot()
+      $("#action_header").attr("href", "#actions")
+    else
+      $("#action_header").attr("href", "#actions/#{action.get("parent_id")}/actions")
     $("#project").html(view.render().el)

@@ -1,5 +1,5 @@
 class PublicationsController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
   before_filter :authenticate_user!, only: [:index, :create]
   before_filter :find_template, only: [:index, :create]
 
@@ -10,12 +10,21 @@ class PublicationsController < ApplicationController
 
   # POST /templates/1/publications.html
   def create
-    respond_with(@publication = current_user.publications.create(template: @template))
+    @publication = Publication.where({ "template._id" => BSON::ObjectId(params[:template_id]) }).order_by([:created_at, :desc]).limit(1).first
+    if @publication.blank?
+      @publication = current_user.publications.create(template: @template)
+    else
+      @publication.template = @template
+      @publication.save
+    end
+    respond_with(@publication)
   end
 
   # GET /publications/1.html
   def show
-    respond_with(@publication = Publication.find(params[:id]))
+    @publication = Publication.find(params[:id])
+    @page_title = "#{@publication.template.title} - actions.im"
+    respond_with(@publication)
   end
 
 private

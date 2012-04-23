@@ -8,7 +8,7 @@ describe Project do
   end
 
   it "can have ordered tree of actions" do
-    project = Factory.create(:project_with_actions, actions_count: 2, subactions_count: 3)
+    project = FactoryGirl.create(:project_with_actions, actions_count: 2, subactions_count: 3)
     project.actions.count.should eq(2 + 2*3)
     project.actions.roots.count.should eq(2)
     project.actions.roots.first.children.count.should eq(3)
@@ -17,7 +17,7 @@ describe Project do
 
   describe "when creating from a publication" do
     let(:additional_atts) { {} }
-    let(:publication) { Factory.create(:publication) }
+    let(:publication) { FactoryGirl.create(:publication) }
     let(:project) { Project.create_from_publication(publication, additional_atts) }
 
     it "should return project" do

@@ -8,7 +8,7 @@ module ExportStepsHelpers
   end
 
   def path_to_current_project
-    project_actions_path(Project.where(publication_id: @publication.id).first)
+    project_path(Project.where(publication_id: @publication.id).first)
   end
 
   def sms_for(phone_number)

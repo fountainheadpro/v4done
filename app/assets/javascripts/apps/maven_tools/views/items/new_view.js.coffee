@@ -14,6 +14,7 @@ class Actions.Views.Items.NewView extends Backbone.View
   events:
     "keydown textarea": "keymap"
     "focusin textarea": "highlight"
+    "click i.destroy" : "destroy"
 
   constructor: (options) ->
     super(options)
@@ -53,7 +54,7 @@ class Actions.Views.Items.NewView extends Backbone.View
     )
 
   destroy: (e) ->
-    if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
+    if (@$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == '') || (e.which != 8 && confirm("Are you sure?"))
       $(@el).unbind()
       @focus_prev() if e.keyCode == 8
       @remove()

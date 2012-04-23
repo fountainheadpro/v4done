@@ -1,3 +1,8 @@
+- unless current_user.nil?
+  %nav
+    %ul.nav
+      %li= link_to '← Back to template', templates_path + "##{@template.id}/items"
+
 .row
   .span9
     %h2= @template.title

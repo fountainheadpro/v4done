@@ -6,7 +6,7 @@ class Item
 
   field :title, :type => String
   field :description, :type => String
-  embedded_in :template, inverse_of: :items
-
   validates :title, presence: true
+
+  embedded_in :template, inverse_of: :items
 end

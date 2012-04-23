@@ -12,7 +12,7 @@ Given /^he have few templates too$/ do
 end
 
 Given /^I have the template with items and subitems$/ do
-  @template = Factory.create(:template_with_subitems, creator: current_user)
+  @template = FactoryGirl.create(:template_with_subitems, creator: current_user)
 end
 
 ### WHEN ###
@@ -25,7 +25,7 @@ When /^I create new template$/ do
   @title = 'Banana Pie'
   within("#new-template") do
     fill_in "title", with: @title
-    click_button "Create Template"
+    click_button "Create How To"
   end
 end
 
@@ -110,7 +110,7 @@ Then /^I should see this (?:|sub)item$/ do
 end
 
 Then /^I should see this new (?:|sub)item as second$/ do
-  find('#items .item:nth-child(2)').should have_content(@title)
+  find('#items .item:nth-child(3)').should have_content(@title) # first element is header, so sub item would third
   @template.reload
   @template.items.where(title: @title).should exist
 end

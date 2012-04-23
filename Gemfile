@@ -14,6 +14,7 @@ gem "ejs"
 gem "haml-rails"
 gem "awesome_print"
 gem "moonshado-sms"
+gem "rails_best_practices"
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
@@ -41,6 +42,7 @@ group :test do
   gem "guard-jasmine"
   gem 'rb-fsevent'
   gem 'email_spec'
+  gem 'simplecov', :require => false
 end
 
 group :development, :test do

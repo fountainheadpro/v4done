@@ -4,12 +4,12 @@ Given /^I am not logged in$/ do
 end
 
 Given /^I am logged in$/ do
-  @current_user = Factory.create(:user, valid_user)
+  @current_user = FactoryGirl.create(:user, valid_user)
   sign_in valid_user
 end
 
 Given /^I exist as a user$/ do
-  @current_user = Factory.create(:user, valid_user)
+  @current_user = FactoryGirl.create(:user, valid_user)
 end
 
 Given /^I do not exist as a user$/ do
@@ -100,15 +100,15 @@ Then /^I should see a mismatched password message$/ do
 end
 
 Then /^I should see a signed out message$/ do
-  page.should have_content "Signed out"
+  page.should have_content "You need to sign in or sign up before continuing"
 end
 
 Then /^I see an invalid login message$/ do
   page.should have_content "Invalid email or password."
 end
 
-Then /^I see a successfull sign in message$/ do
-  page.should have_content "Signed in successfully."
+Then /^I see my name on page$/ do
+  page.should have_content current_user.name
 end
 
 Then /^I should see an account edited message$/ do

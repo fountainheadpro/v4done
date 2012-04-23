@@ -13,10 +13,14 @@ Actions::Application.routes.draw do
     end
   end
 
-  resources :projects, only: [] do
-    resources :actions, only: [:index, :update] do
-      resources :actions, only: [:index, :update]
+  resources :deleted_templates, only: [:index, :show] do
+    member do
+      post 'restore'
     end
+  end
+
+  resources :projects, only: [:show] do
+    resources :actions, only: [:update]
   end
 
   devise_for :users
