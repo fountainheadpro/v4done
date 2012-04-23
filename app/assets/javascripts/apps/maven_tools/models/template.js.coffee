@@ -15,6 +15,8 @@ class Actions.Models.Template extends Backbone.Model
   setItemsUrl: ->
     @items.url = "/templates/#{@get('_id')}/items"
 
+  isDeleted: ->
+    @get('deleted_at')?
 
 class Actions.Collections.TemplatesCollection extends Backbone.Collection
   model: Actions.Models.Template

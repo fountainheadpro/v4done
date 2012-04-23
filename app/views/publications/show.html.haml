@@ -1,12 +1,16 @@
 - unless current_user.nil?
-  = link_to '← Back to publications', template_publications_path(@publication.template)
+  %nav
+    %ul.nav
+      %li= link_to '← Back to template', templates_path + "##{@publication.template.id}/items"
+      %li= link_to 'Go to publications →', template_publications_path(@publication.template)
 #template
   .row
     .span7
       %h2= @publication.template.title
+      %p= @publication.template.description
       %ul.items
-        - @publication.template.items.roots.each do |item|
-          = render "item", item: item
+        - @publication.template.items.roots.each_with_position do |item|
+          = render "shared/item", item: item
     .span3
       #send-to-actions{ style:"display:block" }
         %strong Get Todo-list
@@ -14,3 +18,13 @@
           %p.help-block Enter an email or phone number
           = text_field_tag :email_or_phone_number, '', class: 'input-medium', placeholder: 'Email or phone number'
           = submit_tag 'Get!', class: 'btn'
+      #social-share
+        %ul.unstyled
+          %li
+            .g-plusone{ "data-size" => "medium"}
+          %li= link_to "Tweet", "https://twitter.com/share", { :class => "twitter-share-button", "data-hashtags" => "actionsim"}
+          %li
+            #fb-root
+            .fb-like{ "data-send" => "false", "data-layout" => "button_count", "data-width" => "220", "data-show-faces" => "true"}
+
+= javascript_include_tag 'social_sharing'

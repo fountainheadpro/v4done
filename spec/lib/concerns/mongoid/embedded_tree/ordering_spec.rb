@@ -245,4 +245,40 @@ describe Mongoid::EmbeddedTree::Ordering do
       end
     end
   end
+
+  describe "Iteration" do
+    let(:container) { Container.create name: "Container" }
+
+    before(:each) do
+      @bad_node1 = container.nodes.create name: "Bad Node 1"
+      @bad_node2 = container.nodes.create name: "Bad Node 2"
+      @bad_node3 = container.nodes.create name: "Bad Node 3"
+      @node5 = container.nodes.create name: "Node 5"
+      @node3 = container.nodes.create name: "Node 3"
+      @node4 = container.nodes.create name: "Node 4", previous_id: @node3.id
+      @node1 = container.nodes.create name: "Node 1"
+      @node2 = container.nodes.create name: "Node 2", previous_id: @node1.id
+      @bad_node1.update_attribute :previous_id, @node1.id # update_attribute don't call callbacks
+      @bad_node2.update_attribute :previous_id, @node1.id
+      @bad_node3.update_attribute :previous_id, @node3.id
+    end
+
+    describe ".each_with_position" do
+      it "should return nodes in correct position" do
+        result = []
+        container.nodes.each_with_position do |node|
+          result << node
+        end
+        result.count.should == 8
+        result[0].should eq(@node1)
+        result[1].should eq(@bad_node2)
+        result[2].should eq(@bad_node1)
+        result[3].should eq(@node2)
+        result[4].should eq(@node3)
+        result[5].should eq(@bad_node3)
+        result[6].should eq(@node4)
+        result[7].should eq(@node5)
+      end
+    end
+  end
 end

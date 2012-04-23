@@ -1,4 +1,4 @@
-class Project.Models.Project extends Backbone.Model
+class ProjectApp.Models.Project extends Backbone.Model
   idAttribute: "_id"
 
   defaults:
@@ -6,11 +6,11 @@ class Project.Models.Project extends Backbone.Model
     description: ''
 
   initialize: ->
-    @actions = new Project.Collections.ActionsCollection()
+    @actions = new ProjectApp.Collections.ActionsCollection()
     @setActionsUrl()
     if @has('actions')
       @actions.reset(@get('actions'))
       @unset('actions')
 
   setActionsUrl: ->
-    @items.url = "/project/#{@get('_id')}/actions"
+    @actions.url = "/projects/#{@get('_id')}/actions"

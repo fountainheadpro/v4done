@@ -5,52 +5,48 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
 
   routes:
     "index"                        : "index"
-    ":id/items"                    : "items"
-    ":template_id/items/:id/items" : "subitems"
-    ".*"                            : "index"
+    ":id/items"                    : "show"
+    ":templateId/items/:id/items"  : "show"
+    ".*"                           : "index"
 
   index: ->
-    #view = new Actions.Views.Breadcrumbs.IndexView(template: null, item: null)
-    $(".page-header").html("")
-
-    view = new Actions.Views.Templates.IndexView(templates: @templates)
-    $("#templates").html(view.render().el)
-
-    view = new Actions.Views.Templates.NewView(collection: @templates)
-    $("#templates").prepend(view.render().el)
-
-  items: (id) ->
-    template = @templates.get(id)
-
-    #view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: null)
-    $(".page-header").html("")
-
-    view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(null))
-    $("#templates").html(view.render().el)
-
-    view = new Actions.Views.Templates.EditView(model: template)
-    $("#templates").prepend(view.render().el)
-
-    view = new Actions.Views.Items.NewView(template: template)
-    $("#templates #items").append(view.render().el)
-
-    $(".new_item:last textarea[name='title']").focus()
-
-
-  subitems: (template_id, id) ->
-    template = @templates.get(template_id)
-    item = template.items.get(id)
-
-    view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
+    view = new Actions.Views.Breadcrumbs.IndexView(template: null, item: null)
     $(".page-header").html(view.render().el)
 
-    view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
-    $("#templates").html(view.render().el)
+    view = new Actions.Views.Templates.IndexView(templates: @templates)
+    $("section#templates").html(view.render().el)
 
-    view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
-    $("#templates").prepend(view.render().el)
+    view = new Actions.Views.Templates.NewView(collection: @templates)
+    $("section#templates").prepend(view.render().el)
+
+    $("#deleted-templates").show()
+
+  show: (templateId, itemId) ->
+    template = @templates.get(templateId)
+
+    if !template? || template.isDeleted()
+      window.location.replace("/deleted_templates/#{templateId}")
+
+    view = new Actions.Views.Templates.EditView(model: template)
+    $("section#templates").html(view.render().el)
+
+    if itemId?
+      item = template.items.get(itemId)
+
+      view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
+      $("section#templates").append(view.render().el)
+
+      view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
+      $("section#items header").append(view.render().el)
+
+      view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
+      $("section#items header").append(view.render().el)
+    else
+      view = new Actions.Views.Items.IndexView(template: template, items: template.items.roots())
+      $("section#templates").append(view.render().el)
 
     view = new Actions.Views.Items.NewView(template: template, parentItem: item)
-    $("#templates #items").append(view.render().el)
+    $("section#items").append(view.render().el)
 
-    $(".new_item:last textarea[name='title']").focus()
+    $("#deleted-templates").hide()
+    $("div.new_item:last textarea[name='title']").focus()

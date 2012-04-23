@@ -62,7 +62,7 @@ describe Export::Actions do
           project.stub(:owner).and_return({ 'phone_number' => phone_number })
           sms = double("sms")
           sms.should_receive(:deliver_sms)
-          Moonshado::Sms.should_receive(:new).with(phone_number, Rails.application.routes.url_helpers.project_actions_url(project, host: 'test.org')).and_return(sms)
+          Moonshado::Sms.should_receive(:new).with(phone_number, Rails.application.routes.url_helpers.project_url(project, host: 'test.org')).and_return(sms)
           Export::Actions.export(params.merge({ email_or_phone_number: phone_number }))
         end
       end

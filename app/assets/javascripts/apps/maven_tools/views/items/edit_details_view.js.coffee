@@ -10,9 +10,9 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
   goToParentItem: Actions.Mixins.GoTo['parentItem']
 
   events:
-    "keydown textarea": "keymap"
-    "blur textarea": "update"
-    "focusin textarea": "highlight"
+    "keydown textarea" : "keymap"
+    "blur textarea"    : "update"
+    "focusin textarea" : "highlight"
 
   keymap: (e) ->
     if e.shiftKey
@@ -21,7 +21,7 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
         when 38 then @goToParentItem(@options.template, @model)
     else if e.target.name == 'title'
       switch e.which
-        when 40 then @move(e)
+        when 38, 40 then @move(e)
         when 8 then @destroy(e)
         when 13 then @update(e)
     else if e.target.name == 'description'

@@ -1,4 +1,5 @@
 //= require jquery
+//= require config/jquery.mobile
 //= require jquery_ujs
 //= require jquery.mobile
 //= require underscore
@@ -7,4 +8,4 @@
 //= require backbone_datalink
 //= require bootstrap-dropdown
 //= require bootstrap-alert
-//= require apps/project_tools/project.js
+//= require apps/project_tools/project_app
