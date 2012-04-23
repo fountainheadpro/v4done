@@ -100,7 +100,7 @@ Then /^I should see a mismatched password message$/ do
 end
 
 Then /^I should see a signed out message$/ do
-  page.should have_content "Signed out"
+  page.should have_content "You need to sign in or sign up before continuing"
 end
 
 Then /^I see an invalid login message$/ do
