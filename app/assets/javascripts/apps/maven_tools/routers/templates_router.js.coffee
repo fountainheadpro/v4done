@@ -27,26 +27,38 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     if !template? || template.isDeleted()
       window.location.replace("/deleted_templates/#{templateId}")
 
+    $("#deleted-templates").hide()
     view = new Actions.Views.Templates.EditView(model: template)
     $("section#templates").html(view.render().el)
 
-    if itemId?
-      item = template.items.get(itemId)
+    renderItems = () ->
+      if itemId?
+        item = template.items.get(itemId)
 
-      view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
-      $("section#templates").append(view.render().el)
+        view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
+        $("section#templates").append(view.render().el)
 
-      view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
-      $("section#items header").append(view.render().el)
+        view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
+        $("section#items header").append(view.render().el)
 
-      view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
-      $("section#items header").append(view.render().el)
+        view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
+        $("section#items header").append(view.render().el)
+      else
+        view = new Actions.Views.Items.IndexView(template: template, items: template.items.roots())
+        $("section#templates").append(view.render().el)
+
+      view = new Actions.Views.Items.NewView(template: template, parentItem: item)
+      $("section#items").append(view.render().el)
+
+      $("div.new_item:last textarea[name='title']").focus()
+
+    if template.has('loaded_at') && template.get('loaded_at')?
+      renderItems()
     else
-      view = new Actions.Views.Items.IndexView(template: template, items: template.items.roots())
-      $("section#templates").append(view.render().el)
-
-    view = new Actions.Views.Items.NewView(template: template, parentItem: item)
-    $("section#items").append(view.render().el)
-
-    $("#deleted-templates").hide()
-    $("div.new_item:last textarea[name='title']").focus()
+      template.items.fetch
+        success: () ->
+          template.set('loaded_at', new Date())
+          renderItems()
+        error: () ->
+          alert("Sorry, we can't load this template. Please try again later.")
+          window.location.replace("/templates")

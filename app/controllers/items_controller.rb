@@ -4,6 +4,11 @@ class ItemsController < ApplicationController
   before_filter :find_item, only: [:update, :destroy]
   respond_to :json
 
+  def index
+    items = @template.items.not_in(parent_ids: @template.items.deleted.map(&:id))
+    respond_with(@template, items)
+  end
+
   # POST /templates/1/items.json
   def create
     item = @template.items.create(params[:item])
