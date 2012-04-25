@@ -55,7 +55,10 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     if template.has('loaded_at') && template.get('loaded_at')?
       renderItems()
     else
-      template.items.fetch({ success: () ->
-        template.set('loaded_at', new Date())
-        renderItems()
-       })
+      template.items.fetch
+        success: () ->
+          template.set('loaded_at', new Date())
+          renderItems()
+        error: () ->
+          alert("Sorry, we can't load this template. Please try again later.")
+          window.location.replace("/templates")
