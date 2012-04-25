@@ -5,7 +5,7 @@ Actions::Application.routes.draw do
   root :to => "home#index"
 
   resources :templates, except: [:new, :edit] do
-    resources :items, only: [:create, :update, :show, :destroy]
+    resources :items, only: [:index, :create, :update, :show, :destroy]
     resources :publications, only: [:index, :create, :show], shallow: true do
       namespace :export do
         resources :actions, only: [:create]

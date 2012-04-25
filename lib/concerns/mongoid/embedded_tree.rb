@@ -11,7 +11,6 @@ module Mongoid::EmbeddedTree
     scope :roots, where(parent_id: nil)
 
     set_callback :validation, :before, :update_path
-    set_callback :destroy, :after, :destroy_children
 
     validate :position_in_tree
   end
@@ -43,10 +42,6 @@ module Mongoid::EmbeddedTree
 
     def update_path
       self.parent_ids = parent.parent_ids + [self.parent_id] unless self.parent_id.nil?
-    end
-
-    def destroy_children
-      children.destroy_all
     end
 
   private
