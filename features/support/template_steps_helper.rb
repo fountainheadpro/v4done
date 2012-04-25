@@ -2,6 +2,7 @@ module TemplateStepsHelpers
   def visit_template(template)
     visit '/templates'
     click_link template.title
+    sleep 2 # load items
   end
 
   def visit_item(item)
