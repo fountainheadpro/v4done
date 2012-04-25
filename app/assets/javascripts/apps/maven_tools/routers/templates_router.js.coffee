@@ -27,26 +27,28 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     if !template? || template.isDeleted()
       window.location.replace("/deleted_templates/#{templateId}")
 
-    view = new Actions.Views.Templates.EditView(model: template)
-    $("section#templates").html(view.render().el)
+    template.items.fetch({success: () ->
+      view = new Actions.Views.Templates.EditView(model: template)
+      $("section#templates").html(view.render().el)
 
-    if itemId?
-      item = template.items.get(itemId)
+      if itemId?
+        item = template.items.get(itemId)
 
-      view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
-      $("section#templates").append(view.render().el)
+        view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
+        $("section#templates").append(view.render().el)
 
-      view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
-      $("section#items header").append(view.render().el)
+        view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
+        $("section#items header").append(view.render().el)
 
-      view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
-      $("section#items header").append(view.render().el)
-    else
-      view = new Actions.Views.Items.IndexView(template: template, items: template.items.roots())
-      $("section#templates").append(view.render().el)
+        view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
+        $("section#items header").append(view.render().el)
+      else
+        view = new Actions.Views.Items.IndexView(template: template, items: template.items.roots())
+        $("section#templates").append(view.render().el)
 
-    view = new Actions.Views.Items.NewView(template: template, parentItem: item)
-    $("section#items").append(view.render().el)
+      view = new Actions.Views.Items.NewView(template: template, parentItem: item)
+      $("section#items").append(view.render().el)
 
-    $("#deleted-templates").hide()
-    $("div.new_item:last textarea[name='title']").focus()
+      $("#deleted-templates").hide()
+      $("div.new_item:last textarea[name='title']").focus()
+    })

@@ -6,7 +6,7 @@ class TemplatesController < ApplicationController
   # GET /templates
   # GET /templates.json
   def index
-    respond_with(@templates = current_user.templates.asc(:updated_at).entries)
+    respond_with(@templates = current_user.templates.only(:title, :description, :updated_at).asc(:updated_at).entries)
   end
 
   # GET /templates/1.json

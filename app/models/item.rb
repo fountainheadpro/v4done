@@ -1,6 +1,7 @@
 class Item
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mongoid::Paranoia
   include Mongoid::EmbeddedTree
   include Mongoid::EmbeddedTree::Ordering
 
