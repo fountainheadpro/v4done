@@ -27,10 +27,11 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     if !template? || template.isDeleted()
       window.location.replace("/deleted_templates/#{templateId}")
 
-    template.items.fetch({success: () ->
-      view = new Actions.Views.Templates.EditView(model: template)
-      $("section#templates").html(view.render().el)
+    $("#deleted-templates").hide()
+    view = new Actions.Views.Templates.EditView(model: template)
+    $("section#templates").html(view.render().el)
 
+    renderItems = () ->
       if itemId?
         item = template.items.get(itemId)
 
@@ -49,6 +50,12 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
       view = new Actions.Views.Items.NewView(template: template, parentItem: item)
       $("section#items").append(view.render().el)
 
-      $("#deleted-templates").hide()
       $("div.new_item:last textarea[name='title']").focus()
-    })
+
+    if template.has('loaded_at') && template.get('loaded_at')?
+      renderItems()
+    else
+      template.items.fetch({ success: () ->
+        template.set('loaded_at', new Date())
+        renderItems()
+       })
