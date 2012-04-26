@@ -14,8 +14,7 @@ class PublicationsController < ApplicationController
     if @publication.blank?
       @publication = current_user.publications.create(template: @template)
     else
-      @publication.template = @template
-      @publication.save
+      Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>{:template=>@template.attributes})
     end
     respond_with(@publication)
   end

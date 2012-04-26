@@ -290,7 +290,7 @@ DEPENDENCIES
   jquery-rails (>= 1.0.12)
   jquery_mobile_rails (>= 1.0.1)
   launchy (>= 2.0.5)
-  mongoid
+  mongoid (>= 2.4.8)
   mongoid-rspec (>= 1.4.4)
   mongoid-tree
   moonshado-sms
