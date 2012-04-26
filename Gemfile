@@ -4,7 +4,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.1'
 gem 'therubyracer', '>= 0.9.8'
 gem "bson_ext"
-gem "mongoid"
+gem "mongoid", ">=2.4.8"
 gem 'mongoid-tree', :require => 'mongoid/tree'
 gem "devise", ">= 1.4.9"
 gem "settingslogic"
