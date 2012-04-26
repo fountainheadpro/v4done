@@ -10,11 +10,11 @@ class PublicationsController < ApplicationController
 
   # POST /templates/1/publications.html
   def create
-    @publication = Publication.where({ "template._id" => BSON::ObjectId(params[:template_id]) }).order_by([:created_at, :desc]).limit(1).first
+    @publication = @template.publication
     if @publication.blank?
       @publication = current_user.publications.create(template: @template)
     else
-      Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => @template.attributes}) )
+      @publication.update_attribute :template, @template.attributes
     end
     respond_with(@publication)
   end
