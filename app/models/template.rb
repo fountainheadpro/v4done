@@ -10,6 +10,7 @@ class Template
   validates :title, presence: true
 
   embeds_many :items, inverse_of: :template
+  has_one :publication, foreign_key: 'template._id'
 
   def publications
     Publication.all(conditions: { "creator_id" => creator_id, "template._id" => id })
