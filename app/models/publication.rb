@@ -7,7 +7,7 @@ class Publication
 
   def self.newest()
     template_pub_map = {}
-    all_publications = where(:created_at => {'$gte' => DateTime.now-300.days,'$lt' => DateTime.now}).desc(:created_at).entries
+    all_publications = where(:created_at => {'$gte' => DateTime.now-300.days,'$lt' => DateTime.now}).desc(:updated_at).entries
     all_publications.each do |p|
       if template_pub_map[p.template.id].present?
         template_pub_map[p.template.id] = p if template_pub_map[p.template.id].created_at < p.created_at
@@ -15,7 +15,7 @@ class Publication
         template_pub_map[p.template.id] = p
       end
     end
-    template_pub_map.values.sort { |x,y| y.created_at <=> x.created_at}
+    template_pub_map.values.sort { |x,y| y.updated_at <=> x.updated_at}
   end
 
 end
