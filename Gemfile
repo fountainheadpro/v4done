@@ -6,7 +6,7 @@ gem 'therubyracer', '>= 0.9.8'
 gem "bson_ext"
 gem "mongoid", ">=2.4.8"
 gem 'mongoid-tree', :require => 'mongoid/tree'
-gem "devise", ">= 1.4.9"
+gem "devise", ">= 2.0.4"
 gem "settingslogic"
 gem 'jquery-rails', '>= 1.0.12'
 gem "rails-backbone"
@@ -15,6 +15,8 @@ gem "haml-rails"
 gem "awesome_print"
 gem "moonshado-sms"
 gem "rails_best_practices"
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :assets do
   gem 'sass-rails',   '~> 3.1.4'
