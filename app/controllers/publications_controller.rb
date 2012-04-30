@@ -15,6 +15,7 @@ class PublicationsController < ApplicationController
       @publication = current_user.publications.create(template: @template)
     else
       @publication.update_attribute :template, @template.attributes
+      #Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => @template.attributes}) )
     end
     respond_with(@publication)
   end
