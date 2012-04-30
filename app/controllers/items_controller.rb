@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   respond_to :json
 
   def index
-    items = @template.items.not_in(parent_ids: @template.items.deleted.map(&:id))
+    items = @template.active_items
     respond_with(@template, items)
   end
 
