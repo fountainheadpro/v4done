@@ -28,17 +28,25 @@ class User
   #validates_uniqueness_of :twitter_handle, :case_sensitive => false
 
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
-  attr_accessible :twitter_handle, :twitter_profile_image_url, :twitter_data
+
+  attr_accessible :twitter_handle, :twitter_profile_image_url, :twitter_data, :current_sign_in_ip
 
 
   has_many :templates, foreign_key: :creator_id
   has_many :publications, foreign_key: :creator_id
 
-  def self.find_for_twitter_oauth(access_token, signed_in_resource=nil)
+  def self.find_for_twitter_oauth(env_data, signed_in_resource=nil)
+    access_token=env_data["omniauth.auth"]
     data = access_token.info
-    users_criteria=self.where({:twitter_handle => data.nickname})
+    curr_ip=env_data['REMOTE_ADDR']
+    p "ip: #{curr_ip}"
+    users_criteria=self.any_of({:twitter_handle => data.nickname}, {:last_sign_in_ip => curr_ip, :name => data.name })
     if users_criteria.count>0
-      users_criteria.first
+      user = users_criteria.first
+      user.update_attributes(:twitter_handle => data.nickname,
+      :twitter_data => access_token.extra.raw_info,
+      :twitter_profile_image_url => data.image) unless (user.twitter_handle)
+      user
     else
       self.create!(
           :password => Devise.friendly_token[0,20],
