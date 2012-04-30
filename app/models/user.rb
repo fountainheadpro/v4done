@@ -35,23 +35,23 @@ class User
   has_many :templates, foreign_key: :creator_id
   has_many :publications, foreign_key: :creator_id
 
-  def self.find_for_twitter_oauth(access_token, ip, signed_in_resource=nil)
+  def self.find_for_twitter_oauth(access_token, ip, signed_in_resource = nil)
     data = access_token.info
     p "ip: #{ip}"
-    users_criteria=self.any_of({:twitter_handle => data.nickname}, {:last_sign_in_ip => ip, :name => data.name })
-    if users_criteria.count>0
+    users_criteria = self.any_of({ twitter_handle: data.nickname }, { last_sign_in_ip: ip, name: data.name })
+    if users_criteria.count > 0
       user = users_criteria.first
-      user.update_attributes(:twitter_handle => data.nickname,
-      :twitter_data => access_token.extra.raw_info,
-      :twitter_profile_image_url => data.image) unless (user.twitter_handle)
+      user.update_attributes(twitter_handle: data.nickname,
+        twitter_data: access_token.extra.raw_info,
+        twitter_profile_image_url: data.image) unless (user.twitter_handle)
       user
     else
       self.create!(
-          :password => Devise.friendly_token[0,20],
-          :twitter_profile_image_url=>data.image,
-          :twitter_handle => data.nickname,
-          :name => data.name,
-          :twitter_data => access_token.extra.raw_info
+          password: Devise.friendly_token[0,20],
+          twitter_profile_image_url: data.image,
+          twitter_handle: data.nickname,
+          name: data.name,
+          twitter_data: access_token.extra.raw_info
       )
     end
   end
