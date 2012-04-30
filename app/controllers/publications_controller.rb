@@ -12,9 +12,9 @@ class PublicationsController < ApplicationController
   def create
     @publication = @template.publication
     if @publication.blank?
-      @publication = current_user.publications.create(template: @template)
+      @publication = current_user.publications.create template: { title: @template.title, description: @template.description, created_at: @template.created_at, updated_at: @template.updated_at, items: @template.active_items }
     else
-      @publication.update_attribute :template, @template.attributes
+      @publication.update_attributes template: { title: @template.title, description: @template.description, updated_at: @template.updated_at, items: @template.active_items }
       #Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => @template.attributes}) )
     end
     respond_with(@publication)

@@ -6,7 +6,6 @@ class Template
 
   field :title, type: String
   field :description, :type => String
-  attr_accessible :title, :description
   validates :title, presence: true
 
   embeds_many :items, inverse_of: :template
