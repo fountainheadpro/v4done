@@ -35,12 +35,10 @@ class User
   has_many :templates, foreign_key: :creator_id
   has_many :publications, foreign_key: :creator_id
 
-  def self.find_for_twitter_oauth(env_data, signed_in_resource=nil)
-    access_token=env_data["omniauth.auth"]
+  def self.find_for_twitter_oauth(access_token, ip, signed_in_resource=nil)
     data = access_token.info
-    curr_ip=env_data['REMOTE_ADDR']
-    p "ip: #{curr_ip}"
-    users_criteria=self.any_of({:twitter_handle => data.nickname}, {:last_sign_in_ip => curr_ip, :name => data.name })
+    p "ip: #{ip}"
+    users_criteria=self.any_of({:twitter_handle => data.nickname}, {:last_sign_in_ip => ip, :name => data.name })
     if users_criteria.count>0
       user = users_criteria.first
       user.update_attributes(:twitter_handle => data.nickname,
