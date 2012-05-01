@@ -1,7 +1,8 @@
 -@newest_publications.each do |p|
   .row.news_feed_item
     .span8
-      = p.creator ? p.creator.name : "Anonymous"
+      //= p.creator ? (link_to  p.creator.name , :controller => "publications", :action => "user_index", :user_id => p.creator.id) : "Anonymous"
+      = p.creator ? (link_to  p.creator.name , user_publications_path(p.creator.id)) : "Anonymous"
       %i published
       = distance_of_time_in_words_to_now(p.updated_at)
       ago

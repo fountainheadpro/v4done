@@ -1,7 +1,9 @@
 - if user_signed_in?
   %ul.nav
     %li{class: controller_name == 'templates' && 'active'}
-      = link_to('Goals', templates_path)
+      = link_to('My Goals', templates_path)
+    %li{class: controller_name == 'templates' && 'active'}
+      = link_to('My Publications', user_publications_path(current_user.id))
   %ul.nav.pull-right
     %li.dropdown
       = link_to  "#", {:class => "dropdown-toggle", :"data-toggle" => "dropdown"} do
