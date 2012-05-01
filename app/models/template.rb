@@ -21,4 +21,14 @@ class Template
     Publication.first(conditions: { "creator_id" => creator_id, "template._id" => id }, sort: [:created_at, :desc])
   end
 
+  def publication_id
+      publication.try(:_id)
+  end
+
+
+
+  def serializable_hash(options = {})
+     super({ methods: [:publication_id] }.merge(options || {}))
+   end
+
 end

@@ -1,11 +1,12 @@
 class PublicationsController < ApplicationController
   respond_to :html, :json
-  before_filter :authenticate_user!, only: [:index, :create]
-  before_filter :find_template, only: [:index, :create]
+  before_filter :authenticate_user!, only: [:create]
+  before_filter :find_template, only: [:create]
 
-  # GET  /templates/1/publications.html
+  # GET  /users/1/publications
   def index
-    respond_with(@publications = @template.publications)
+    #respond_with(@publications = @template.publications)
+    @user_publications = Publication.where(:creator_id => params[:user_id]).desc(:updated_at)
   end
 
   # POST /templates/1/publications.html
