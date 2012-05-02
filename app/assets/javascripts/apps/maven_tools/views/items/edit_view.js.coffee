@@ -61,6 +61,7 @@ class Actions.Views.Items.EditView extends Backbone.View
   highlight: ->
     $('.selected textarea[name="description"]').each (i, item)->
       $(item).parent().hide() if $(item).val() == ''
+    $('.selected textarea').removeAttr('style')
     $('.selected').removeClass('selected')
     $(@el).addClass('selected')
     @$('.description').show()
