@@ -17,9 +17,14 @@ class Actions.Views.Templates.EditView extends Backbone.View
     "keyup textarea[name='description']" : "resizeTextarea"
 
   keymap: (e) ->
-    switch e.which
-      when 38, 40 then @move(e)
-      when 13 then @update(e)
+    if e.target.name == 'title'
+      switch e.which
+        when 38, 40 then @move(e)
+        when 13 then @update(e)
+    else if e.target.name == 'description'
+      switch e.which
+        when 38 then @move(e) if Actions.Mixins.CarerPosition.atFirstLine(e.target)
+        when 40 then @move(e) if Actions.Mixins.CarerPosition.atLastLine(e.target)
 
   resizeTextarea: (e) ->
     hCheck = !($.browser.msie || $.browser.opera)
