@@ -65,6 +65,17 @@ class Actions.Views.Items.EditView extends Backbone.View
     $(@el).addClass('selected')
     @$('.description').show()
 
+  ###
+  "click i.mover" : "enable_move"
+  enable_move: ->
+   $(@el).draggable(
+    connectToSortable:  @el.parentNode
+    helper: "clone"
+    revert: "invalid"
+   )
+   $(@el).disableSelection()
+  ###
+
   attributes: ->
     { 'data-id': @model.id }
 
