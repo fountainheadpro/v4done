@@ -9,7 +9,6 @@ class Actions.Views.Items.IndexView extends Backbone.View
     @collection=@options
     @options.items.bind('reset', @addAll)
     $(@el).sortable(
-      items:  "div"
       revert: true
       helper: "original"
       update: _.bind(@save_order, @)
