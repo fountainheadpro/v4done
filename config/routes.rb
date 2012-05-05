@@ -29,6 +29,4 @@ Actions::Application.routes.draw do
     resources :publications, only: [:index]
   end
 
-  #match "users/:user_id/publications" => "publications#user_index"
-
 end

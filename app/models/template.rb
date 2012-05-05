@@ -25,11 +25,11 @@ class Template
   end
 
   def publication_id
-      publication.try(:_id)
+    publication.try(:_id)
   end
 
   def serializable_hash(options = {})
-     super({ methods: [:publication_id] }.merge(options || {}))
-   end
+    super({ methods: [:publication_id] }.merge(options || {}))
+  end
 
 end

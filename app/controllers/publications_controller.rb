@@ -5,8 +5,7 @@ class PublicationsController < ApplicationController
 
   # GET  /users/1/publications
   def index
-    #respond_with(@publications = @template.publications)
-    @user_publications = Publication.where(:creator_id => params[:user_id]).desc(:updated_at)
+    respond_with(@publications = current_user.publications.desc(:updated_at))
   end
 
   # POST /templates/1/publications.html
@@ -17,7 +16,6 @@ class PublicationsController < ApplicationController
       @publication = current_user.publications.create template: template_attributes
     else
       @publication.update_attributes template: template_attributes
-      #Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => @template.attributes}) )
     end
     respond_with(@publication)
   end
