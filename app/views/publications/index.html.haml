@@ -1,15 +1,9 @@
-- unless current_user.nil?
-  %nav
-    %ul.nav
-      %li= link_to '← Back to template', templates_path + "##{@template.id}/items"
-
-.row
-  .span9
-    %h2= @template.title
-  .span1
-    = form_for [@template, Publication.new] do |f|
-      = f.submit 'Publish', class: 'btn-primary btn-large'
-#publications
-  %ul
-    - @publications.each do |publication|
-      %li= link_to publication.created_at.to_s(:long), publication_path(publication)
+- @publications.each do |p|
+  .row.news_feed_item
+    .span8
+      %i published
+      = distance_of_time_in_words_to_now(p.updated_at)
+      ago
+    .span8
+      %b= link_to p.template.title, publication_path(p)
+      %p= p.template.description

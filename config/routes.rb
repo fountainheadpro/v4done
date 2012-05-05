@@ -6,7 +6,7 @@ Actions::Application.routes.draw do
 
   resources :templates, except: [:new, :edit] do
     resources :items, only: [:index, :create, :update, :show, :destroy]
-    resources :publications, only: [:index, :create, :show], shallow: true do
+    resources :publications, only: [:create, :show], shallow: true do
       namespace :export do
         resources :actions, only: [:create]
       end
@@ -25,6 +25,8 @@ Actions::Application.routes.draw do
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :users, only: [:show]
+  resources :users, only: [:show] do
+    resources :publications, only: [:index]
+  end
 
 end

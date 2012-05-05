@@ -24,4 +24,12 @@ class Template
     items.not_in(parent_ids: items.deleted.map(&:id))
   end
 
+  def publication_id
+    publication.try(:_id)
+  end
+
+  def serializable_hash(options = {})
+    super({ methods: [:publication_id] }.merge(options || {}))
+  end
+
 end
