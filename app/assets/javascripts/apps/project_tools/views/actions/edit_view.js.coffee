@@ -5,6 +5,7 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
   className: "action row-fluid"
 
   events:
+    "click a.separator"       : "showDescription"
     "mousedown"               : "highlight"
     "touchstart"              : "highlight"
     "thouchend"               : "unhighlight"
@@ -18,6 +19,15 @@ class ProjectApp.Views.Actions.EditView extends Backbone.View
 
   initialize: () ->
     @model.bind('change', @render, @)
+
+  showDescription: (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+    @$('p.action-description').toggleClass('show-less')
+    if @$('p.action-description').hasClass('show-less')
+      @$('p.action-description').animate({"max-height": "50px"}).next('a.separator').text('more…')
+    else
+      @$('p.action-description').animate({"max-height": "500px"}).next('a.separator').text('less…')
 
   highlight: ->
     unless @model.isLeaf()
