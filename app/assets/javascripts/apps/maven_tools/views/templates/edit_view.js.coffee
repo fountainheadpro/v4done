@@ -14,11 +14,41 @@ class Actions.Views.Templates.EditView extends Backbone.View
     "keydown textarea" : "keymap"
     "blur textarea"    : "update"
     "click button"     : "publish"
+    "keyup textarea[name='description']" : "resizeTextarea"
 
   keymap: (e) ->
-    switch e.which
-      when 38, 40 then @move(e)
-      when 13 then @update(e)
+    if e.target.name == 'title'
+      switch e.which
+        when 38, 40 then @move(e)
+        when 13 then @update(e)
+    else if e.target.name == 'description'
+      switch e.which
+        when 38 then @move(e) if Actions.Mixins.CarerPosition.atFirstLine(e.target)
+        when 40 then @move(e) if Actions.Mixins.CarerPosition.atLastLine(e.target)
+
+  resizeTextarea: (e) ->
+    hCheck = !($.browser.msie || $.browser.opera)
+    # event or initialize element?
+    e = e.target || e
+
+    # find content length and box width
+    vlen = e.value.length
+    ewidth = e.offsetWidth
+
+    if vlen != e.valLength || ewidth != e.boxWidth || e.style.height != e.scrollHeight
+      if hCheck && (vlen < e.valLength || ewidth != e.boxWidth)
+        e.style.height = "0px"
+
+      h = Math.max('54', e.scrollHeight)
+
+      e.style.overflow = "auto"
+      e.style.height = h + "px"
+
+      e.valLength = vlen
+      e.boxWidth = ewidth
+
+    return true
+
 
   update: (e) ->
     e.preventDefault()
@@ -37,6 +67,7 @@ class Actions.Views.Templates.EditView extends Backbone.View
     $('.selected').removeClass('selected')
     $(@el).addClass('selected')
     @$('.description').show()
+    @resizeTextarea(@$("textarea[name='description']")[0])
 
   publish: ->
     $.post "/templates/#{@model.id}/publications.json", (data) ->

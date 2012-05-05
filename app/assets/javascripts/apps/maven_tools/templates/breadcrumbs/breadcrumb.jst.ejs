@@ -1,5 +1,5 @@
 <% if(active == true) {%>
   <li class="active"><%= title %></li>
 <% } else { %>
-  <li><a href="<%= link %>" class="inner"><%= title %></a> <span class="divider">/</span></li>
+  <li><a href="<%= link %>" class="inner" title="<%= tooltip %>"><%= title %></a> <span class="divider">/</span></li>
 <% } %>

@@ -5,5 +5,7 @@ class Actions.Views.Breadcrumbs.BreadcrumbView extends Backbone.View
   tagName: 'li'
 
   render: ->
-    $(this.el).html(@template({ title: @options.title, link: @options.link, active: @options.active }))
+    title = @options.title.substring(0, 50)
+    title = title + '…' if @options.title.length > 50
+    $(this.el).html(@template({ title: title, tooltip: @options.title, link: @options.link, active: @options.active }))
     return this

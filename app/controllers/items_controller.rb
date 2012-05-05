@@ -1,11 +1,11 @@
 class ItemsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_template
-  before_filter :find_item, only: [:update, :destroy]
+  before_filter :find_item, only: [:update,:destroy]
   respond_to :json
 
   def index
-    items = @template.items.not_in(parent_ids: @template.items.deleted.map(&:id))
+    items = @template.active_items
     respond_with(@template, items)
   end
 
@@ -18,6 +18,8 @@ class ItemsController < ApplicationController
   # PUT /templates/1/items.json
   def update
     @item.update_attributes(params[:item])
+    #@item.remove_attribute(:previous_id) unless params[:item][:previous_id]
+    #@item.save
     respond_with(@item)
   end
 

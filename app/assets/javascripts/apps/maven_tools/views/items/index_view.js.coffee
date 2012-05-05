@@ -9,7 +9,9 @@ class Actions.Views.Items.IndexView extends Backbone.View
     @collection=@options
     @options.items.bind('reset', @addAll)
     $(@el).sortable(
+      items:  "div"
       revert: true
+      helper: "original"
       update: _.bind(@save_order, @)
     )
 
@@ -22,9 +24,10 @@ class Actions.Views.Items.IndexView extends Backbone.View
     $(@el).append(view.render().el)
 
   save_order: (e, ui)->
-    moved_item_id=ui.item.attr("data-id")
-    new_prev_item=e.view.$(e.target.parentElement).prev().attr("data-id")
-    @collection.items.saveSortOrder(moved_item_id, new_prev_item)
+    moved_item_id=ui.item.data("id")
+    new_prev_item=e.view.$(e.target.parentElement).prev().data("id")
+    new_next_item=e.view.$(e.target.parentElement).next().data("id")
+    @collection.items.saveSortOrder(moved_item_id, new_prev_item, new_next_item)
 
 
   render: ->
