@@ -44,26 +44,8 @@ describe Export::Actions do
       context "when project successfuly created" do
         let(:project) { mock_model(Project, valid?: true, owner: {}) }
 
-        it "should return true" do
-          Export::Actions.export(params).should be_true
-        end
-
-        it "should send email if user provide email address" do
-          email = 'test@test.org'
-          project.stub(:owner).and_return({ 'email' => email })
-          mailer = double("mailer")
-          mailer.should_receive(:deliver)
-          ExportMailer.should_receive(:actions).with(project).and_return(mailer)
-          Export::Actions.export(params.merge({ email_or_phone_number: email }))
-        end
-
-        it "should send sms if user provide phone number" do
-          phone_number = '0123456789'
-          project.stub(:owner).and_return({ 'phone_number' => phone_number })
-          sms = double("sms")
-          sms.should_receive(:deliver_sms)
-          Moonshado::Sms.should_receive(:new).with(phone_number, Rails.application.routes.url_helpers.project_url(project, host: 'test.org')).and_return(sms)
-          Export::Actions.export(params.merge({ email_or_phone_number: phone_number }))
+        it "should return project" do
+          Export::Actions.export(params).should eq(project)
         end
       end
 
