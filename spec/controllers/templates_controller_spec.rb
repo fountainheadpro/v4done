@@ -58,8 +58,8 @@ describe TemplatesController do
     let(:template) { FactoryGirl.create(:template, creator: user) }
 
     it "updates the requested template" do
-      Template.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-      put :update, id: template.id, template: {'these' => 'params'}
+      Template.any_instance.should_receive(:update_attributes).with({'title' => 'params'})
+      put :update, id: template.id, template: {'title' => 'params'}
     end
 
     describe "with valid params" do
