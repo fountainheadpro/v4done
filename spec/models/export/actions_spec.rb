@@ -10,6 +10,8 @@ describe Export::Actions do
   end
 
   describe "Exporting" do
+    let(:publication) { mock_model(Publication) }
+
     context "when params is empty" do
       let(:params) { {} }
       it_should_behave_like "failed export"
@@ -25,9 +27,13 @@ describe Export::Actions do
       it_should_behave_like "failed export"
     end
 
+    context "when phone number is invalid" do
+      let(:params) { { publication_id: publication.id, email_or_phone_number: '123' } }
+      it_should_behave_like "failed export"
+    end
+
     context "when params is valid" do
-      let(:publication) { mock_model(Publication) }
-      let(:params) { { publication_id: publication.id } }
+      let(:params) { { publication_id: publication.id, email_or_phone_number: '0123456789' } }
       let(:project) { mock_model(Project, valid?: false) }
 
       before(:each) do
@@ -37,7 +43,7 @@ describe Export::Actions do
       end
 
       it "should create project from publication" do
-        Project.should_receive(:create_from_publication).with(publication, {}).and_return(project)
+        Project.should_receive(:create_from_publication).with(publication, { owner: { "phone_number" => "0123456789" } }).and_return(project)
         Export::Actions.export(params)
       end
 
