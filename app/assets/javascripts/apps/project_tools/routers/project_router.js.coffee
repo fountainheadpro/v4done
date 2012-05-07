@@ -12,6 +12,9 @@ class ProjectApp.Routers.ProjectRouter extends Backbone.Router
     $("#action_header").html(@project.get('title'))
     $("#action_header").attr("href", "#actions")
     $("#project").html(view.render().el)
+    $('#project div.action-info > p').each (_, description) ->
+      $(description).next('a.separator').hide() if description.clientHeight >= description.scrollHeight
+
 
   childActions: (actionId) ->
     action = @project.actions.get(actionId)

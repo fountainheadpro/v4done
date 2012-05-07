@@ -10,6 +10,8 @@ describe Export::Actions do
   end
 
   describe "Exporting" do
+    let(:publication) { mock_model(Publication) }
+
     context "when params is empty" do
       let(:params) { {} }
       it_should_behave_like "failed export"
@@ -25,9 +27,13 @@ describe Export::Actions do
       it_should_behave_like "failed export"
     end
 
+    context "when phone number is invalid" do
+      let(:params) { { publication_id: publication.id, email_or_phone_number: '123' } }
+      it_should_behave_like "failed export"
+    end
+
     context "when params is valid" do
-      let(:publication) { mock_model(Publication) }
-      let(:params) { { publication_id: publication.id } }
+      let(:params) { { publication_id: publication.id, email_or_phone_number: '0123456789' } }
       let(:project) { mock_model(Project, valid?: false) }
 
       before(:each) do
@@ -37,33 +43,15 @@ describe Export::Actions do
       end
 
       it "should create project from publication" do
-        Project.should_receive(:create_from_publication).with(publication, {}).and_return(project)
+        Project.should_receive(:create_from_publication).with(publication, { owner: { "phone_number" => "0123456789" } }).and_return(project)
         Export::Actions.export(params)
       end
 
       context "when project successfuly created" do
         let(:project) { mock_model(Project, valid?: true, owner: {}) }
 
-        it "should return true" do
-          Export::Actions.export(params).should be_true
-        end
-
-        it "should send email if user provide email address" do
-          email = 'test@test.org'
-          project.stub(:owner).and_return({ 'email' => email })
-          mailer = double("mailer")
-          mailer.should_receive(:deliver)
-          ExportMailer.should_receive(:actions).with(project).and_return(mailer)
-          Export::Actions.export(params.merge({ email_or_phone_number: email }))
-        end
-
-        it "should send sms if user provide phone number" do
-          phone_number = '0123456789'
-          project.stub(:owner).and_return({ 'phone_number' => phone_number })
-          sms = double("sms")
-          sms.should_receive(:deliver_sms)
-          Moonshado::Sms.should_receive(:new).with(phone_number, Rails.application.routes.url_helpers.project_url(project, host: 'test.org')).and_return(sms)
-          Export::Actions.export(params.merge({ email_or_phone_number: phone_number }))
+        it "should return project" do
+          Export::Actions.export(params).should eq(project)
         end
       end
 

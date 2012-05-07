@@ -2,7 +2,7 @@
   %ul.nav
     %li{class: controller_name == 'templates' && 'active'}
       = link_to('My Goals', templates_path)
-    %li{class: controller_name == 'templates' && 'active'}
+    %li{class: controller_name == 'publications' && 'active'}
       = link_to('My Publications', user_publications_path(current_user.id))
   %ul.nav.pull-right
     %li.dropdown
