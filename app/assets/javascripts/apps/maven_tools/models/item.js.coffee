@@ -41,3 +41,28 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
       if sortedItems.length < @.length
         sortedItems.push(@.without.apply(@, sortedItems))
       return new Actions.Collections.ItemsCollection(_.flatten(sortedItems))
+
+  saveSortOrder: (id, new_prev_item, new_next_item) ->
+    #get all items pointing to this item
+    moved_item=@get(id)
+    oldPrevId=moved_item.get("previous_id")
+    oldPrevItem=@get(oldPrevId)
+    @byPreviousId(id).each (item) =>
+      if oldPrevId
+          item.set("previous_id", oldPrevItem.id)
+      else
+          item.set("previous_id",null)
+      item.save()
+    if new_prev_item
+      moved_item.set("previous_id", new_prev_item)
+    else
+      moved_item.set("previous_id", null)
+    moved_item.save()
+    if new_next_item
+      next_item=@get(new_next_item).set("previous_id", id)
+      next_item.save()
+
+
+
+
+
