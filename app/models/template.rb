@@ -10,16 +10,16 @@ class Template
   validates :title, presence: true
 
   embeds_many :items, inverse_of: :template
-  # has_one :publication, foreign_key: 'template._id'
+  has_one :publication, foreign_key: 'template._id'
 
   def publications
     Publication.all(conditions: { "creator_id" => creator_id, "template._id" => id })
   end
 
   # TODO: remove all duplicates of publications and then replace this method with has_one
-  def publication
-    Publication.first(conditions: { "creator_id" => creator_id, "template._id" => id }, sort: [:created_at, :desc])
-  end
+  #def publication
+  #  Publication.first(conditions: { "creator_id" => creator_id, "template._id" => id }, sort: [:created_at, :desc])
+  #end
 
   def active_items
     items.not_in(parent_ids: items.deleted.map(&:id))

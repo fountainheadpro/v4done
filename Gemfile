@@ -4,8 +4,8 @@ source 'http://rubygems.org'
 gem 'rails', '3.1.1'
 gem 'therubyracer', '>= 0.9.8'
 gem "bson_ext"
-gem "mongoid", ">=2.4.8"
-gem 'mongoid-tree', :require => 'mongoid/tree'
+gem "mongoid", "2.4.8"
+#gem 'mongoid-tree', :require => 'mongoid/tree'
 gem "devise", ">= 2.0.4"
 gem "settingslogic"
 gem 'jquery-rails', '>= 1.0.12'

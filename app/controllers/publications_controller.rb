@@ -14,10 +14,10 @@ class PublicationsController < ApplicationController
     @publication = @template.publication
     template_attributes = @template.attributes.merge("items" => @template.active_items.entries)
     if @publication.blank?
-      @publication = current_user.publications.create template: template_attributes
+      @publication = Publication.create(:template => @template, :creator=>current_user)
     else
-      #@publication.update_attributes template: template_attributes
-      Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => @template.attributes}) )
+      @publication.update_attribute template: template_attributes
+      #Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => template_attributes, :updated_at => DateTime.now}) )
     end
     respond_with(@publication)
   end

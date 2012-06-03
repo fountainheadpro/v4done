@@ -9,6 +9,7 @@ test:
 # set these environment variables on your prod server
 production:
   uri: <%= ENV['MONGOHQ_URL'] %>
+  database: actions_production
   # slaves:
   #   - host: slave1.local
   #     port: 27018
