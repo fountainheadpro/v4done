@@ -31,7 +31,6 @@ class User
 
   attr_accessible :twitter_handle, :twitter_profile_image_url, :twitter_data, :current_sign_in_ip
 
-
   has_many :templates, foreign_key: :creator_id
   has_many :publications, foreign_key: :creator_id
 

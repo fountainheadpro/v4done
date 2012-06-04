@@ -12,12 +12,12 @@ class PublicationsController < ApplicationController
   # POST /templates/1/publications.html
   def create
     @publication = @template.publication
-    template_attributes = @template.attributes.merge("items" => @template.active_items.entries)
+    #template_attributes = @template.attributes.merge("items" => @template.active_items.entries)
     if @publication.blank?
-      @publication = Publication.create(:template => @template, :creator=>current_user)
+      @publication = Publication.create({:template => @template, :creator=>current_user})
     else
-      @publication.update_attribute template: template_attributes
-      #Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => template_attributes, :updated_at => DateTime.now}) )
+      #@publication.update_attribute template: template_attributes
+      Publication.collection.find_and_modify(:query => { "_id" => @publication.id }, :update=>@publication.attributes.merge({:template => @template.attributes, :updated_at => Time.zone.now.utc}) )
     end
     respond_with(@publication)
   end
