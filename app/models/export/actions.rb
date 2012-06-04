@@ -1,9 +1,14 @@
 class Export::Actions
   def self.export(params)
-    if Publication.exists?(conditions: { id: params[:publication_id] }) && valid?(params[:email_or_phone_number])
+    pub_found=Publication.exists?(conditions: { id: params[:publication_id] })
+    valid_email_or_phone=valid?(params[:email_or_phone_number])
+    if pub_found && valid_email_or_phone
       publication = Publication.find params[:publication_id]
       project = Project.create_from_publication publication, owner(params[:email_or_phone_number])
       project if project.valid?
+    else
+     raise "Publication not found" unless Publication.exists?(conditions: { id: params[:publication_id] })
+     raise "invalid email: #{params[:email_or_phone_number]} " unless valid?(params[:email_or_phone_number])
     end
   end
 
@@ -25,6 +30,8 @@ class Export::Actions
       unless email_or_phone_number =~ /@/
         phone_number = email_or_phone_number.scan(/\d+/i).join
         phone_number.length >= 10 && phone_number[/^.\d+$/]
+      else
+        true
       end
     end
   end
