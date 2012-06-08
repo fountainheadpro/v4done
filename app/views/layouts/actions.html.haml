@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title Actions
+    %title= @project.title or "Actions"
     = stylesheet_link_tag    "mobile"
     = javascript_include_tag "project_tools_app"
     = csrf_meta_tags

@@ -9,8 +9,10 @@ Actions.Mixins.Movable =
 
   focus_next: (current_element) ->
     if current_element? && current_element.name == 'title'
-      nextEl = @$('textarea[name="description"]')
-      nextEl = $(@el).next().find('textarea[name="title"]:first') if nextEl.length == 0
+      #nextEl = @$('textarea[name="description"]')
+      #nextEl = $(@el).next().find('textarea[name="title"]:first') if nextEl.length == 0
+      nextEl = $(@el).next().find('textarea[name="title"]:first').focus()
+      nextEl = $(@el).parent().next().find('textarea[name="title"]:first') if nextEl.length == 0
       nextEl.focus()
     else
       nextEl = $(@el).next().find('textarea[name="title"]:first').focus()
@@ -21,7 +23,8 @@ Actions.Mixins.Movable =
     if current_element? && current_element.name == 'description'
       @$('textarea[name="title"]').focus()
     else
-      prevEl = $(@el).prev().find('textarea:visible:last')
-      prevEl = $(@el).parent().prev().find('textarea:visible:last') if prevEl.length == 0
-      prevEl = $(@el).parent().parent().prev().find('textarea:visible:last') if prevEl.length == 0
+      #prevEl = $(@el).prev().find('textarea:visible:last')
+      #prevEl = $(@el).parent().prev().find('textarea:visible:last') if prevEl.length == 0
+      #prevEl = $(@el).parent().parent().prev().find('textarea:visible:last') if prevEl.length == 0
+
       prevEl.focus()
