@@ -28,12 +28,16 @@ section#templates
     &.selected
       textarea
         border: 1px solid #CCC
+      textarea[name="description"]
+        border: 1px solid #CCC
     textarea:hover
       border: 1px solid #CCC
     textarea[name="title"]
       font-weight: bold
       font-size: 24px
       line-height: 36px
+    div[name="description"]
+      min-height: 40px
     textarea:focus
       border-color: rgba(82,168,236,.8)
       @include box-shadow($shadow)
@@ -90,6 +94,11 @@ section#templates
         textarea[name="title"]
           font-size: 18px
           line-height: 24px
+
+      div[name="description"]
+        font-size: 18px
+        line-height: 24px
+        min-height: 40px
 
       ul.breadcrumb
         margin: 0 0 10px

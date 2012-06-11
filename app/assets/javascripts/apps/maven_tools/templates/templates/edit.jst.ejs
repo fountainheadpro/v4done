@@ -6,5 +6,5 @@
   <textarea name="title" rows="1"><%= title %></textarea>
 </div>
 <div class="description" style="display: <%= description == '' ? 'none':'block' %>">
-  <textarea name="description" rows="3" placeholder="Add a goal description"><%= description %></textarea>
+  <div name="description" contenteditable=true placeholder="Add a goal description"><%= description %></div>
 </div>

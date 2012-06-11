@@ -1,5 +1,6 @@
 Actions.Mixins.CarerPosition ||= {}
 Actions.Mixins.CarerPosition =
+
   get: (el) ->
     if el.selectionStart
       return el.selectionStart

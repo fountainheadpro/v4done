@@ -1,7 +1,7 @@
 - if user_signed_in?
   %ul.nav
     %li{class: controller_name == 'templates' && 'active'}
-      = link_to('My Goals', templates_path)
+      = link_to('My Instructions', templates_path)
     %li{class: controller_name == 'publications' && 'active'}
       = link_to('My Publications', user_publications_path(current_user.id))
   %ul.nav.pull-right

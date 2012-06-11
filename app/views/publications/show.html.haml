@@ -6,7 +6,9 @@
   .row
     .span7
       %h2= @publication.template.title
-      %p= @publication.template.description
+      by
+      = @publication.creator ? link_to(@publication.creator.name, user_publications_path(@publication.creator.id)) : "Anonymous"
+      %p= raw(@publication.template.description)
       %ul.items
         - @publication.template.items.roots.each_with_position do |item|
           = render "shared/item", item: item
