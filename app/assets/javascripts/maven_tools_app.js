@@ -7,6 +7,7 @@
 //= require backbone_datalink
 //= require bootstrap-dropdown
 //= require bootstrap-alert
+//= require_tree ./controls
 //= require apps/maven_tools/actions.js
 
 jQuery(document).ready(function($) {

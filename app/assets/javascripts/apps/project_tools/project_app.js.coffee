@@ -4,6 +4,7 @@
 #= require_tree ./views
 #= require_tree ./routers
 
+
 window.ProjectApp =
   Models: {}
   Collections: {}
@@ -11,6 +12,7 @@ window.ProjectApp =
   Views: {}
   Mixins: {}
   init: (project) ->
+
     ProjectApp.router = new ProjectApp.Routers.ProjectRouter({ project: project })
     Backbone.history.start()
 

@@ -31,6 +31,7 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     view = new Actions.Views.Templates.EditView(model: template)
     $("section#templates").html(view.render().el)
 
+
     renderItems = () ->
       if itemId?
         item = template.items.get(itemId)

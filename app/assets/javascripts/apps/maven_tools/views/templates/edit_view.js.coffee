@@ -56,4 +56,5 @@ class Actions.Views.Templates.EditView extends Backbone.View
 
   render: ->
     $(@el).html(@template({ id: @model.id, title: @model.get('title'), description: @model.get('description') }))
+    $(@el).find('div[contenteditable=true]').action_editor()
     return this

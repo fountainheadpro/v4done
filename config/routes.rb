@@ -29,4 +29,6 @@ Actions::Application.routes.draw do
     resources :publications, only: [:index]
   end
 
+  match 'proxifier/:url' => 'action_url#show', :constraints => { :url => /.*/ }
+
 end

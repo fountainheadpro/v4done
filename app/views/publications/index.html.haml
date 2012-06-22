@@ -6,4 +6,4 @@
       ago
     .span8
       %b= link_to p.template.title, publication_path(p)
-      %p= p.template.description
+      %p= raw(p.template.description)
