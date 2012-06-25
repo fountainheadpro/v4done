@@ -2,5 +2,5 @@
   <textarea name="title" rows="1" placeholder="Write your action title and hit enter"><%= title %></textarea>
 </div>
 <div class="description" style="display: <%= description == '' ? 'none':'block' %>">
-  <textarea name="description" rows="3" placeholder="Add an action description"><%= description %></textarea>
+  <div contenteditable='true' name="description" rows="3" placeholder="Add an action description"><%= description %></div>
 </div>

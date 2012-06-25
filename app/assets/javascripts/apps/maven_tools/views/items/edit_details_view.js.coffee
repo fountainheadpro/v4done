@@ -33,7 +33,7 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
     title = @$("textarea[name='title']").val()
-    description = @$("textarea[name='description']").val()
+    description = @$("div[name='description']").html()
     if @model.get('title') != title || @model.get('description') != description
       @model.save({ title: title, description: description },
         success: (item) => @model = item
@@ -45,14 +45,14 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
       @focus_next()
 
   destroy: () ->
-    if @$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == ''
+    if @$('textarea[name="title"]').val() == '' && @$('div[name="description"]').html() == ''
       @model.destroy()
       $(@el).unbind()
       @goToParentItem(@options.template, @model)
       return false
 
   highlight: ->
-    $('.selected textarea[name="description"]').each (i, item)->
+    $('.selected div[name="description"]').each (i, item)->
       $(item).parent().hide() if $(item).val() == ''
     $('.selected textarea').removeAttr('style')
     $('.selected').removeClass('selected')
@@ -60,5 +60,6 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
     @$('.description').show()
 
   render: ->
-    $(this.el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    $(@el).find('div[contenteditable=true]').action_editor()
     return this

@@ -11,12 +11,12 @@ class Actions.Views.Templates.EditView extends Backbone.View
 
   events:
     "focusin textarea" : "highlight"
+    "focusin div[name='description']" : "highlight"
     "keydown textarea" : "keymap"
     "keydown div[name='description']" : "keymap"
     "blur textarea"    : "update"
     "blur div[name='description']"    : "update"
     "click button"     : "publish"
-    #"keyup div[name='description']" : "resizeTextarea"
 
   keymap: (e) ->
     if e.target.name == 'title'
@@ -41,8 +41,8 @@ class Actions.Views.Templates.EditView extends Backbone.View
     @focus_next() if e.keyCode == 13
 
   highlight: ->
-    $('.selected div[name="description"]').each (i, item)->
-      $(item).parent().hide() if $(item).val() == ''
+    #$('.selected div[name="description"]').each (i, item)->
+    #  $(item).parent().hide() if $(item).val() == ''
     #$('.selected').removeClass('selected')
     $('.selected').addClass('selected')
     @$('.description').show()

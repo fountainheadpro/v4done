@@ -69,5 +69,4 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   render: ->
     $(@el).html(@template())
-
-    return this
+    @

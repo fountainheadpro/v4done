@@ -1,7 +1,7 @@
 %li
   %strong= item.title
   - unless item.description.blank?
-    %p= item.description
+    %p= raw(item.description)
   - unless item.leaf?
     %ul
       - item.children.each_with_position do |item|

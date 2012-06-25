@@ -12,9 +12,14 @@ class Actions.Views.Items.EditView extends Backbone.View
 
   events:
     "click i.destroy" : "destroy"
+    "mousedown i.mover" : "enable_sorting"
+    "mouseup i.mover" : "disable_sorting"
     "keydown textarea": "keymap"
     "blur textarea"   : "update"
+    "blur div[name=description]"   : "update"
     "focusin textarea": "highlight"
+    "click div[name=description]"   : "focus_div"
+    #"focusin div": "highlight"
 
   keymap: (e) ->
     if e.shiftKey
@@ -36,7 +41,7 @@ class Actions.Views.Items.EditView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
     title = @$("textarea[name='title']").val()
-    description = @$("textarea[name='description']").val()
+    description = @$("div[name='description']").html()
     previousId = $(@el).prevAll('.item.edit_item:first').data('id')
     if @model.get('title') != title || @model.get('description') != description || @model.get('previous_id') != previousId
       @model.save({ title: title, description: description, previous_id: previousId},
@@ -51,31 +56,41 @@ class Actions.Views.Items.EditView extends Backbone.View
 
   destroy: (e) ->
     backspase = e.which == 8
-    if (@$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == '') || (!backspase && confirm("Are you sure?"))
+    if (@$('textarea[name="title"]').val() == '' && @$('div[name="description"]').html() == '') || (!backspase && confirm("Are you sure?"))
       @model.destroy()
       $(@el).unbind()
       @focus_prev()
       @remove()
       return false
 
-  highlight: ->
-    $('.selected textarea[name="description"]').each (i, item)->
-      $(item).parent().hide() if $(item).val() == ''
-    $('.selected textarea').removeAttr('style')
+  highlight: (e)->
+    $('.selected div[name="description"]').each (i, item)->
+      $(item).parent().hide() if $(item).html() == ''
+    $('.selected').removeAttr('style')
     $('.selected').removeClass('selected')
     $(@el).addClass('selected')
+    $(e.target).show()
     @$('.description').show()
 
-  ###
-  "click i.mover" : "enable_move"
-  enable_move: ->
-   $(@el).draggable(
-    connectToSortable:  @el.parentNode
-    helper: "clone"
-    revert: "invalid"
-   )
-   $(@el).disableSelection()
-  ###
+  enable_sorting: (e) ->
+    container=$(e.target).parent().parent()
+    $(container).sortable("enable")
+    #  revert: true
+    #  helper: "original"
+    #  update: _.bind(@save_order, @)
+    #)
+    e.preventDefault()
+
+  disable_sorting: (e) ->
+    container=$(e.target).parent().parent()
+    $(container).sortable( "disable" )
+    e.preventDefault()
+
+  save_order: (e,ui)->
+    #fuck off
+
+  focus_div: (e)->
+    #$(e.target).focus()
 
   attributes: ->
     { 'data-id': @model.id }
@@ -83,4 +98,5 @@ class Actions.Views.Items.EditView extends Backbone.View
   render: ->
     $(@el).data('id', @model.get('_id'))
     $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    $(@el).find('div[contenteditable=true]').action_editor()
     return this

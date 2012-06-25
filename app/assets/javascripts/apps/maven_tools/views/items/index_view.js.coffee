@@ -13,6 +13,7 @@ class Actions.Views.Items.IndexView extends Backbone.View
       helper: "original"
       update: _.bind(@save_order, @)
     )
+    $(@el).sortable("disable")
 
   addAll: () ->
     @options.items.sortByPosition().each (item) =>

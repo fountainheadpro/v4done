@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
+<url>
+    <loc>http://actions.im</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/users/sign_in</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/users/sign_up</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/users/4eadce55dde9570001000012/publications</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fe41d398d2595000100000c</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fe3f1bb8d25950001000002</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fdc57f5f34b2e0001000017</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/users/4f402fbcbb2f6a0001000002/publications</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fe23c3c1a31350001000015</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fde609f44223d0001000005</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fdcf59d794a900001000008</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fdc1188f34b2e0001000003</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fd1373baff7570001000001</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fcc4e00c7b7ea0001000007</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/publications/4fcc3b647ee6180001000003</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/users/password/new</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/users/auth/twitter</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/users/auth/twitter/callback?denied=69amk04qilwwpagnvct67brgk9qvk2vnns12zvf5zpu</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>http://actions.im/account/resend_password</loc>
+
+    <lastmod>2012-06-22</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+</url>
+</urlset>

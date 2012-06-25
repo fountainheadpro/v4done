@@ -19,18 +19,19 @@ section#templates
 
     textarea
       font-size: 110%
-      width: 815px
+      width: 720px
       background: transparent
-      border: 1px solid transparent
       padding: 0 2px
       resize: none
       @include box-shadow(none)
+    textarea, div[name='description']
+      border: 1px solid transparent
     &.selected
       textarea
         border: 1px solid #CCC
-      textarea[name="description"]
+      div[name="description"]
         border: 1px solid #CCC
-    textarea:hover
+    textarea, div[name='description']:hover
       border: 1px solid #CCC
     textarea[name="title"]
       font-weight: bold
@@ -51,9 +52,15 @@ section#templates
     div.title
       margin-top: 10px
       width: 720px
-
       textarea
         width: 720px
+
+    div.description
+      margin-top: 10px
+      width: 720px
+      div
+        width: 720px
+
 
     div#new-publication
       float: right
@@ -76,10 +83,20 @@ section#templates
       textarea:focus
         border-color: rgba(82,168,236,.8)
         @include box-shadow($shadow)
+      div[name="description"]:focus
+        border-color: rgba(82,168,236,.8)
+        @include box-shadow($shadow)
+      div[name="description"]
+        min-height: 40px
+        width: 770px
       &.selected
         textarea
           background: white
           border: 1px solid #CCC
+        div[name="description"]
+          background: white
+          border: 1px solid #CCC
+
 
     header
       div.item
