@@ -19,7 +19,7 @@ gem "moonshado-sms"
 gem "rails_best_practices"
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'sociable', :git => 'git@github.com:fountainheadpro/sociable.git'
+gem 'sociable'#, :git => 'git@github.com:fountainheadpro/sociable.git'
 gem 'mechanize'
 
 group :assets do
