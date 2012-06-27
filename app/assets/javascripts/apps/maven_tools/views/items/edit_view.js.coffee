@@ -9,6 +9,8 @@ class Actions.Views.Items.EditView extends Backbone.View
   focus_prev: Actions.Mixins.Movable['focus_prev']
   goToParentItem: Actions.Mixins.GoTo['parentItem']
   goToItemDetails: Actions.Mixins.GoTo['itemDetails']
+  next: Actions.Mixins.Listable['next']
+  prev: Actions.Mixins.Listable['prev']
 
   events:
     "click i.destroy" : "destroy"
@@ -17,9 +19,7 @@ class Actions.Views.Items.EditView extends Backbone.View
     "keydown textarea": "keymap"
     "blur textarea"   : "update"
     "blur div[name=description]"   : "update"
-    "focusin textarea": "highlight"
-    "click div[name=description]"   : "focus_div"
-    #"focusin div": "highlight"
+    "focusin [name=description], [name=title]": "highlight"
 
   keymap: (e) ->
     if e.shiftKey
@@ -54,9 +54,19 @@ class Actions.Views.Items.EditView extends Backbone.View
         $(@el).after(view.render().el)
       @focus_next()
 
+  enable_sorting: (e) ->
+    container=$el.parent()
+    $(container).sortable("enable")
+    e.preventDefault()
+
+  disable_sorting: (e) ->
+    container=$el.parent()
+    $(container).sortable( "disable" )
+    e.preventDefault()
+
   destroy: (e) ->
     backspase = e.which == 8
-    if (@$('textarea[name="title"]').val() == '' && @$('div[name="description"]').html() == '') || (!backspase && confirm("Are you sure?"))
+    if (title().val() == '' && description().html() == '') || (!backspase && confirm("Are you sure?"))
       @model.destroy()
       $(@el).unbind()
       @focus_prev()
@@ -64,36 +74,33 @@ class Actions.Views.Items.EditView extends Backbone.View
       return false
 
   highlight: (e)->
+    $('[name=title]').removeAttr('tabindex')
+    $('[name=description]').removeAttr('tabindex')
     $('.selected div[name="description"]').each (i, item)->
       $(item).parent().hide() if $(item).html() == ''
     $('.selected').removeAttr('style')
     $('.selected').removeClass('selected')
-    $(@el).addClass('selected')
-    $(e.target).show()
+    @$el.addClass('selected')
+    if @title().is(':focus')
+      @title().attr('tabindex', 0)
+      @description().attr('tabindex', 0)
+    if @description().is(':focus')
+      @title().removeAttr('tabindex')
+      @description().attr('tabindex', 0)
+      @next().find('[name=title]').attr('tabindex', 0)
     @$('.description').show()
-
-  enable_sorting: (e) ->
-    container=$(e.target).parent().parent()
-    $(container).sortable("enable")
-    #  revert: true
-    #  helper: "original"
-    #  update: _.bind(@save_order, @)
-    #)
-    e.preventDefault()
-
-  disable_sorting: (e) ->
-    container=$(e.target).parent().parent()
-    $(container).sortable( "disable" )
-    e.preventDefault()
-
-  save_order: (e,ui)->
-    #fuck off
 
   focus_div: (e)->
     #$(e.target).focus()
 
   attributes: ->
     { 'data-id': @model.id }
+
+  title: ->
+    @$el.find('[name=title]')
+
+  description: ->
+    @$el.find('[name=description]')
 
   render: ->
     $(@el).data('id', @model.get('_id'))

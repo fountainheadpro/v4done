@@ -1,11 +1,11 @@
-require "sociable/twitter"
-
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  include Sociable::Profile::Facebook::Mongoid
+  include Sociable::Profile::Twitter::Mongoid
+
+
+ devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable
 
   field :name
@@ -30,7 +30,6 @@ class User
   has_many :templates, foreign_key: :creator_id
   has_many :publications, foreign_key: :creator_id
 
-  include Sociable::Profile::Twitter::Mongoid
 
 end
 

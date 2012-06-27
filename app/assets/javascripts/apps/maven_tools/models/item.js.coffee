@@ -23,11 +23,21 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
     filteredItems = @select((item) -> return item.get('parent_id') == parentId)
     return new Actions.Collections.ItemsCollection(filteredItems)
 
+  #depricated to remove
   byPreviousId: (previousId) ->
     filteredItems = @select (item) ->
       item.set('previous_id', null) if !item.get('previous_id')?
       return item.get('previous_id') == previousId
     return new Actions.Collections.ItemsCollection(filteredItems)
+
+  previous: (item) ->
+    previous_id=item.get('previous_id')
+    @get(previous_id) if previous_id?
+
+  next: (item) ->
+    parent_id=item.parent_id || null
+    _.first(@.where({parent_id: parent_id, previous_id: item.id}))
+
 
   sortByPosition: (previousId = null) ->
     sortedItems = []

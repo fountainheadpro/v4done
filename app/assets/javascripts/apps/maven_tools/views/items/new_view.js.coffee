@@ -69,4 +69,5 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   render: ->
     $(@el).html(@template())
+    $(@el).find('div[name=description]').action_editor()
     @

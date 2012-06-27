@@ -1,7 +1,7 @@
 - unless current_user.nil?
   %nav
     %ul.nav
-      %li= link_to '← Back to template', templates_path + "##{@publication.template.id}/items"
+      %li= link_to '← Edit', templates_path + "##{@publication.template.id}/items"
 #template
   .row
     .span7
