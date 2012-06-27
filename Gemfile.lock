@@ -288,7 +288,10 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.5.3)
     simplecov-html (0.5.3)
-    sociable (0.0.2)
+    sociable (0.0.3)
+      devise (~> 2.1.2)
+      omniauth-facebook (~> 1.4.0)
+      omniauth-twitter (~> 0.0.12)
     sprockets (2.0.4)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -357,6 +360,6 @@ DEPENDENCIES
   sass-rails (= 3.1.4)
   settingslogic
   simplecov
-  sociable
+  sociable (>= 0.0.3)
   therubyracer (>= 0.9.8)
   uglifier (>= 1.0.3)
