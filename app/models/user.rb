@@ -3,6 +3,7 @@ class User
   include Mongoid::Timestamps
   include Sociable::Profile::Facebook::Mongoid
   include Sociable::Profile::Twitter::Mongoid
+  include Sociable::Profile::Authorization
 
 
  devise :database_authenticatable, :registerable,

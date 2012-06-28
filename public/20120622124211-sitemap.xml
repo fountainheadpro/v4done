@@ -2,14 +2,11 @@
 <urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
 <url>
     <loc>http://actions.im</loc>
-
-    <lastmod>2012-06-22</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.5</priority>
+    <priority>1</priority>
 </url>
 <url>
     <loc>http://actions.im/</loc>
-
     <lastmod>2012-06-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
