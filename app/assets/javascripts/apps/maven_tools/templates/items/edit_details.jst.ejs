@@ -1,6 +1,6 @@
 <div class="title">
-  <textarea name="title" rows="1" placeholder="Write your action title and hit enter"><%= title %></textarea>
+  <textarea name="title" class="editable" rows="1" placeholder="Write your action title and hit enter"><%= title %></textarea>
 </div>
 <div class="description" style="display: <%= description == '' ? 'none':'block' %>">
-  <div contenteditable='true' name="description" rows="3" placeholder="Add an action description"><%= description %></div>
+  <div contenteditable='true' class="editable" name="description" rows="3" placeholder="Add an action description"><%= description %></div>
 </div>

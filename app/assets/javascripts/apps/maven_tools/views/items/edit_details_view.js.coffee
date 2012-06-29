@@ -1,12 +1,9 @@
 Actions.Views.Items ||= {}
 
-class Actions.Views.Items.EditDetailsView extends Backbone.View
+class Actions.Views.Items.EditDetailsView extends Actions.Views.Items.BaseItemView
   template: JST["apps/maven_tools/templates/items/edit_details"]
   className: 'item'
 
-  move: Actions.Mixins.Movable['move']
-  focus_next: Actions.Mixins.Movable['focus_next']
-  focus_prev: Actions.Mixins.Movable['focus_prev']
   goToParentItem: Actions.Mixins.GoTo['parentItem']
 
   events:
@@ -45,9 +42,7 @@ class Actions.Views.Items.EditDetailsView extends Backbone.View
       @focus_next()
 
   destroy: () ->
-    if @$('textarea[name="title"]').val() == '' && @$('div[name="description"]').html() == ''
-      @model.destroy()
-      $(@el).unbind()
+      super()
       @goToParentItem(@options.template, @model)
       return false
 

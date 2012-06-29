@@ -1,25 +1,19 @@
 Actions.Views.Items ||= {}
 
-class Actions.Views.Items.EditView extends Backbone.View
+class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
   template: JST["apps/maven_tools/templates/items/edit"]
   className: 'item edit_item'
 
-  move: Actions.Mixins.Movable['move']
-  focus_next: Actions.Mixins.Movable['focus_next']
-  focus_prev: Actions.Mixins.Movable['focus_prev']
   goToParentItem: Actions.Mixins.GoTo['parentItem']
   goToItemDetails: Actions.Mixins.GoTo['itemDetails']
-  next: Actions.Mixins.Listable['next']
-  prev: Actions.Mixins.Listable['prev']
 
   events:
     "click i.destroy" : "destroy"
     "mousedown i.mover" : "enable_sorting"
     "mouseup i.mover" : "disable_sorting"
-    "keydown textarea": "keymap"
-    "blur textarea"   : "update"
-    "blur div[name=description]"   : "update"
-    "focusin [name=description], [name=title]": "highlight"
+    "keydown .editable": "keymap"
+    "blur .editable"   : "update"
+    "focusin .editable": "highlight"
 
   keymap: (e) ->
     if e.shiftKey
@@ -27,11 +21,14 @@ class Actions.Views.Items.EditView extends Backbone.View
       switch e.which
         when 38 then @goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
         when 13,40 then @goToItemDetails(@options.template, @model)
+        when 9 then @update(e)
     else if e.target.name == 'title'
       switch e.which
-        when 38, 40 then @move(e)
+        when 38 then @focus_prev()
+        when 40 then @focus_next()
         when 8 then @destroy(e)
         when 13 then @update(e)
+        when 9 then @update(e)
     else if e.target.name == 'description'
       switch e.which
         when 38 then @move(e) if Actions.Mixins.CarerPosition.atFirstLine(e.target)
@@ -40,11 +37,11 @@ class Actions.Views.Items.EditView extends Backbone.View
   update: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    title = @$("textarea[name='title']").val()
-    description = @$("div[name='description']").html()
-    previousId = $(@el).prevAll('.item.edit_item:first').data('id')
-    if @model.get('title') != title || @model.get('description') != description || @model.get('previous_id') != previousId
-      @model.save({ title: title, description: description, previous_id: previousId},
+    title = @title().val()
+    description = @description().html()
+    previous_item = @model.prev()
+    if @model.get('title') != title || @model.get('description') != description
+      @model.save({ title: title, description: description},
         success: (item) => @model = item
       )
     if e.which == 13 && !e.shiftKey
@@ -54,28 +51,8 @@ class Actions.Views.Items.EditView extends Backbone.View
         $(@el).after(view.render().el)
       @focus_next()
 
-  enable_sorting: (e) ->
-    container=$el.parent()
-    $(container).sortable("enable")
-    e.preventDefault()
-
-  disable_sorting: (e) ->
-    container=$el.parent()
-    $(container).sortable( "disable" )
-    e.preventDefault()
-
-  destroy: (e) ->
-    backspase = e.which == 8
-    if (title().val() == '' && description().html() == '') || (!backspase && confirm("Are you sure?"))
-      @model.destroy()
-      $(@el).unbind()
-      @focus_prev()
-      @remove()
-      return false
 
   highlight: (e)->
-    $('[name=title]').removeAttr('tabindex')
-    $('[name=description]').removeAttr('tabindex')
     $('.selected div[name="description"]').each (i, item)->
       $(item).parent().hide() if $(item).html() == ''
     $('.selected').removeAttr('style')
@@ -96,14 +73,8 @@ class Actions.Views.Items.EditView extends Backbone.View
   attributes: ->
     { 'data-id': @model.id }
 
-  title: ->
-    @$el.find('[name=title]')
-
-  description: ->
-    @$el.find('[name=description]')
-
   render: ->
     $(@el).data('id', @model.get('_id'))
     $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
-    $(@el).find('div[contenteditable=true]').action_editor()
+    @description().action_editor()
     return this

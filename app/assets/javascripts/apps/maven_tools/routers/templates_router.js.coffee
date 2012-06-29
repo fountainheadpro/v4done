@@ -27,39 +27,19 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     if !template? || template.isDeleted()
       window.location.replace("/deleted_templates/#{templateId}")
 
-    $("#deleted-templates").hide()
-    view = new Actions.Views.Templates.EditView(model: template)
-    $("section#templates").html(view.render().el)
-
-
-    renderItems = () ->
-      if itemId?
-        item = template.items.get(itemId)
-
-        view = new Actions.Views.Items.IndexView(template: template, items: template.items.byParentId(item.get('_id')))
-        $("section#templates").append(view.render().el)
-
-        view = new Actions.Views.Breadcrumbs.IndexView(template: template, item: item)
-        $("section#items header").append(view.render().el)
-
-        view = new Actions.Views.Items.EditDetailsView({ model: item, template: template })
-        $("section#items header").append(view.render().el)
-      else
-        view = new Actions.Views.Items.IndexView(template: template, items: template.items.roots())
-        $("section#templates").append(view.render().el)
-
-      view = new Actions.Views.Items.NewView(template: template, parentItem: item)
-      $("section#items").append(view.render().el)
-
-      $("div.new_item:last textarea[name='title']").focus()
+    render= ->
+      $("#deleted-templates").hide()
+      view = new Actions.Views.Templates.EditView(model: template, itemId: itemId)
+      view.render()
+      #$("section#templates").html(view.render().el)
 
     if template.has('loaded_at') && template.get('loaded_at')?
-      renderItems()
+      render()
     else
       template.items.fetch
         success: () ->
           template.set('loaded_at', new Date())
-          renderItems()
+          render()
         error: () ->
           alert("Sorry, we can't load this template. Please try again later.")
           window.location.replace("/templates")

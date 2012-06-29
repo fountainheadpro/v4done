@@ -11,6 +11,12 @@ class Actions.Models.Item extends Backbone.Model
   isRoot: ->
     !@has('parent_id')
 
+  prev: ->
+    @collection.previous(@)
+
+  next: ->
+    @collection.next(@)
+
 class Actions.Collections.ItemsCollection extends Backbone.Collection
   model: Actions.Models.Item
   url: '/items'
@@ -51,6 +57,9 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
       if sortedItems.length < @.length
         sortedItems.push(@.without.apply(@, sortedItems))
       return new Actions.Collections.ItemsCollection(_.flatten(sortedItems))
+
+  first: ->
+    _.first(@.where({previous_id: nil}))
 
   saveSortOrder: (id, new_prev_item, new_next_item) ->
     #get all items pointing to this item

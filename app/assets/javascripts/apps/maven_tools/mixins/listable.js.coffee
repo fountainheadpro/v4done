@@ -12,3 +12,9 @@ Actions.Mixins.Listable =
     item = @model.collection.get(item_id)
     prev_item=@model.collection.prev(item)
     $("div[data-id="+ prev_item.id +"]")
+
+  title: ->
+    @$el.find('[name=title]')
+
+  description: ->
+    @$el.find('[name=description]')

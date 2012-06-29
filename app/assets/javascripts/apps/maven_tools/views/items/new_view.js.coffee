@@ -1,32 +1,29 @@
 Actions.Views.Items||= {}
 
-class Actions.Views.Items.NewView extends Backbone.View
+class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
   template: JST["apps/maven_tools/templates/items/new"]
   className: 'item new_item'
+  view_name: 'new_item'
 
-  move: Actions.Mixins.Movable['move']
-  focus_next: Actions.Mixins.Movable['focus_next']
-  focus_prev: Actions.Mixins.Movable['focus_prev']
   goToParentItem: Actions.Mixins.GoTo['parentItem']
   goToItemDetails: Actions.Mixins.GoTo['itemDetails']
-
+  focus_prev: Actions.Mixins.Navigatable['focus_prev']
+  title: Actions.Mixins.CommonElements.title
+  description: Actions.Mixins.CommonElements.description
 
   events:
-    "keydown textarea": "keymap"
-    "focusin textarea": "highlight"
+    "keydown .editable": "keymap"
+    "focusin .editable": "highlight"
     "click i.destroy" : "destroy"
-
-  constructor: (options) ->
-    super(options)
 
   keymap: (e) ->
     if e.shiftKey
       switch e.which
-        when 38 then @goToParentItem(@options.template, @options.parentItem)
+        when 38 then @goToParentItem(@model.template, @model.parentItem)
         when 13,40 then @save(e, true)
     else
       switch e.keyCode
-        when 38, 40 then @move(e)
+        when 38 then @focus_prev()
         when 8 then @destroy(e)
         when 13 then @save(e, false)
 
@@ -34,31 +31,25 @@ class Actions.Views.Items.NewView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
 
-    title = @$("textarea[name='title']").val()
-    description = @$("textarea[name='description']").val()
+    title = @title().val()
+    description = @description().val()
     parentId = @options.parentItem.get('_id') if @options.parentItem?
-    previousId = $(@el).prevAll('.item.edit_item:first').data('id')
+    previousId = @prev().data('id')
     @options.template.items.create({ title: title, description: description, parent_id: parentId, previous_id: previousId },
       success: (item) =>
         if details
-          @goToItemDetails(@options.template, item)
+          @goToItemDetails(@model.template, item)
         else
-          @$('textarea[name="title"]').val('')
-          @$('textarea[name="description"]').val('')
+          @title().val('')
+          @description().val('')
           view = new Actions.Views.Items.EditView({ model: item, template: @options.template})
           $(@el).before(view.render().el)
           if e.keyCode != 13
             @destroy(e)
           else
-            @$('textarea[name="title"]').focus()
+            @title().focus()
     )
 
-  destroy: (e) ->
-    if (@$('textarea[name="title"]').val() == '' && @$('textarea[name="description"]').val() == '') || (e.which != 8 && confirm("Are you sure?"))
-      $(@el).unbind()
-      @focus_prev() if e.keyCode == 8
-      @remove()
-      return false
 
   highlight: ->
     $('.selected textarea[name="description"]').each (i, item)->
@@ -69,5 +60,5 @@ class Actions.Views.Items.NewView extends Backbone.View
 
   render: ->
     $(@el).html(@template())
-    $(@el).find('div[name=description]').action_editor()
+    @description().action_editor()
     @
