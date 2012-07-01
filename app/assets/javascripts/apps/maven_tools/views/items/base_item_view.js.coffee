@@ -12,23 +12,18 @@ class Actions.Views.Items.BaseItemView extends Backbone.View
     @model=options.model
 
   get_item_view=(item)->
-    selector = "div[data-id=item_id]"
-    $(selector.replace(/item_id/, item.get("_id") )) if item?
+    @container.children[item.id]
 
   next: ()->
-    get_item_view(@model.next())
+    id=@$el.data('id')
+    id=id.slice(0,str.length-1) if id.endsWith('_')
+    if @model.next()
+      get_item_view(@model.next())
+
 
   prev: ()->
     get_item_view(@model.prev())
 
-  destroy: (e) ->
-    backspase = e.which == 8
-    if (@title().val() == '' && @description().html() == '') || (!backspase && confirm("Are you sure?"))
-      @model.destroy()  if @model?
-      $(@el).unbind()
-      @focus_prev()
-      @remove()
-      return false
 
   enable_sorting: (e) ->
     container=$el.parent()

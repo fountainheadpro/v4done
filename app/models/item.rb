@@ -10,4 +10,10 @@ class Item
   validates :title, presence: true
 
   embedded_in :template, inverse_of: :items
+
+  def destroy
+    #self.template.items[self.previous_id]
+    super()
+  end
+
 end

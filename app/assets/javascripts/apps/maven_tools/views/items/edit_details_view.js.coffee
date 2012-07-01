@@ -3,6 +3,7 @@ Actions.Views.Items ||= {}
 class Actions.Views.Items.EditDetailsView extends Actions.Views.Items.BaseItemView
   template: JST["apps/maven_tools/templates/items/edit_details"]
   className: 'item'
+  view_name: 'parent_header'
 
   goToParentItem: Actions.Mixins.GoTo['parentItem']
 
@@ -18,7 +19,8 @@ class Actions.Views.Items.EditDetailsView extends Actions.Views.Items.BaseItemVi
         when 38 then @goToParentItem(@options.template, @model)
     else if e.target.name == 'title'
       switch e.which
-        when 38, 40 then @move(e)
+        when 38 then @focus_prev()
+        when 40 then @focus_next()
         when 8 then @destroy(e)
         when 13 then @update(e)
     else if e.target.name == 'description'
@@ -29,8 +31,8 @@ class Actions.Views.Items.EditDetailsView extends Actions.Views.Items.BaseItemVi
   update: (e) ->
     e.preventDefault()
     e.stopPropagation()
-    title = @$("textarea[name='title']").val()
-    description = @$("div[name='description']").html()
+    title = @title().val()
+    description = @description().html()
     if @model.get('title') != title || @model.get('description') != description
       @model.save({ title: title, description: description },
         success: (item) => @model = item
@@ -39,7 +41,8 @@ class Actions.Views.Items.EditDetailsView extends Actions.Views.Items.BaseItemVi
       if !$(@el).next('.item').hasClass('new_item')
         view = new Actions.Views.Items.NewView(template: @options.template, parentItem: @model)
         $(@el).next().prepend(view.render().el)
-      @focus_next()
+        view.title().focus()
+
 
   destroy: () ->
       super()

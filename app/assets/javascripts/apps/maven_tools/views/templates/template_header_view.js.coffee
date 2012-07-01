@@ -5,6 +5,7 @@ class Actions.Views.Templates.TemplateHeaderEditView extends Backbone.View
   template: JST["apps/maven_tools/templates/templates/edit"]
   className: 'template'
   tagName: 'header'
+  view_name: "template_header"
 
   focus_next: Actions.Mixins.Navigatable['focus_next']
   focus_prev: Actions.Mixins.Navigatable['focus_prev']
@@ -24,8 +25,7 @@ class Actions.Views.Templates.TemplateHeaderEditView extends Backbone.View
   keymap: (e) ->
     if e.target.name == 'title'
       switch e.which
-        when 38 then @focus_prev()
-        when 40 then @focus_next()
+        when 40 then @container.$el.trigger({type: "next_item"})
         when 13 then @update(e)
     else if e.target.name == 'description'
       switch e.which

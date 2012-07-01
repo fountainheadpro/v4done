@@ -31,7 +31,6 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
       $("#deleted-templates").hide()
       view = new Actions.Views.Templates.EditView(model: template, itemId: itemId)
       view.render()
-      #$("section#templates").html(view.render().el)
 
     if template.has('loaded_at') && template.get('loaded_at')?
       render()

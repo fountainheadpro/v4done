@@ -3,6 +3,7 @@ Actions.Views.Templates ||= {}
 class Actions.Views.Templates.IndexView extends Backbone.View
   tagName: "ul"
   className: "unstyled"
+  view_name: "items_index"
 
   initialize: () ->
     _.bindAll(this, 'addOne', 'addAll', 'render')

@@ -3,6 +3,7 @@ Actions.Views.Items ||= {}
 class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
   template: JST["apps/maven_tools/templates/items/edit"]
   className: 'item edit_item'
+  view_name: 'edit_item'
 
   goToParentItem: Actions.Mixins.GoTo['parentItem']
   goToItemDetails: Actions.Mixins.GoTo['itemDetails']
@@ -19,13 +20,13 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
     if e.shiftKey
       @update(e) if e.which in [13, 38, 40]
       switch e.which
-        when 38 then @goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
-        when 13,40 then @goToItemDetails(@options.template, @model)
+        when 38 then @container.$el.trigger("parent_item",@) #@goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
+        when 13,40 then @container.$el.trigger("item_details") #@goToItemDetails(@options.template, @model)
         when 9 then @update(e)
     else if e.target.name == 'title'
       switch e.which
-        when 38 then @focus_prev()
-        when 40 then @focus_next()
+        when 38 then @container.$el.trigger({type: "prev_item", id: @$el.data('id')})
+        when 40 then @container.$el.trigger({type: "next_item", id: @$el.data('id')})
         when 8 then @destroy(e)
         when 13 then @update(e)
         when 9 then @update(e)
@@ -33,6 +34,11 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
       switch e.which
         when 38 then @move(e) if Actions.Mixins.CarerPosition.atFirstLine(e.target)
         when 40 then @move(e) if Actions.Mixins.CarerPosition.atLastLine(e.target)
+
+  destroy: (e) ->
+    backspase = e.which == 8
+    if (@title().val() == '' && @description().html() == '') || (!backspase && confirm("Are you sure?"))
+      @container.$el.trigger({type: "destroy", id: @$el.data('id')})
 
   update: (e) ->
     e.preventDefault()
@@ -45,11 +51,7 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
         success: (item) => @model = item
       )
     if e.which == 13 && !e.shiftKey
-      if !$(@el).next('.item').hasClass('new_item')
-        parentItem = @options.template.items.get(@model.get('parent_id')) if @model.has('parent_id')
-        view = new Actions.Views.Items.NewView(template: @options.template, parentItem: parentItem)
-        $(@el).after(view.render().el)
-      @focus_next()
+      @container.$el.trigger({type: "new_item", id: @$el.data('id')} )
 
 
   highlight: (e)->

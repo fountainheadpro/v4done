@@ -7,48 +7,48 @@ class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
 
   goToParentItem: Actions.Mixins.GoTo['parentItem']
   goToItemDetails: Actions.Mixins.GoTo['itemDetails']
-  focus_prev: Actions.Mixins.Navigatable['focus_prev']
   title: Actions.Mixins.CommonElements.title
   description: Actions.Mixins.CommonElements.description
 
   events:
     "keydown .editable": "keymap"
+    "blur .editable": "save"
     "focusin .editable": "highlight"
     "click i.destroy" : "destroy"
 
   keymap: (e) ->
     if e.shiftKey
       switch e.which
-        when 38 then @goToParentItem(@model.template, @model.parentItem)
+        when 38 then @goToParentItem(@options.template, @options.parentItem)
         when 13,40 then @save(e, true)
     else
       switch e.keyCode
-        when 38 then @focus_prev()
+        when 38 then @container.$el.trigger({type: "prev_item", previous_id: @$el.data('previous_id') })
+        when 40 then @container.$el.trigger({type: "next_item", previous_id: @$el.data('previous_id') })
         when 8 then @destroy(e)
         when 13 then @save(e, false)
 
   save: (e,details) ->
     e.preventDefault()
     e.stopPropagation()
-
     title = @title().val()
+    return if title.length==0
     description = @description().val()
     parentId = @options.parentItem.get('_id') if @options.parentItem?
-    previousId = @prev().data('id')
-    @options.template.items.create({ title: title, description: description, parent_id: parentId, previous_id: previousId },
+    @options.template.items.create({ title: title, description: description, parent_id: parentId, previous_id: @$el.data('previous_id') },
       success: (item) =>
         if details
-          @goToItemDetails(@model.template, item)
+          @container.$el.trigger("item_details")#@goToItemDetails(@model.template, item)
         else
           @title().val('')
           @description().val('')
-          view = new Actions.Views.Items.EditView({ model: item, template: @options.template})
-          $(@el).before(view.render().el)
-          if e.keyCode != 13
-            @destroy(e)
-          else
-            @title().focus()
+          $(@el).data('id')
+          $(@el).data('previous_id', null)
+          @container.$el.trigger({type: "new_item_saved", item: item})
+          if e.keyCode == 13
+            @container.trigger({type: "new_item", id: item.id})
     )
+
 
 
   highlight: ->
@@ -60,5 +60,13 @@ class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
 
   render: ->
     $(@el).html(@template())
+    $(@el).data('previous_id', @options.previousId)
     @description().action_editor()
     @
+
+  destroy: (e) ->
+    backspase = e.which == 8
+    if (@title().val() == '' && @description().html() == '')
+      e.preventDefault()
+      e.stopPropagation()
+      @container.$el.trigger({type: "destroy", previous_id: @$el.data('previous_id') })

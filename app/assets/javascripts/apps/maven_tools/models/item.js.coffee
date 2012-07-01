@@ -7,7 +7,6 @@ class Actions.Models.Item extends Backbone.Model
     parent_id: null
     previous_id: null
 
-
   isRoot: ->
     !@has('parent_id')
 
@@ -17,9 +16,21 @@ class Actions.Models.Item extends Backbone.Model
   next: ->
     @collection.next(@)
 
+  destroy: ->
+    @next()?.set({previous_id: @prev()?.id})
+    super()
+
+  create:->
+    super()
+    @prev().next().set({previous_id: @id})
+
 class Actions.Collections.ItemsCollection extends Backbone.Collection
   model: Actions.Models.Item
   url: '/items'
+
+  constructor: (items)->
+    super(items)
+    @head= _.last(items) if items?
 
   roots: ->
     filteredItems = @select((item) -> return item.isRoot())
@@ -38,12 +49,14 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
 
   previous: (item) ->
     previous_id=item.get('previous_id')
-    @get(previous_id) if previous_id?
+    @get(previous_id)  if previous_id?
 
   next: (item) ->
     parent_id=item.parent_id || null
     _.first(@.where({parent_id: parent_id, previous_id: item.id}))
 
+  last:->
+    @head
 
   sortByPosition: (previousId = null) ->
     sortedItems = []
@@ -59,7 +72,8 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
       return new Actions.Collections.ItemsCollection(_.flatten(sortedItems))
 
   first: ->
-    _.first(@.where({previous_id: nil}))
+    _.first(@.where({previous_id: null}))
+
 
   saveSortOrder: (id, new_prev_item, new_next_item) ->
     #get all items pointing to this item
