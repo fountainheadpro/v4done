@@ -16,13 +16,10 @@ class Actions.Models.Item extends Backbone.Model
   next: ->
     @collection.next(@)
 
-  destroy: ->
-    @next()?.set({previous_id: @prev()?.id})
-    super()
+  destroy:(options) ->
+    @next()?.set({previous_id: @prev()?.id}, {silent: true})
+    super(options)
 
-  create:->
-    super()
-    @prev().next().set({previous_id: @id})
 
 class Actions.Collections.ItemsCollection extends Backbone.Collection
   model: Actions.Models.Item
@@ -43,7 +40,7 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
   #depricated to remove
   byPreviousId: (previousId) ->
     filteredItems = @select (item) ->
-      item.set('previous_id', null) if !item.get('previous_id')?
+      item.set('previous_id', null, {silent: true}) if !item.get('previous_id')?
       return item.get('previous_id') == previousId
     return new Actions.Collections.ItemsCollection(filteredItems)
 
@@ -57,6 +54,16 @@ class Actions.Collections.ItemsCollection extends Backbone.Collection
 
   last:->
     @head
+
+  create: (model,options)->
+    success_handler=options.success
+    options.success=(item)=>
+      prev_items=@.where({parent_id: item.get('parent_id'), previous_id: item.get('previous_id')})
+      _.each(prev_items, (pi)=>
+        pi.set({previous_id: item.id}, {silent: true}) unless pi.id==item.id
+      )
+      success_handler(item)
+    super(model,options)
 
   sortByPosition: (previousId = null) ->
     sortedItems = []

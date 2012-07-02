@@ -1,6 +1,6 @@
 Actions.Views.Templates ||= {}
 
-class Actions.Views.Templates.EditView extends Backbone.View
+class Actions.Views.Templates.EditController extends Backbone.View
 
   tagName: 'section'
 
@@ -19,6 +19,11 @@ class Actions.Views.Templates.EditView extends Backbone.View
       if data._id
         window.location.replace("/publications/#{data._id}")
 
+  renderable:->
+    if @options.itemId?
+      return @options.model.items.byParentId(@options.itemId).sortByPosition()
+    else
+      return @model.items.roots().sortByPosition()
 
   render:  ->
 
@@ -31,22 +36,18 @@ class Actions.Views.Templates.EditView extends Backbone.View
     view["container"]=@
     @children['template_header']=view
 
-    #building renderable data
-    if @options.itemId?
-      item = @model.items.get(@options.itemId)
-      @renderable= @options.model.items.byParentId(@options.itemId).sortByPosition()
-    else
-      @renderable=@model.items.roots().sortByPosition()
-
     #list of items
-    view = new Actions.Views.Items.IndexView(template: @model, items: @renderable)
+    view = new Actions.Views.Items.IndexView(template: @model, items: @renderable())
     view["container"]=@
     @children['items_index']=view
     $("section#templates").append(view.render().el)
-    view = new Actions.Views.Items.NewView(template: @model, parentItem: item, previousId: @renderable?.last()?.id)
+    view = new Actions.Views.Items.NewView(
+      template: @model,
+      parentItem: @model.items.get(@options.itemId),
+      previousId: @renderable()?.last()?.id)
     view["container"]=@
-    if @renderable.length>0
-      @new_items[@renderable.last().id]=view
+    if @renderable().length>0
+      @new_items[@renderable().last().id]=view
     else
       @new_items["_"]=view
     $("section#items").append(view.render().el)
@@ -54,7 +55,7 @@ class Actions.Views.Templates.EditView extends Backbone.View
 
     if @options.itemId?
       #breadcums
-      view = new Actions.Views.Breadcrumbs.IndexView(template: @options.model, item: item)
+      view = new Actions.Views.Breadcrumbs.IndexView(template: @options.model, item: @model.items.get(@options.itemId))
       view["container"]=@
       @children['breadcrams']=view
       $("section#items header").append(view.render().el)
@@ -64,6 +65,66 @@ class Actions.Views.Templates.EditView extends Backbone.View
       @children['parent_header']=view
       $("section#items header").append(view.render().el)
     @
+
+  #down traversing logic
+  next_item: (e)->
+    # next request came from edit view
+    if e.id?
+      next_item=@options.model.items.get(e.id).next()
+      if next_item?
+        @children[next_item.id].title().focus()
+      else
+        @new_items[@renderable().last().id].title().focus()
+      return
+    # next request came from new view
+    if e.previous_id?
+      next_item=@model.items.get(e.previous_id).next()
+      if next_item?
+        @children[next_item.id].title().focus()
+      return
+    #request came from the title we are in details view jump from the title to the parent header
+    if @children.parent_header?
+      @children.parent_header.title().focus
+      return
+    #request came from the title jump from the title to the first item
+    @children[@renderable().first().id]?.title().focus()
+
+  #up traversing logic
+  prev_item: (e)->
+    #came from new item - it's pointing to prev item
+    if e.previous_id?
+      @children[e.previous_id].title().focus()
+    else
+      #came from edit view
+      prev_item=@model.items.get(e.id).prev()
+      if prev_item? #if there is a previous item
+        if @new_items[prev_item.id]?
+          @new_items[prev_item.id].title().focus()
+        else
+          @children[prev_item.id].title().focus()
+      else #if it's a last item
+        if @children.parent_header?
+          @children.parent_header.title().focus
+        else
+          @children.template_header.title().focus()
+
+  destroy: (e) ->
+    #moving cursor to the previous item
+    @prev_item(e)
+    #removing editable item
+    if e.id?
+      item=@model.items.get(e.id)
+      if @new_items[e.id]?
+        @new_items[item.get('previous_id')] = @new_items[e.id]
+        delete @new_items[e.id]
+      v=@children[e.id]
+      item.destroy()  if item?
+    #removing new view item
+    if e.previous_id?
+      v=@new_items[e.previous_id]
+      delete @new_items[e.previous_id]
+    v.remove()
+    return false
 
   new_item: (e)->
     v=@children[e.id]
@@ -79,71 +140,22 @@ class Actions.Views.Templates.EditView extends Backbone.View
     else
       @new_items[e.id].title().focus()
 
-  next_item: (e)->
-    if e.id?
-      next_item=@options.model.items.get(e.id).next()
-      if next_item?
-        @children[next_item.id].title().focus()
-      else
-        @new_items[@renderable.last().id].title().focus()
-      return
-
-    if e.previous_id?
-      next_item=@model.items.get(e.previous_id).next()
-      if next_item?
-        @children[next_item.id].title().focus()
-      return
-
-    if @children.parent_header?
-      @children.parent_header.title().focus
-      return
-
-    @children[@options.model.items.first().id]?.title().focus()
-
-  prev_item: (e)->
-    if e.previous_id?
-      @children[e.previous_id].title().focus()
-    else
-      prev_item=@model.items.get(e.id).prev()
-      if prev_item?
-        if @new_items[prev_item.id]?
-          @new_items[prev_item.id].title().focus()
-        else
-          @children[prev_item.id].title().focus()
-      else
-        if @children.parent_header?
-          @children.parent_header.title().focus
-        else
-          @children.template_header.title().focus()
-
-  destroy: (e) ->
-    @prev_item(e)
-    if e.id?
-      item=@model.items.get(e.id)
-      item.destroy()  if item?
-      v=@children[e.id]
-    if e.previous_id?
-      v=@new_items[e.previous_id]
-    v.$el.unbind()
-    v.remove()
-    return false
-
   new_item_saved: (e) ->
     if @new_items["_"]?
-      @new_items[e.item.id]=@children["_"]
-      @new_items["_"]=null
+      @new_items[e.item.id]=@new_items["_"]
+      delete @new_items["_"]
     else
       @new_items[e.item.id]=@new_items[e.item.get('previous_id')]
       @new_items[e.item.get('previous_id')]=null
     view = new Actions.Views.Items.EditView({ model: e.item, template: @model})
     @new_items[e.item.id].$el.before(view.render().el)
-    @new_items[e.item.id]=view
+    @new_items[e.item.id].$el.data('previous_id',e.item.id)
+    @children[e.item.id]=view
     view.container=@
     if e.item.next()?
       @new_items[e.item.id].remove()
-      @new_items[e.item.id]=null
+      delete @new_items[e.item.id]
       @children[e.item.next().id].title().focus()
-
 
   parent_item: (e)->
     console.log(e)
@@ -153,9 +165,3 @@ class Actions.Views.Templates.EditView extends Backbone.View
 
   item_details: (e)->
     console.log(e)
-
-  last_child: ->
-    @children[_.last(@item_ids)]
-
-  first_child: ->
-    @children[_.first(@item_ids)]

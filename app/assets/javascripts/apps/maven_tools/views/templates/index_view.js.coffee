@@ -1,7 +1,7 @@
 Actions.Views.Templates ||= {}
 
 class Actions.Views.Templates.IndexView extends Backbone.View
-  tagName: "ul"
+  tagName: "ol"
   className: "unstyled"
   view_name: "items_index"
 

@@ -38,6 +38,9 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
   destroy: (e) ->
     backspase = e.which == 8
     if (@title().val() == '' && @description().html() == '') || (!backspase && confirm("Are you sure?"))
+      e.preventDefault()
+      e.stopPropagation()
+      @$el.unbind()
       @container.$el.trigger({type: "destroy", id: @$el.data('id')})
 
   update: (e) ->
@@ -69,8 +72,15 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
       @next().find('[name=title]').attr('tabindex', 0)
     @$('.description').show()
 
-  focus_div: (e)->
-    #$(e.target).focus()
+  enable_sorting: (e) ->
+    container = @$el.parent()
+    $(container).sortable("enable")
+    e.preventDefault()
+
+  disable_sorting: (e) ->
+    container=@$el.parent()
+    $(container).sortable( "disable" )
+    e.preventDefault()
 
   attributes: ->
     { 'data-id': @model.id }
