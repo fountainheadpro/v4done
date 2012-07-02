@@ -13,7 +13,7 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
     "mousedown i.mover" : "enable_sorting"
     "mouseup i.mover" : "disable_sorting"
     "keydown .editable": "keymap"
-    "blur .editable"   : "update"
+    "blur .editable"   : "update_and_fold"
     "focusin .editable": "highlight"
 
   keymap: (e) ->
@@ -43,6 +43,20 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
       @$el.unbind()
       @container.$el.trigger({type: "destroy", id: @$el.data('id')})
 
+  update_and_fold: (e) ->
+    @update(e)
+    @fold(e)
+    true
+
+  highlight: (e)->
+    super(e)
+    @$('#delete').show()
+
+
+  fold: (e)->
+    super(e)
+    @$('#delete').hide()
+
   update: (e) ->
     e.preventDefault()
     e.stopPropagation()
@@ -56,21 +70,6 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
     if e.which == 13 && !e.shiftKey
       @container.$el.trigger({type: "new_item", id: @$el.data('id')} )
 
-
-  highlight: (e)->
-    $('.selected div[name="description"]').each (i, item)->
-      $(item).parent().hide() if $(item).html() == ''
-    $('.selected').removeAttr('style')
-    $('.selected').removeClass('selected')
-    @$el.addClass('selected')
-    if @title().is(':focus')
-      @title().attr('tabindex', 0)
-      @description().attr('tabindex', 0)
-    if @description().is(':focus')
-      @title().removeAttr('tabindex')
-      @description().attr('tabindex', 0)
-      @next().find('[name=title]').attr('tabindex', 0)
-    @$('.description').show()
 
   enable_sorting: (e) ->
     container = @$el.parent()

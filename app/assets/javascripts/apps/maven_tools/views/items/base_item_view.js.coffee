@@ -9,3 +9,14 @@ class Actions.Views.Items.BaseItemView extends Backbone.View
     super(options)
     @model=options.model
 
+
+  fold: (e) ->
+    @description().parent().hide()
+    @$el.removeClass('selected')
+    @$el.removeAttr('style')
+
+  highlight: (e)->
+    @description().parent().show()
+    @$el.addClass('selected')
+
+

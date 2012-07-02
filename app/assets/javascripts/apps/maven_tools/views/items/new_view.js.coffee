@@ -51,13 +51,6 @@ class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
 
 
 
-  highlight: ->
-    $('.selected textarea[name="description"]').each (i, item)->
-      $(item).parent().hide() if $(item).val() == ''
-    $('.selected').removeClass('selected')
-    $(@el).addClass('selected')
-    @$('.description').show()
-
   render: ->
     $(@el).html(@template())
     $(@el).data('previous_id', @options.previousId)

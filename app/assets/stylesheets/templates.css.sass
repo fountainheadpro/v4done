@@ -69,7 +69,7 @@ section#templates
 
   section#items
     div.item
-      textarea
+      .editable
         font-size: 110%
         width: 770px
         background: transparent
@@ -77,18 +77,18 @@ section#templates
         padding: 0
         margin-bottom: 1px
         resize: none
-        @include box-shadow(none)
-      textarea[name="title"]
-        font-weight: bold
-      textarea:focus
-        border-color: rgba(82,168,236,.8)
-        @include box-shadow($shadow)
-      div[name="description"]:focus
-        border-color: rgba(82,168,236,.8)
-        @include box-shadow($shadow)
-      div[name="description"]
-        min-height: 40px
-        width: 770px
+        &[name="title"]
+          width: 730px
+          font-weight: bold
+        &:focus
+          border-color: rgba(82,168,236,.8)
+          //@include box-shadow($shadow)
+        &[name="description"]:focus
+          border-color: rgba(82,168,236,.8)
+          //@include box-shadow($shadow)
+        &[name="description"]
+          min-height: 40px
+          width: 770px
       &.selected
         textarea
           background: white
