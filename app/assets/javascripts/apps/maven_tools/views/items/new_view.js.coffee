@@ -10,7 +10,7 @@ class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
 
   events: _.extend(_.clone(Actions.Views.Items.BaseItemView::base_events), NewView::child_events)
 
-  save: (e,details) ->
+  save: (e) ->
     e.preventDefault()
     e.stopPropagation()
     title = @title().val()
@@ -19,22 +19,14 @@ class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
     parentId = @options.parentItem.get('_id') if @options.parentItem?
     @options.template.items.create({ title: title, description: description, parent_id: parentId, previous_id: @$el.data('previous_id') },
       success: (item) =>
-        if details
-          @container.$el.trigger("item_details")#@goToItemDetails(@model.template, item)
-        else
           @title().val('')
           @description().val('')
           $(@el).data('id')
           $(@el).data('previous_id', null)
           @container.$el.trigger({type: "new_item_saved", item: item})
-          if e.keyCode == 13
-            @container.trigger({type: "new_item", id: item.id})
+          if e.keyCode == 13 && e.shiftKey
+            @container.$el.trigger({type: "item_details", id: item.id})
     )
-
-  save: (e)->
-    super(e)
-    if e.which == 13 && !e.shiftKey
-      @container.$el.trigger({type: "new_item", id: @model.id})
 
   render: ->
     $(@el).html(@template())

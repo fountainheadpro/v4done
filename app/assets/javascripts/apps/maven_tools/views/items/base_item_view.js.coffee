@@ -13,18 +13,12 @@ class Actions.Views.Items.BaseItemView extends Backbone.View
     "keydown .editable": "keymap"
 
   keymap: (e) ->
-    if e.shiftKey
-      if e.target.name == 'title'
-        switch e.which
-          when 40 then @container.$el.trigger({type: "next_item"})
-          when 13 then @expand_description(e)
-    else if e.target.name == 'title'
+    if e.target.name == 'title'
       switch e.which
         when 38 then @prev()
         when 40 then @next()
         when 8 then @destroy(e)
         when 13 then @save(e)
-        when 9 then @save(e)
 
 
   constructor: (options) ->
@@ -56,10 +50,10 @@ class Actions.Views.Items.BaseItemView extends Backbone.View
       )
 
   next: (e)->
-    @container.$el.trigger({type: "next_item", id: @$el.data('id')})
+    @container.$el.trigger({type: "next_item", id: @$el.data('id'), previous_id: @$el.data('previous_id'), origin: @})
 
   prev: (e)->
-    @container.$el.trigger({type: "prev_item", id: @$el.data('id')})
+    @container.$el.trigger({type: "prev_item", id: @$el.data('id'), previous_id: @$el.data('previous_id'), origin: @})
 
   jump_up: ()->
     @title().focus()

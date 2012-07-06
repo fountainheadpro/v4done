@@ -5,7 +5,6 @@ class Actions.Views.Templates.EditController extends Backbone.View
   tagName: 'section'
 
   events:
-    "click button" : "publish"
     "new_item": "new_item"
     "next_item": "next_item"
     "prev_item": "prev_item"
@@ -15,10 +14,6 @@ class Actions.Views.Templates.EditController extends Backbone.View
     "new_item_saved" : "new_item_saved"
     "item_enter" : "item_enter"
 
-  publish: ->
-    $.post "/templates/#{@model.id}/publications.json", (data) ->
-      if data._id
-        window.location.replace("/publications/#{data._id}")
 
   renderable:->
     if @options.itemId?
@@ -88,6 +83,9 @@ class Actions.Views.Templates.EditController extends Backbone.View
       @children.parent_header.title().focus
       return
     #request came from the title jump from the title to the first item
+    @jump_to_first()
+
+  jump_to_first: ()->
     @children[@renderable().first().id]?.title().focus()
 
   #up traversing logic
@@ -95,15 +93,16 @@ class Actions.Views.Templates.EditController extends Backbone.View
     #came from new item - it's pointing to prev item
     if e.previous_id?
       @children[e.previous_id].title().focus()
-    else
-      #came from edit view
+      return
+    #came from edit view
+    if  e.id?
       prev_item=@model.items.get(e.id).prev()
       if prev_item? #if there is a previous item
         if @new_items[prev_item.id]?
           @new_items[prev_item.id].title().focus()
         else
           @children[prev_item.id].title().focus()
-      else #if it's a last item
+      else
         if @children.parent_header?
           @children.parent_header.title().focus
         else
@@ -118,6 +117,7 @@ class Actions.Views.Templates.EditController extends Backbone.View
       if @new_items[e.id]?
         @new_items[item.get('previous_id')] = @new_items[e.id]
         delete @new_items[e.id]
+        @new_items[item.get('previous_id')].$el.data("previous_id",item.get('previous_id'))
       v=@children[e.id]
       item.destroy()  if item?
     #removing new view item
@@ -170,4 +170,4 @@ class Actions.Views.Templates.EditController extends Backbone.View
     console.log(e)
 
   item_details: (e)->
-    console.log(e)
+    @children[e.id].expand_description(e)

@@ -47,8 +47,14 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
 
   save: (e)->
     super(e)
-    if e.which == 13 && !e.shiftKey
+    if e.which == 13
       @container.$el.trigger({type: "new_item", id: @model.id})
+
+  keymap: (e)->
+    if e.shiftKey && e.which == 13
+      @expand_description(e)
+    else
+      super(e)
 
   attributes: ->
     { 'data-id': @model.id }
