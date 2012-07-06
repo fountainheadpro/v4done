@@ -5,35 +5,15 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
   className: 'item edit_item'
   view_name: 'edit_item'
 
-  goToParentItem: Actions.Mixins.GoTo['parentItem']
-  goToItemDetails: Actions.Mixins.GoTo['itemDetails']
 
-  events:
+  child_events:
     "click i.destroy" : "destroy"
     "mousedown i.mover" : "enable_sorting"
     "mouseup i.mover" : "disable_sorting"
-    "keydown .editable": "keymap"
-    "blur .editable"   : "update_and_fold"
-    "focusin .editable": "highlight"
+    "details [name=description]" : "details"
 
-  keymap: (e) ->
-    if e.shiftKey
-      @update(e) if e.which in [13, 38, 40]
-      switch e.which
-        when 38 then @container.$el.trigger("parent_item",@) #@goToParentItem(@options.template, @options.template.items.get(@model.get('parent_id')))
-        when 13,40 then @container.$el.trigger("item_details") #@goToItemDetails(@options.template, @model)
-        when 9 then @update(e)
-    else if e.target.name == 'title'
-      switch e.which
-        when 38 then @container.$el.trigger({type: "prev_item", id: @$el.data('id')})
-        when 40 then @container.$el.trigger({type: "next_item", id: @$el.data('id')})
-        when 8 then @destroy(e)
-        when 13 then @update(e)
-        when 9 then @update(e)
-    else if e.target.name == 'description'
-      switch e.which
-        when 38 then @move(e) if Actions.Mixins.CarerPosition.atFirstLine(e.target)
-        when 40 then @move(e) if Actions.Mixins.CarerPosition.atLastLine(e.target)
+  events: _.extend(_.clone(Actions.Views.Items.BaseItemView::base_events), EditView::child_events)
+
 
   destroy: (e) ->
     backspase = e.which == 8
@@ -43,33 +23,13 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
       @$el.unbind()
       @container.$el.trigger({type: "destroy", id: @$el.data('id')})
 
-  update_and_fold: (e) ->
-    @update(e)
-    @fold(e)
-    true
-
-  highlight: (e)->
-    super(e)
-    @$('#delete').show()
-
 
   fold: (e)->
     super(e)
-    @$('#delete').hide()
+    @$('i.destroy').hide()
 
-  update: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
-    title = @title().val()
-    description = @description().html()
-    previous_item = @model.prev()
-    if @model.get('title') != title || @model.get('description') != description
-      @model.save({ title: title, description: description},
-        success: (item) => @model = item
-      )
-    if e.which == 13 && !e.shiftKey
-      @container.$el.trigger({type: "new_item", id: @$el.data('id')} )
-
+  details: ()->
+    @container.$el.trigger("child_items",@)
 
   enable_sorting: (e) ->
     container = @$el.parent()
@@ -81,11 +41,22 @@ class Actions.Views.Items.EditView extends Actions.Views.Items.BaseItemView
     $(container).sortable( "disable" )
     e.preventDefault()
 
+  highlight: (e)->
+    super(e)
+    @$('i.destroy').show()
+
+  save: (e)->
+    super(e)
+    if e.which == 13 && !e.shiftKey
+      @container.$el.trigger({type: "new_item", id: @model.id})
+
   attributes: ->
     { 'data-id': @model.id }
 
   render: ->
     $(@el).data('id', @model.get('_id'))
-    $(@el).html(@template({ title: @model.get('title'), description: @model.get('description'), _id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    $(@el).html(@template({_id: @model.get('_id'), template_id: @options.template.get('_id')}))
+    @title().val(@model.get('title'))
+    @description().html(@model.get('description'))
     @description().action_editor()
     return this

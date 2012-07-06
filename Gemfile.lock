@@ -92,6 +92,17 @@ GEM
     faraday (0.8.1)
       multipart-post (~> 1.1)
     ffi (1.0.11)
+    fog (1.4.0)
+      builder
+      excon (~> 0.14.0)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0)
+      net-scp (~> 1.0.4)
+      net-ssh (>= 2.1.3)
+      nokogiri (~> 1.5.0)
+      ruby-hmac
+    formatador (0.2.3)
     gherkin (2.11.1)
       json (>= 1.4.6)
     growl (1.0.3)
@@ -185,6 +196,9 @@ GEM
     multipart-post (1.1.5)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.7)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-ssh (2.5.2)
     netrc (0.7.5)
     nokogiri (1.5.5)
     ntlm-http (0.1.1)
@@ -271,6 +285,7 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.10.0)
+    ruby-hmac (0.4.0)
     rubyzip (0.9.9)
     sass (3.1.19)
     sass-rails (3.1.4)
@@ -336,6 +351,7 @@ DEPENDENCIES
   ejs
   email_spec
   factory_girl_rails (>= 1.3.0)
+  fog
   growl
   guard (>= 0.6.2)
   guard-bundler (>= 0.1.3)

@@ -9,6 +9,7 @@ a.inner:hover
   border-bottom: 1px dashed
 
 section#templates
+  margin-bottom: 200px
   form#new-template
     margin: 18px 0
 
@@ -16,30 +17,29 @@ section#templates
     padding
     margin: 0 0 15px
     clear: both
-
-    textarea
+    .editable
       font-size: 110%
       width: 720px
       background: transparent
       padding: 0 2px
       resize: none
       @include box-shadow(none)
-    textarea, div[name='description']
       border: 1px solid transparent
-    &.selected
-      textarea
+      &.selected
+        textarea
+          border: 1px solid #CCC
+        div[name="description"]
+          border: 1px solid #CCC
+      &:hover
         border: 1px solid #CCC
-      div[name="description"]
-        border: 1px solid #CCC
-    textarea, div[name='description']:hover
-      border: 1px solid #CCC
-    textarea[name="title"]
+    [name="title"]
       font-weight: bold
       font-size: 24px
       line-height: 36px
-    div[name="description"]
+      height: 40px
+    [name="description"]
       min-height: 40px
-    textarea:focus
+    &:focus
       border-color: rgba(82,168,236,.8)
       @include box-shadow($shadow)
 

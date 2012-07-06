@@ -22,7 +22,11 @@ class TextProcessor
     urlPatternMatch=new RegExp(fullregex, 'gim')
 
   build_image_from_paste: (data) ->
-    build_image_node(data)
+    img=build_image_node(data)
+    $(img.children().first()).on('image_uploaded',
+      (e)->
+        $(e.target).attr('src', e.link)
+    )
 
   re_format: (node) ->
     re_format_internal(node) if node?
@@ -123,11 +127,6 @@ class TextProcessor
     img.attr('src',url)
     img.attr('max-width','100%')
     img.attr('max-height','100%')
-    #img.on('error',
-    #  ->
-    #    original_url=$(@).attr('src')
-    #    replace_node($(@).parent(), build_text_node(original_url))
-    #)
     mark_processed(img)
     wrupper_div.append(img)
     mark_processed(wrupper_div)

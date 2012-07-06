@@ -3,9 +3,9 @@
   <button class="btn btn-primary btn-large" data-disable-with="Publishing...">Publish</button>
 </div>
 <div class="title">
-  <textarea name="title" rows="1"><%= title %></textarea>
+  <input type=text name="title" autocomplete="off" class="editable" rows="1" placeholder="Write your action title and hit enter"></input>
 </div>
-<div class="description" style="display: <%= description == '' ? 'none':'block' %>">
-  <div name="description" contenteditable=true placeholder="Add a goal description"><%= description %></div>
+<div class="description" style="display: block">
+  <div name="description" class="editable" contenteditable=true placeholder="Add a goal description"></div>
 </div>
 

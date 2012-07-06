@@ -13,6 +13,9 @@ Actions::Application.routes.draw do
     end
   end
 
+  resources :sparks
+
+
   resources :deleted_templates, only: [:index, :show] do
     member do
       post 'restore'
@@ -29,6 +32,7 @@ Actions::Application.routes.draw do
     resources :publications, only: [:index]
   end
 
-  match 'proxifier/:url' => 'action_url#show', :constraints => { :url => /.*/ }
+  match 'proxifier/:url' => 'action_url#show', :constraints => { :url => /.*/ }, :via => [:get]
+  match 'proxifier' => 'action_url#create',  :via => [:post]
 
 end

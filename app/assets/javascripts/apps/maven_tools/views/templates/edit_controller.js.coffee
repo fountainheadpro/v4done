@@ -13,6 +13,7 @@ class Actions.Views.Templates.EditController extends Backbone.View
     "item_details": "item_details"
     "destroy" : "destroy"
     "new_item_saved" : "new_item_saved"
+    "item_enter" : "item_enter"
 
   publish: ->
     $.post "/templates/#{@model.id}/publications.json", (data) ->
@@ -156,6 +157,11 @@ class Actions.Views.Templates.EditController extends Backbone.View
       @new_items[e.item.id].remove()
       delete @new_items[e.item.id]
       @children[e.item.next().id].title().focus()
+
+  item_enter: (e)->
+    _.each(_.keys(@children), (id)=>
+      @children[id].fold() if e.id!=id && @children[id].constructor.name == 'EditView'
+    )
 
   parent_item: (e)->
     console.log(e)

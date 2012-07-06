@@ -21,6 +21,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'sociable', '0.0.4'#, :path=>'~/sociable/'  #, :git => 'git@github.com:actions/sociable.git'
 gem 'mechanize'
+gem 'fog'
 
 group :assets do
   gem 'sass-rails',   '3.1.4'

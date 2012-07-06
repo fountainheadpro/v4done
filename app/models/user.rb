@@ -30,6 +30,7 @@ class User
 
   has_many :templates, foreign_key: :creator_id
   has_many :publications, foreign_key: :creator_id
+  has_many :sparks, foreign_key: :creator_id
 
 
 end

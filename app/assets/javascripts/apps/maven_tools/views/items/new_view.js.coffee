@@ -5,28 +5,10 @@ class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
   className: 'item new_item'
   view_name: 'new_item'
 
-  goToParentItem: Actions.Mixins.GoTo['parentItem']
-  goToItemDetails: Actions.Mixins.GoTo['itemDetails']
-  title: Actions.Mixins.CommonElements.title
-  description: Actions.Mixins.CommonElements.description
-
-  events:
-    "keydown .editable": "keymap"
-    "blur .editable": "save"
-    "focusin .editable": "highlight"
+  child_events:
     "click i.destroy" : "destroy"
 
-  keymap: (e) ->
-    if e.shiftKey
-      switch e.which
-        when 38 then @goToParentItem(@options.template, @options.parentItem)
-        when 13,40 then @save(e, true)
-    else
-      switch e.keyCode
-        when 38 then @container.$el.trigger({type: "prev_item", previous_id: @$el.data('previous_id') })
-        when 40 then @container.$el.trigger({type: "next_item", previous_id: @$el.data('previous_id') })
-        when 8 then @destroy(e)
-        when 13 then @save(e, false)
+  events: _.extend(_.clone(Actions.Views.Items.BaseItemView::base_events), NewView::child_events)
 
   save: (e,details) ->
     e.preventDefault()
@@ -49,7 +31,10 @@ class Actions.Views.Items.NewView extends Actions.Views.Items.BaseItemView
             @container.trigger({type: "new_item", id: item.id})
     )
 
-
+  save: (e)->
+    super(e)
+    if e.which == 13 && !e.shiftKey
+      @container.$el.trigger({type: "new_item", id: @model.id})
 
   render: ->
     $(@el).html(@template())
