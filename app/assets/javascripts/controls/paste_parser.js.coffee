@@ -84,9 +84,8 @@ class PasteParser
           type: 'POST'
           data: paste_image_info
           success: (data)->
-            pasteData.data=data.title
+            pasteData.data=data.url
             pasteData.is_ready=true
-            console.log (pasteData)
           error: (error) ->
             console.log (error)
         )

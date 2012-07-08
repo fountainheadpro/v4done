@@ -1,10 +1,8 @@
-!!!
 %html
   %head
     %title= @page_title or 'actions.im'
-    = favicon_link_tag  "/images/favicon.ico"
-    = stylesheet_link_tag    "application"
-    = javascript_include_tag "maven_tools_app"
+    = stylesheet_link_tag    "sparks"
+    //= javascript_include_tag "maven_tools_app"
     :javascript
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-31463714-1']);
@@ -17,12 +15,12 @@
       })();
     = csrf_meta_tags
   %body
-    .navbar.navbar-fixed-top
-      .navbar-inner{:style => 'background-color: #E4E4E4; background-image: -webkit-linear-gradient(top, #E4E4E4, #E4E4E4)'}
-        .container
-          = link_to 'actions.im', root_path, {:class=> 'brand', :style => 'background-color: #fd560d; font-size: 24px; font-weight: 900; color: #ffffff ', }
-          = render 'shared/navigation'
-    .container
+    //.navbar.navbar-fixed-top
+    //  .navbar-inner
+    //    .container
+    //      = link_to 'actions.im', root_path, {class: 'brand'}
+    //      = render 'shared/navigation'
+    .container-fluid
       #content
         - flash.each do |name, msg|
           .alert.fade.in{class: css_class_for_flash(name)}

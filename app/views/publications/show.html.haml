@@ -2,9 +2,9 @@
   %nav
     %ul.nav
       %li= link_to '← Edit', templates_path + "##{@publication.template.id}/items"
-#template
+#publication
   .row
-    .span7
+    .span10
       %h2= @publication.template.title
       by
       = @publication.creator ? link_to(@publication.creator.name, user_publications_path(@publication.creator.id)) : "Anonymous"
@@ -12,6 +12,7 @@
       %ul.items
         - @publication.template.items.roots.each_with_position do |item|
           = render "shared/item", item: item
+  .row
     .span3
       #send-to-actions{ style:"display:block" }
         %strong Get Todo-list

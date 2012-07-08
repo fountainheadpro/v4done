@@ -8,8 +8,8 @@ Sociable.setup  do |config|
   config.facebook "143600179043862", "eaea410a1d758235d73c0c18797e8bcb",
     {:scope => 'email', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
-  #config.linkedin "1jw6uriv8y1n", "Qh7WQCxT1zkI853Z",
-  #  {:client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+#  config.linkedin "1jw6uriv8y1n", "Qh7WQCxT1zkI853Z",
+#    {:strategy_class=>'LinkedIn',:client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
 
 

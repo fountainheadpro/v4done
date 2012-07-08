@@ -56,7 +56,6 @@ class TextProcessor
           re_format_internal(child)
         )
     else
-      #return if is_processed(node)
       format(node)
 
   format= (node) ->
@@ -107,7 +106,7 @@ class TextProcessor
           $(link).html(data.title)
           replace_node(node, link)
         if data.type=='image'
-          replace_node($(node), build_image_node(url))
+          replace_node($(node), build_image_node(data.url))
         if data.type=='error'
           replace_node($(node), build_text_node(url))
       error: (error) ->

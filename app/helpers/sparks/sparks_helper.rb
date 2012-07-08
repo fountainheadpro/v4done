@@ -1,0 +1,2 @@
+module Sparks::SparksHelper
+end

@@ -1,0 +1,15 @@
+//.row{:style => 'margin-top: 50px; margin-bottom: 50px; font-weight: 900; font-size: 24px, color: grey'}
+%div{:style => 'text-align: center; font-size: 20px; color: gray; margin-top: 50px'}
+  actions.im empowers you to achieve your goals by giving you knowledge and community support.
+
+.row{:style => 'margin-top: 100px; margin-bottom: 150px; padding-left: 150px; padding-right: 150px; font-weight: 900; font-size: 14px;'}
+  .span3{:style => 'text-align: center'}
+    .login_button_container
+      = link_to  '/users/auth/twitter' do
+        =image_tag "/images/twitter.png"
+        <br>Connect with twitter
+  .span3{:style => 'text-align: center'}
+    .login_button_container
+      = link_to  '/users/auth/facebook' do
+        =image_tag "/images/facebook.png"
+        <br>Connect with facebook

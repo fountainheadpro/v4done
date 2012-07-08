@@ -1,7 +1,8 @@
-%li
+%li.action_header
   %strong= item.title
   - unless item.description.blank?
-    %p= raw(item.description)
+    %p.preview
+      = raw(item.description)
   - unless item.leaf?
     %ul
       - item.children.each_with_position do |item|

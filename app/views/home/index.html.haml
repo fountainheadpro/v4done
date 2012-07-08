@@ -1,10 +1,17 @@
+- unless user_signed_in?
+  .row{style: 'border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: grey'}
+    =render 'devise/shared/sign_in_social'
+
 -@newest_publications.each do |p|
   .row.news_feed_item
-    .span8
-      = p.creator ? link_to(p.creator.name, user_publications_path(p.creator.id)) : "Anonymous"
-      %i published
-      = distance_of_time_in_words_to_now(p.updated_at)
-      ago
-    .span8
-      %b= link_to p.template.title, publication_path(p)
+    .span6
+      = link_to p.template.title, publication_path(p), {:style=>"font-size: 12px; font-weight: bold"}
+      %p
+        %i published
+        = distance_of_time_in_words_to_now(p.updated_at)
+        ago
+    .span4{:style=>'text-align: right'}
+      = image_tag p.creator.facebook_image_url ||  p.creator.twitter_image_url, {:style=>"max-height: 30px"}
+      = p.creator ? link_to(p.creator.name, user_publications_path(p.creator.id), {:style=>"font-weight: bold; color: gray"}) : "Anonymous"
+    .span10
       %p= raw(p.template.description)

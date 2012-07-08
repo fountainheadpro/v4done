@@ -19,9 +19,11 @@ gem "moonshado-sms"
 gem "rails_best_practices"
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
-gem 'sociable', '0.0.4'#, :path=>'~/sociable/'  #, :git => 'git@github.com:actions/sociable.git'
+gem 'omniauth-linkedin'
+gem 'sociable', :path=>'~/sociable/'#'0.0.4'#,   #, :git => 'git@github.com:actions/sociable.git'
 gem 'mechanize'
 gem 'fog'
+gem 'uuid'
 
 group :assets do
   gem 'sass-rails',   '3.1.4'
