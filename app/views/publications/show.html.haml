@@ -1,32 +1,19 @@
 - unless current_user.nil?
-  %nav
-    %ul.nav
-      %li= link_to '← Edit', templates_path + "##{@publication.template.id}/items"
-#publication
-  .row
-    .span10
-      %h2= @publication.template.title
-      by
-      = @publication.creator ? link_to(@publication.creator.name, user_publications_path(@publication.creator.id)) : "Anonymous"
-      %p= raw(@publication.template.description)
-      %ul.items
-        - @publication.template.items.roots.each_with_position do |item|
-          = render "shared/item", item: item
-  .row
-    .span3
-      #send-to-actions{ style:"display:block" }
-        %strong Get Todo-list
-        = form_tag publication_export_actions_path(@publication), class: 'form-horizontal' do |f|
-          %p.help-block Enter an email or phone number
-          = text_field_tag :email_or_phone_number, '', class: 'input-medium', placeholder: 'Email or phone number'
-          = submit_tag 'Get!', class: 'btn'
-      #social-share
-        %ul.unstyled
-          %li
-            .g-plusone{ "data-size" => "medium"}
-          %li= link_to "Tweet", "https://twitter.com/share", { :class => "twitter-share-button", "data-hashtags" => "actionsim"}
-          %li
-            #fb-root
-            .fb-like{ "data-send" => "false", "data-layout" => "button_count", "data-width" => "220", "data-show-faces" => "true"}
+  %div
+    =link_to '← Edit', templates_path + "##{@publication.template.id}/items"
 
-= javascript_include_tag 'social_sharing'
+
+#publication
+  %table{style: 'display: block'}
+    %tr
+      %td.header{colspan: 2 }
+        .action_header
+          = @publication.template.title
+        by
+        = @publication.creator ? link_to(@publication.creator.name, user_publications_path(@publication.creator.id)) : "Anonymous"
+    %tr
+      %td{colspan: 2 }
+        = raw(shrink_description(@publication.template.description, @publication.id))
+    //%ul.items
+    - @publication.template.items.roots.each_with_position do |item|
+      = render "shared/item", item: item

@@ -12,20 +12,25 @@ div#content
 
 
 #publication
-  h2
+
+  td.description
+    //height: 110px
+    padding: 10px
+    border-left-style: solid
+    border-left-color: blue
+    border-left-width: 1px
+
+  .action_header
     color: #4A3C31
     font-size: 1.45em
-    //background: url(http://pad2.whstatic.com/skins/WikiHow/images/module_caps.png) no-repeat 0 -92px
-    margin: 0 0 10px -20px
+    //margin: 0 0 10px -20px
     padding-top: 0
-    padding-left: 40px
     line-height: 42px
-    height: 53px
-    width: 647px
     clear: both
-    position: relative
+    //position: absolute
+    display: inline
 
-  li.action_header
+  //li.action_header
     color: #4A3C31
     font-size: 20px
     //background: url(http://pad2.whstatic.com/skins/WikiHow/images/module_caps.png) no-repeat 0 -92px
@@ -35,7 +40,24 @@ div#content
     line-height: 42px
     clear: both
     position: relative
-  p.preview
+
+ul.items
+  list-style-type: none
+
+.bordered
+  border-right: 1px
+  border-bottom: 1px
+  border-right-style: solid
+  border-bottom-style: solid
+  border-color: blue
+  line-height: 42px
+  width: 55px
+  //display: block
+
+td.header
+  border-style: none
+
+
 
 
 

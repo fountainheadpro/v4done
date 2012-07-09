@@ -16,7 +16,7 @@ class Actions.Views.Templates.TemplateHeaderEditView extends Actions.Views.Items
   keymap: (e)->
     if e.shiftKey && e.which == 13
       @expand_description(e)
-    if e.which == 13 && !e.shiftKey
+    if e.which == 13 && !e.shiftKey && e.target.name=='title'
       @container.$el.trigger({type: "next_item"})
     super(e)
 

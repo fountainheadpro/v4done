@@ -1,3 +1,4 @@
+
 - unless user_signed_in?
   .row{style: 'border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: grey'}
     =render 'devise/shared/sign_in_social'
@@ -5,6 +6,8 @@
 -@newest_publications.each do |p|
   .row.news_feed_item
     .span6
+      .checkbox{:"data-content"=>"Want to #{p.template.title}? Get the to-do list on your phone."}
+        &#10003;
       = link_to p.template.title, publication_path(p), {:style=>"font-size: 12px; font-weight: bold"}
       %p
         %i published
@@ -14,4 +17,11 @@
       = image_tag p.creator.facebook_image_url ||  p.creator.twitter_image_url, {:style=>"max-height: 30px"}
       = p.creator ? link_to(p.creator.name, user_publications_path(p.creator.id), {:style=>"font-weight: bold; color: gray"}) : "Anonymous"
     .span10
-      %p= raw(p.template.description)
+      .description
+        = raw(shrink_description(p.template.description, p.id))
+        //.overlay
+        //= strip_tags(p.template.description).slice(0, 500)
+        //= link_to '  more...', "##{p.template.id}"
+
+:javascript
+  $('.checkbox').popover({"placement" : "bottom", "title" : 'Get the to-do list', 'description' : ''});

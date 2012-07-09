@@ -1,9 +1,15 @@
-%li.action_header
-  %strong= item.title
-  - unless item.description.blank?
-    %p.preview
-      = raw(item.description)
-  - unless item.leaf?
-    %ul
-      - item.children.each_with_position do |item|
-        = render "shared/item", item: item
+// - unless item.leaf?
+//    - item.children.each_with_position do |item|
+//      = render "shared/item", item: item
+
+%tr
+  %td.bordered
+    .checkbox
+      &#10003;
+  %td.header
+    .action_header
+      = item.title
+%tr
+  %td
+  %td.description
+    = raw(shrink_description(item.description, item.id))
