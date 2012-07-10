@@ -20,7 +20,7 @@ gem "rails_best_practices"
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
-gem 'sociable', :path=>'~/sociable/'#'0.0.4'#,   #, :git => 'git@github.com:actions/sociable.git'
+gem 'sociable', '0.0.5' #,  :path=>'~/sociable/'##,   #, :git => 'git@github.com:actions/sociable.git'
 gem 'mechanize'
 gem 'fog'
 gem 'uuid'

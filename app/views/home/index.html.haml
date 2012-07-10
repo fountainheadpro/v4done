@@ -14,14 +14,11 @@
         = distance_of_time_in_words_to_now(p.updated_at)
         ago
     .span4{:style=>'text-align: right'}
-      = image_tag p.creator.profile_image_url, {:style=>"max-height: 30px"} if p.creator.profile_image_url
+      = image_tag p.creator.profile_image_url, {:style=>"max-height: 30px"} if  p.creator && p.creator.profile_image_url
       = p.creator ? link_to(p.creator.name, user_publications_path(p.creator.id), {:style=>"font-weight: bold; color: gray"}) : "Anonymous"
     .span10
       .description
         = raw(shrink_description(p.template.description, p.id))
-        //.overlay
-        //= strip_tags(p.template.description).slice(0, 500)
-        //= link_to '  more...', "##{p.template.id}"
 
 :javascript
   $(document).ready(
