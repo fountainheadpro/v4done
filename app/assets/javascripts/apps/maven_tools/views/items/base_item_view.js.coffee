@@ -27,13 +27,15 @@ class Actions.Views.Items.BaseItemView extends Backbone.View
 
   fold: (e) ->
     @description().parent().hide()
+    @description().addClass('folded')
     @$el.removeClass('selected')
     @$el.removeAttr('style')
 
   highlight: (e)->
     @description().parent().show()
     @$el.addClass('selected')
-    @container.$el.trigger({type:"item_enter",id: @model?.id})
+    @description().removeClass('folded')
+    @container.$el.trigger({type:"item_enter",id: @model?.id, sender: @constructor.name})
 
   inFocus:(e)->
     $(document.activeElement).is(@description()) ||

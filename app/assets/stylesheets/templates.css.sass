@@ -38,7 +38,7 @@ section#templates
       line-height: 36px
       height: 40px
     [name="description"]
-      min-height: 40px
+      min-height: 36px
     &:focus
       border-color: rgba(82,168,236,.8)
       @include box-shadow($shadow)
@@ -159,6 +159,11 @@ section#templates
         display: block
       div.description
         margin: 1px 0 2px
+
+
+  .folded
+    height: 40px
+    overflow: hidden
 
 ::-webkit-input-placeholder
   font-style: italic

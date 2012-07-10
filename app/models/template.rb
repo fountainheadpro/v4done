@@ -33,4 +33,9 @@ class Template
     super({ methods: [:publication_id] }.merge(options || {}))
   end
 
+  def destroy
+    super()
+    publication.destroy
+  end
+
 end

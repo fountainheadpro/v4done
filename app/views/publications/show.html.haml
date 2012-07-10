@@ -1,19 +1,28 @@
-- unless current_user.nil?
+- if current_user.present? && @publication.creator.id==current_user.id
   %div
     =link_to '← Edit', templates_path + "##{@publication.template.id}/items"
-
 
 #publication
   %table{style: 'display: block'}
     %tr
-      %td.header{colspan: 2 }
+      %td.header{colspan: 2}
         .action_header
           = @publication.template.title
         by
         = @publication.creator ? link_to(@publication.creator.name, user_publications_path(@publication.creator.id)) : "Anonymous"
     %tr
-      %td{colspan: 2 }
+      %td{colspan: 2}
         = raw(shrink_description(@publication.template.description, @publication.id))
     //%ul.items
     - @publication.template.items.roots.each_with_position do |item|
       = render "shared/item", item: item
+
+=render 'shared/to-do-list'
+
+:javascript
+  $(document).ready(
+   function(e)
+   {
+    $('#todo').modal({"show" : false});
+   }
+  )

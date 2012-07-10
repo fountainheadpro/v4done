@@ -8,7 +8,7 @@
     %li.dropdown
       = link_to  "#", {:class => "dropdown-toggle", :"data-toggle" => "dropdown",:style=> "text-shadow: none; padding-bottom: 0px"} do
         %span
-          = image_tag current_user.facebook_image_url || current_user.twitter_image_url, {:style=>"max-height: 30px"}
+          = image_tag current_user.profile_image_url, {:style=>"max-height: 30px"} if current_user.profile_image_url
           %span{:style => 'padding-left: 5px; padding-right: 5px'}
             = current_user.name
             %b.caret{:style => 'opacity: 1; border-top-color: black'}

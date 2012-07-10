@@ -37,6 +37,7 @@ class Actions.Views.Items.IndexView extends Backbone.View
     new_next_item=e.view.$(e.target.parentElement).next().data("id")
     @collection.items.saveSortOrder(moved_item_id, new_prev_item, new_next_item)
 
+  fold:->
 
   render: ->
     $(@el).append('<header></header>')  #TODO: CHANGE THIS!!!

@@ -160,7 +160,7 @@ class Actions.Views.Templates.EditController extends Backbone.View
 
   item_enter: (e)->
     _.each(_.keys(@children), (id)=>
-      @children[id].fold() if e.id!=id && @children[id].constructor.name == 'EditView'
+      @children[id].fold() if (e.id!=id && e.sender=='EditView') || (e.sender!=@children[id].constructor.name)
     )
 
   parent_item: (e)->

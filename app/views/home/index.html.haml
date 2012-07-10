@@ -6,15 +6,15 @@
 -@newest_publications.each do |p|
   .row.news_feed_item
     .span6
-      .checkbox{:"data-content"=>"Want to #{p.template.title}? Get the to-do list on your phone."}
+      .checkbox{:"data-content" => "#{render 'shared/newsfeed_popover', p: p}" }
         &#10003;
-      = link_to p.template.title, publication_path(p), {:style=>"font-size: 12px; font-weight: bold"}
+      = link_to p.template.title, publication_path(p), {:class=>'publication_link'}
       %p
         %i published
         = distance_of_time_in_words_to_now(p.updated_at)
         ago
     .span4{:style=>'text-align: right'}
-      = image_tag p.creator.facebook_image_url ||  p.creator.twitter_image_url, {:style=>"max-height: 30px"}
+      = image_tag p.creator.profile_image_url, {:style=>"max-height: 30px"} if p.creator.profile_image_url
       = p.creator ? link_to(p.creator.name, user_publications_path(p.creator.id), {:style=>"font-weight: bold; color: gray"}) : "Anonymous"
     .span10
       .description
@@ -24,4 +24,17 @@
         //= link_to '  more...', "##{p.template.id}"
 
 :javascript
-  $('.checkbox').popover({"placement" : "bottom", "title" : 'Get the to-do list', 'description' : ''});
+  $(document).ready(
+   function(e)
+   {
+    $('.checkbox').popover({"placement" : "bottom", "title" : 'Follow the path...', 'description' : '', "trigger" : "manual"});
+    //$('.checkbox').popover('hide')
+    $('.checkbox').on('mouseenter', function(e){
+      $('.checkbox').popover('hide')
+      $(this).popover('show');
+      $('.popover').on('mouseleave', function(e){
+        $(this).hide();
+      })
+    })
+   }
+  )

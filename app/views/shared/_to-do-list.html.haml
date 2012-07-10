@@ -1,0 +1,9 @@
+#todo.modal.hide
+  .modal-header
+    %div{style: "text-align: center"}
+      Get Todo-list
+  .modal-body
+    = form_tag publication_export_actions_path(@publication), class: 'form-horizontal' do |f|
+      %p.help-block Enter an email or phone number
+      = text_field_tag :email_or_phone_number, '', class: 'input-medium', placeholder: 'Email or phone number'
+      = submit_tag 'Get!', class: 'btn btn-primary btn-large'
