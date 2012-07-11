@@ -35,7 +35,8 @@ class Template
 
   def destroy
     super()
-    publication.destroy
+    p=publication
+    p.destroy if p
   end
 
 end

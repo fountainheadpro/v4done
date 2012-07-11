@@ -3,6 +3,7 @@ class HomeController < ApplicationController
 
   def index
     @newest_publications = Publication.newest
+    @templates=[Template.new]
   end
 
 end

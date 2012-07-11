@@ -1,4 +1,5 @@
 class Actions.Routers.TemplatesRouter extends Backbone.Router
+
   initialize: (options) ->
     @templates = new Actions.Collections.TemplatesCollection()
     @templates.reset options.templates
@@ -8,6 +9,8 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
     ":id/items"                    : "show"
     ":templateId/items/:id/items"  : "show"
     ".*"                           : "index"
+    "new"                          : "new"
+
 
   index: ->
     view = new Actions.Views.Breadcrumbs.IndexView(template: null, item: null)
@@ -42,3 +45,7 @@ class Actions.Routers.TemplatesRouter extends Backbone.Router
         error: () ->
           alert("Sorry, we can't load this template. Please try again later.")
           window.location.replace("/templates")
+
+  new: ->
+    view = new Actions.Views.Templates.NewView(collection: @templates);
+    $("#new_view_container").append(view.render().el)

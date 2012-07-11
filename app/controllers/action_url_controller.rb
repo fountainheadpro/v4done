@@ -26,8 +26,9 @@ class ActionUrlController  < ApplicationController
       if page.response['content-type'] =~ /text/i
         render :json => {:success => true, :type=>'link', :title => page.title}
       end
-    rescue
+    rescue => e
       render :json => {:success => false, :type=>'error', :url => url}
+      Rails.logger.error e.inspect()
     end
   end
 
@@ -43,16 +44,15 @@ class ActionUrlController  < ApplicationController
   def publish(body, type)
     key=UUID.new.generate
     # create a connection
-    connection = Fog::Storage.new({
-      :provider               => 'AWS',       # required
-      :aws_access_key_id      => 'AKIAIPDC44JXGOMU2RBQ',       # required
-      :aws_secret_access_key  => '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',       # required
-      :region                 => 'us-east-1'  # optional, defaults to 'us-east-1'
-    })
+    @connection = Fog::Storage.new({
+       :provider                 => Settings.fog.s3.provider,
+       :aws_access_key_id        => Settings.fog.s3.aws_access_key_id,
+       :aws_secret_access_key    => Settings.fog.s3.aws_secret_access_key
+    }) unless @connection
 
-    directory = connection.directories.get('actionsimages')
+    @directory = @connection.directories.get(Settings.fog.s3.directory)  unless @directory
 
-    file=directory.files.create(
+    file=@directory.files.create(
       :content_type=> type,
       :body =>  body,
       :key=> key,

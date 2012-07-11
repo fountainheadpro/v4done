@@ -117,7 +117,6 @@ class Actions.Views.Templates.EditController extends Backbone.View
       if @new_items[e.id]?
         @new_items[item.get('previous_id')] = @new_items[e.id]
         delete @new_items[e.id]
-        @new_items[item.get('previous_id')].$el.data("previous_id",item.get('previous_id'))
       v=@children[e.id]
       item.destroy()  if item?
     #removing new view item

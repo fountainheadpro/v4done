@@ -12,7 +12,7 @@
         = @publication.creator ? link_to(@publication.creator.name, user_publications_path(@publication.creator.id)) : "Anonymous"
     %tr
       %td{colspan: 2}
-        = raw(shrink_description(@publication.template.description, @publication.id))
+        = raw(@publication.template.description)
     //%ul.items
     - @publication.template.items.roots.each_with_position do |item|
       = render "shared/item", item: item

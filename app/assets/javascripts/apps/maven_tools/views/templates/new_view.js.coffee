@@ -24,7 +24,10 @@ class Actions.Views.Templates.NewView extends Backbone.View
       success: (template) =>
         @$('#title').val('')
         template.setItemsUrl()
-        Actions.router.navigate("#{template.id}/items", {trigger: true})
+        unless window.location.pathname.match?('templates')
+          window.location="../templates/#"+ template.id + "/items"
+        else
+          Actions.router.navigate("#{template.id}/items", {trigger: true})
 
       error: (template, jqXHR) =>
         @model.set({errors: $.parseJSON(jqXHR.responseText)})

@@ -1,0 +1,16 @@
+.row
+  .span10#new_view_container{style: "padding: 30px"}
+    %strong Write and share your own instructions.
+//    %form.form-inline#new-template{:name=>"template"}
+//      %input.input-xxlarge#title{type: "text", name:"title", placeholder: "Start from verb...", autocomplete: 'off'}
+//      %input.btn{value: "Create Instructions", type: "submit"}
+
+
+
+:javascript
+  $(function() {
+    Actions.init_templates(#{ @templates.to_json.html_safe });
+    //Actions.router.navigate('new', {trigger: true, replace: true})
+    Actions.router.new();
+
+  });

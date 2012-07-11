@@ -2,6 +2,9 @@
 - unless user_signed_in?
   .row{style: 'border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: grey'}
     =render 'devise/shared/sign_in_social'
+- else
+  =render 'shared/write_template'
+
 
 -@newest_publications.each do |p|
   .row.news_feed_item
@@ -24,7 +27,7 @@
   $(document).ready(
    function(e)
    {
-    $('.checkbox').popover({"placement" : "bottom", "title" : 'Follow the path...', 'description' : '', "trigger" : "manual"});
+    $('.checkbox').popover({"placement" : "right", "title" : 'Follow the path...', 'description' : '', "trigger" : "manual"});
     //$('.checkbox').popover('hide')
     $('.checkbox').on('mouseenter', function(e){
       $('.checkbox').popover('hide')
@@ -33,5 +36,6 @@
         $(this).hide();
       })
     })
+    $('.checkbox').on('touch', function(e){ e.target.popover('toggle');})
    }
   )
